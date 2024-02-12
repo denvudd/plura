@@ -25,16 +25,48 @@ const Navigation: React.FC<NavigationProps> = ({ user }) => {
       <nav className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <ul className="flex items-center gap-8">
           <li>
-            <Link href="#">Pricing</Link>
+            <Link
+              className={cn(
+                buttonVariants({ variant: "link" }),
+                "text-inherit p-0 underline-offset-8"
+              )}
+              href="#"
+            >
+              Pricing
+            </Link>
           </li>
           <li>
-            <Link href="#">About</Link>
+            <Link
+              className={cn(
+                buttonVariants({ variant: "link" }),
+                "text-inherit p-0 underline-offset-8"
+              )}
+              href="#"
+            >
+              About
+            </Link>
           </li>
           <li>
-            <Link href="#">Documentation</Link>
+            <Link
+              className={cn(
+                buttonVariants({ variant: "link" }),
+                "text-inherit p-0 underline-offset-8"
+              )}
+              href="#"
+            >
+              Documentation
+            </Link>
           </li>
           <li>
-            <Link href="#">Features</Link>
+            <Link
+              className={cn(
+                buttonVariants({ variant: "link" }),
+                "text-inherit p-0 underline-offset-8"
+              )}
+              href="#"
+            >
+              Features
+            </Link>
           </li>
         </ul>
       </nav>

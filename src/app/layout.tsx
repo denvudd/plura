@@ -1,6 +1,4 @@
-import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { dark as darkTheme } from "@clerk/themes";
 
 import { DM_Sans } from "next/font/google";
 import { DM_Mono } from "next/font/google";
@@ -27,25 +25,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{ baseTheme: darkTheme }}>
-      <html lang="en" className="h-full" suppressHydrationWarning>
-        <body
-          className={cn(
-            "relative h-full font-sans antialiased min-h-screen",
-            fontSans.variable,
-            fontMono.variable
-          )}
+    <html lang="en" className="h-full" suppressHydrationWarning>
+      <body
+        className={cn(
+          "relative h-full font-sans antialiased min-h-screen",
+          fontSans.variable,
+          fontMono.variable
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
