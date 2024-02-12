@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { dark as darkTheme } from "@clerk/themes";
 
 import { GeistSans } from "geist/font/sans";
@@ -20,9 +21,22 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider appearance={{ baseTheme: darkTheme }}>
-      <html lang="en">
-        <body className={cn(GeistSans.variable, GeistMono.variable)}>
-          {children}
+      <html lang="en" className="h-full" suppressHydrationWarning>
+        <body
+          className={cn(
+            "relative h-full font-sans antialiased min-h-screen",
+            GeistSans.variable,
+            GeistMono.variable
+          )}
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

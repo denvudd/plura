@@ -43,7 +43,7 @@ body {
     --input: 0 0% 90.2%;
     --ring: 214.12 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   .dark {
@@ -61,7 +61,7 @@ body {
     --card: 220 45% 5.72%;
     --card-foreground: 220 10% 97.2%;
 
-    --border: 220 50% 13.2%;
+    --border: 240 3.7% 15.9%;
     --input: 220 50% 13.2%;
 
     --primary: 220 100% 44%;
