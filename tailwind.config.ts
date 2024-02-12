@@ -19,10 +19,6 @@ module.exports = withUt({
       },
     },
     extend: {
-      fontFamily: {
-        sans: ['var(--font-geist-sans)'],
-        mono: ['var(--font-geist-mono)'],
-      },
       colors: {
         tremor: {
           brand: {
@@ -61,6 +57,10 @@ module.exports = withUt({
             DEFAULT: colors.blue[500],
             emphasis: colors.blue[400],
             inverted: colors.blue[950],
+          },
+          fontFamily: {
+            sans: "var(--font-geist-sans)",
+            mono: "var(--font-geist-mono)",
           },
           background: {
             muted: "#131A2B",
