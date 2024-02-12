@@ -59,8 +59,8 @@ module.exports = withUt({
             inverted: colors.blue[950],
           },
           fontFamily: {
-            sans: "var(--font-geist-sans)",
-            mono: "var(--font-geist-mono)",
+            sans: "var(--font-dm-sans)",
+            mono: "var(--font-dm-mono)",
           },
           background: {
             muted: "#131A2B",
