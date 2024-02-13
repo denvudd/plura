@@ -43,6 +43,24 @@ export const verifyInvintation = async () => {
           role: userDetails.role || Role.SUBACCOUNT_USER,
         },
       });
+
+      await db.invitation.delete({
+        where: {
+          email: userDetails.email,
+        },
+      });
+
+      return userDetails.agencyId;
     }
+
+    return null;
   }
+
+  const agency = await db.user.findUnique({
+    where: {
+      email: user.emailAddresses[0].emailAddress,
+    },
+  });
+
+  return agency ? agency.agencyId : null;
 };
