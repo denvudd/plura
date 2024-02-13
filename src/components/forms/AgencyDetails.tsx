@@ -70,6 +70,7 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
     mode: "onChange",
     resolver: zodResolver(AgencyDetailsValidator),
     defaultValues: {
+      whiteLabel: data?.whiteLabel || false,
       ...data,
     },
   });
@@ -90,27 +91,27 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
       let customerId;
 
       if (!data?.id) {
-        const bodyData = {
-          email: values.companyEmail,
-          name: values.name,
-          shipping: {
-            address: {
-              city: values.city,
-              country: values.country,
-              line1: values.address,
-              postal_code: values.zipCode,
-              state: values.zipCode,
-            },
-            name: values.name,
-          },
-          address: {
-            city: values.city,
-            country: values.country,
-            line1: values.address,
-            postal_code: values.zipCode,
-            state: values.zipCode,
-          },
-        };
+        // const bodyData = {
+        //   email: values.companyEmail,
+        //   name: values.name,
+        //   shipping: {
+        //     address: {
+        //       city: values.city,
+        //       country: values.country,
+        //       line1: values.address,
+        //       postal_code: values.zipCode,
+        //       state: values.zipCode,
+        //     },
+        //     name: values.name,
+        //   },
+        //   address: {
+        //     city: values.city,
+        //     country: values.country,
+        //     line1: values.address,
+        //     postal_code: values.zipCode,
+        //     state: values.zipCode,
+        //   },
+        // };
 
         newUserData = await initUser({ role: Role.AGENCY_OWNER });
 
@@ -136,8 +137,8 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
           });
 
           toast.success("Created Agency");
-
-          if (data?.id || response) router.refresh();
+          console.log(response);
+          return router.refresh();
         }
       }
     } catch (error) {
@@ -180,7 +181,7 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
     <AlertDialog>
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Agency Information</CardTitle>
+          <CardTitle>Create an Agency</CardTitle>
           <CardDescription>
             Lets create an agency for your business. You can edit agency
             settings latter from the agency settings tab.
@@ -262,11 +263,12 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
                   return (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border gap-4 p-4">
                       <div>
-                        <FormLabel>Whitelabel Agency</FormLabel>
+                        <FormLabel>White Label Agency</FormLabel>
                         <FormDescription>
-                          Turning on whilelabel mode will show your agency logo
-                          to all sub-accounts by default. You can overwrite this
-                          functionality through sub account settings.
+                          Turning on &quot;White Label&quot; mode will show your
+                          agency logo to all sub-accounts by default. You can
+                          overwrite this functionality through sub account
+                          settings.
                         </FormDescription>
                       </div>
 
@@ -303,7 +305,7 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
                     <FormItem className="flex-1">
                       <FormLabel>City</FormLabel>
                       <FormControl>
-                        <Input placeholder="3 Riverview St." {...field} />
+                        <Input placeholder="Dracut" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -317,7 +319,7 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
                     <FormItem className="flex-1">
                       <FormLabel>State</FormLabel>
                       <FormControl>
-                        <Input placeholder="Dracut" {...field} />
+                        <Input placeholder="Massachusetts" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -341,12 +343,12 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
               <FormField
                 disabled={isSubmitting}
                 control={form.control}
-                name="zipCode"
+                name="country"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Country</FormLabel>
                     <FormControl>
-                      <Input placeholder="America" {...field} />
+                      <Input placeholder="United States" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -1,4 +1,7 @@
+"use server";
+
 import { db } from "@/lib/db";
+import { logger } from "@/lib/utils";
 import { Plan, type Agency } from "@prisma/client";
 
 export const updateAgencyDetails = async (
@@ -27,7 +30,6 @@ export const deleteAgency = async (agencyId: string) => {
 
 export const upsertAgency = async (agency: Agency, price?: Plan) => {
   if (!agency.companyEmail) return null;
-
   try {
     const agencyDetails = await db.agency.upsert({
       where: {
@@ -36,10 +38,9 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
       update: agency,
       create: {
         users: {
-          connect: {
-            email: agency.companyEmail,
-          },
+          connect: { email: agency.companyEmail },
         },
+        ...agency,
         sidebarOptions: {
           create: [
             {
@@ -74,8 +75,11 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
             },
           ],
         },
-        ...agency,
       },
     });
-  } catch (error) {}
+
+    return agencyDetails;
+  } catch (error) {
+    console.log(error);
+  }
 };

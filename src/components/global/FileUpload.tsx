@@ -22,7 +22,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
   if (value) {
     return (
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center gap-2">
         {fileFormat !== "pdf" ? (
           <div className="relative w-40 h-40">
             <Image
@@ -45,19 +45,19 @@ const FileUpload: React.FC<FileUploadProps> = ({
             </a>
           </div>
         )}
-        <Button onClick={() => onChange("")} variant="ghost" type="button">
+        <Button onClick={() => onChange("")} variant="ghost" type="button" className="flex items-center gap-2">
           <X aria-hidden className="h-4 w-4" />
-          Remove Logo
+          Remove Image
         </Button>
       </div>
     );
   }
 
   return (
-    <div className="w-full bg-muted/30 rounded-md">
+    <div className="w-full bg-muted/30 rounded-md border border-dashed">
       <UploadDropzone
         endpoint={endpoint}
-        className="rounded-md"
+        className="rounded-md mt-0"
         onClientUploadComplete={(res) => {
           onChange(res?.[0].url);
         }}
