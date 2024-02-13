@@ -17,7 +17,7 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ user }) => {
   return (
-    <div className="p-4 flex items-center justify-between relative">
+    <header className="absolute top-0 left-0 right-0 z-10 p-4 flex items-center justify-between">
       <aside className="flex items-center gap-2">
         <Image src={logoImage} width={40} height={40} alt="Plura Logo" />
         <span className="text-xl font-bold">Plura.</span>
@@ -77,7 +77,7 @@ const Navigation: React.FC<NavigationProps> = ({ user }) => {
         <UserButton />
         <ModeToggle />
       </aside>
-    </div>
+    </header>
   );
 };
 

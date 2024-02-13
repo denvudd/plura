@@ -108,13 +108,13 @@ model Agency {
   country          String
   goal             Int     @default(5)
 
-  users         User[]
-  SubAccount    SubAccount[]
-  SidebarOption AgencySidebarOption[]
-  Invitation    Invitation[]
-  Notification  Notification[]
-  Subscription  Subscription?
-  AddOns        AddOns[]
+  users          User[]
+  subAccounts    SubAccount[]
+  sidebarOptions AgencySidebarOption[]
+  invitations    Invitation[]
+  notifications  Notification[]
+  subscriptions  Subscription?
+  addOns         AddOns[]
 }
 
 model SubAccount {
@@ -135,17 +135,17 @@ model SubAccount {
   country          String
   agencyId         String
 
-  Agency        Agency                    @relation(fields: [agencyId], references: [id], onDelete: Cascade)
-  SidebarOption SubAccountSidebarOption[]
-  Permissions   Permissions[]
-  Funnels       Funnel[]
-  Media         Media[]
-  Contact       Contact[]
-  Trigger       Trigger[]
-  Automation    Automation[]
-  Pipeline      Pipeline[]
-  Tags          Tag[]
-  Notification  Notification[]
+  agency         Agency                    @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  sidebarOptions SubAccountSidebarOption[]
+  permissions    Permissions[]
+  funnels        Funnel[]
+  media          Media[]
+  contacts       Contact[]
+  triggers       Trigger[]
+  automations    Automation[]
+  pipelines      Pipeline[]
+  tags           Tag[]
+  notifications  Notification[]
 
   @@index([agencyId])
 }
@@ -157,8 +157,8 @@ model Permissions {
   subAccountId String
   access       Boolean
 
-  User       User       @relation(fields: [email], references: [email], onDelete: Cascade)
-  SubAccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [email], references: [email], onDelete: Cascade)
+  subAccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
 
   @@index([subAccountId])
   @@index([email])
@@ -173,8 +173,8 @@ model Tag {
   color        String
   subAccountId String
 
-  SubAccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
-  Ticket     Ticket[]
+  subAccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  tickets    Ticket[]
 
   @@index([subAccountId])
 }
@@ -187,8 +187,8 @@ model Pipeline {
   name         String
   subAccountId String
 
-  Lane       Lane[]
-  SubAccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  lanes      Lane[]
+  subAccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
 
   @@index([subAccountId])
 }
@@ -203,9 +203,9 @@ model Notification {
   subAccountId String?
   userId       String
 
-  User       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Agency     Agency      @relation(fields: [agencyId], references: [id], onDelete: Cascade)
-  SubAccount SubAccount? @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agency     Agency      @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  subAccount SubAccount? @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
 
   @@index([agencyId])
   @@index([subAccountId])
@@ -221,8 +221,8 @@ model Lane {
   pipelineId String
   order      Int    @default(0)
 
-  Pipeline Pipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
-  Tickets  Ticket[]
+  pipeline Pipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  tickets  Ticket[]
 
   @@index([pipelineId])
 }
@@ -240,10 +240,10 @@ model Ticket {
   customerId     String?
   assignedUserId String?
 
-  Lane     Lane     @relation(fields: [laneId], references: [id], onDelete: Cascade)
-  Customer Contact? @relation(fields: [customerId], references: [id], onDelete: SetNull)
-  Tags     Tag[]
-  Assigned User?    @relation(fields: [assignedUserId], references: [id], onDelete: SetNull)
+  lane     Lane     @relation(fields: [laneId], references: [id], onDelete: Cascade)
+  customer Contact? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  tags     Tag[]
+  assigned User?    @relation(fields: [assignedUserId], references: [id], onDelete: SetNull)
 
   @@index([laneId])
   @@index([customerId])
@@ -259,8 +259,8 @@ model Trigger {
   subAccountId String
 
   type        TriggerTypes
-  Subaccount  SubAccount   @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
-  Automations Automation[]
+  subaccount  SubAccount   @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  automations Automation[]
 
   @@index([subAccountId])
 }
@@ -275,10 +275,10 @@ model Automation {
   published    Boolean @default(false)
   subAccountId String
 
-  Trigger            Trigger?             @relation(fields: [triggerId], references: [id], onDelete: Cascade)
-  Subaccount         SubAccount           @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
-  Action             Action[]
-  AutomationInstance AutomationInstance[]
+  trigger             Trigger?             @relation(fields: [triggerId], references: [id], onDelete: Cascade)
+  subaccount          SubAccount           @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  actions             Action[]
+  automationInstances AutomationInstance[]
 
   @@index([triggerId])
   @@index([subAccountId])
@@ -292,7 +292,7 @@ model AutomationInstance {
   automationId String
   active       Boolean @default(false)
 
-  Automation Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  automation Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
 
   @@index([automationId])
 }
@@ -307,7 +307,7 @@ model Action {
   automationId String
   laneId       String @default("0")
 
-  Automation Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  automation Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
   type       ActionType
 
   @@index([automationId])
@@ -322,8 +322,8 @@ model Contact {
   email        String
   subAccountId String
 
-  Subaccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
-  Ticket     Ticket[]
+  subaccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  tickets    Ticket[]
 
   @@index([subAccountId])
 }
@@ -338,7 +338,7 @@ model Media {
   link         String  @unique
   subAccountId String
 
-  Subaccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  subAccount SubAccount @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
 
   @@index([subAccountId])
 }
@@ -356,9 +356,9 @@ model Funnel {
   subAccountId  String
   liveProducts  String? @default("[]")
 
-  SubAccount  SubAccount   @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
-  FunnelPages FunnelPage[]
-  ClassName   ClassName[]
+  subAccount  SubAccount   @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  funnelPages FunnelPage[]
+  className   ClassName[]
 
   @@index([subAccountId])
 }
@@ -373,7 +373,7 @@ model ClassName {
   funnelId   String
   customData String? @db.LongText
 
-  Funnel Funnel @relation(fields: [funnelId], references: [id], onDelete: Cascade)
+  funnel Funnel @relation(fields: [funnelId], references: [id], onDelete: Cascade)
 
   @@index([funnelId])
 }
@@ -391,7 +391,7 @@ model FunnelPage {
   previewImage String? @db.Text
   funnelId     String
 
-  Funnel Funnel @relation(fields: [funnelId], references: [id], onDelete: Cascade)
+  funnel Funnel @relation(fields: [funnelId], references: [id], onDelete: Cascade)
 
   @@index([funnelId])
 }
@@ -406,7 +406,7 @@ model AgencySidebarOption {
   icon     Icon   @default(info)
   agencyId String
 
-  Agency Agency? @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  agency Agency? @relation(fields: [agencyId], references: [id], onDelete: Cascade)
 
   @@index([agencyId])
 }
@@ -421,7 +421,7 @@ model SubAccountSidebarOption {
   subAccountId String?
 
   icon       Icon        @default(info)
-  SubAccount SubAccount? @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
+  subAccount SubAccount? @relation(fields: [subAccountId], references: [id], onDelete: Cascade)
 
   @@index([subAccountId])
 }
@@ -432,7 +432,7 @@ model Invitation {
   email    String @unique
   agencyId String
 
-  Agency Agency           @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  agency Agency           @relation(fields: [agencyId], references: [id], onDelete: Cascade)
   status InvitationStatus @default(PENDING)
   role   Role             @default(SUBACCOUNT_USER)
 
@@ -454,7 +454,7 @@ model Subscription {
   subscritiptionId     String   @unique
 
   agencyId String? @unique
-  Agency   Agency? @relation(fields: [agencyId], references: [id])
+  agency   Agency? @relation(fields: [agencyId], references: [id])
 
   @@index([customerId])
 }
@@ -469,7 +469,7 @@ model AddOns {
   priceId  String  @unique
   agencyId String?
 
-  Agency Agency? @relation(fields: [agencyId], references: [id])
+  agency Agency? @relation(fields: [agencyId], references: [id])
 
   @@index([agencyId])
 }
