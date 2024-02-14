@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { logger } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs";
 
 export const saveActivityLogsNotification = async ({
@@ -102,5 +103,25 @@ export const saveActivityLogsNotification = async ({
         },
       },
     });
+  }
+};
+
+export const getNotification = async (agencyId: string) => {
+  try {
+    const response = await db.notification.findMany({
+      where: {
+        agencyId,
+      },
+      include: {
+        user: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    return response;
+  } catch (error) {
+    logger(error);
   }
 };

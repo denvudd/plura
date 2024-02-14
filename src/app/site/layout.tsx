@@ -2,7 +2,7 @@ import React from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark as darkTheme } from "@clerk/themes";
 
-import Navigation from "@/components/site/navigation";
+import Navigation from "@/components/site/Navigation";
 
 const layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
