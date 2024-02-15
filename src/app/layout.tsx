@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { ModalProvider } from "@/components/providers/ModalProvider";
 
 import { DM_Sans } from "next/font/google";
 import { DM_Mono } from "next/font/google";
@@ -40,7 +41,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ModalProvider>{children}</ModalProvider>
         </ThemeProvider>
         <Toaster />
       </body>

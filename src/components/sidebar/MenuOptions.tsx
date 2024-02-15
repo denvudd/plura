@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   type User,
@@ -9,17 +10,15 @@ import {
   type SubAccount,
   type SubAccountSidebarOption,
   type Agency,
+  type Permissions,
   Role,
-  Permissions,
 } from "@prisma/client";
-import { ChevronsUpDown, Compass, Menu } from "lucide-react";
+import { ChevronsUpDown, Compass, Menu, PlusCircle } from "lucide-react";
 
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-
-import { cn } from "@/lib/utils";
 import {
   Command,
   CommandEmpty,
@@ -28,14 +27,21 @@ import {
   CommandItem,
   CommandList,
 } from "../ui/command";
-import Link from "next/link";
+import { ScrollArea } from "../ui/scroll-area";
+import CustomModal from "../global/CustomModal";
+import SubAccountDetails from "../forms/SubAccountDetails";
+
+import { cn } from "@/lib/utils";
+import { useModal } from "@/hooks/use-modal";
+import { Separator } from "../ui/separator";
+import { icons } from "../ui/icons";
 
 interface MenuOptionsProps {
   id: string;
   defaultOpen?: boolean;
+  sideBarLogo: string;
   subAccount: SubAccount[];
   sideBarOptions: AgencySidebarOption[] | SubAccountSidebarOption[];
-  sideBarLogo: string;
   details: Agency | SubAccount;
   user: {
     agency: Agency | null;
@@ -53,12 +59,16 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
   defaultOpen,
 }) => {
   const [isMounted, setIsMounted] = React.useState<boolean>(false);
+  const { setOpen } = useModal();
 
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
 
   if (!isMounted) return null;
+
+  const isOwnerOrAdmin =
+    user.role === Role.AGENCY_ADMIN || user.role === Role.AGENCY_OWNER;
 
   return (
     <Sheet
@@ -116,11 +126,10 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
             <PopoverContent className="h-80 mt-4 z-[200]">
               <Command>
                 <CommandInput placeholder="Search Accounts..." />
-                <CommandList className="pb-16">
-                  <CommandEmpty>No results found.</CommandEmpty>
-                  {(user.role === Role.AGENCY_OWNER ||
-                    user.role === Role.AGENCY_ADMIN) &&
-                    user.agency && (
+                <ScrollArea className="rounded-md">
+                  <CommandList className="pb-16">
+                    <CommandEmpty>No results found.</CommandEmpty>
+                    {isOwnerOrAdmin && user.agency && (
                       <CommandGroup heading="Agency">
                         <CommandItem className="bg-transparent my-2 text-primary border border-border p-2 rounded-md hover:bg-muted transition-all">
                           {defaultOpen ? (
@@ -169,32 +178,11 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                         </CommandItem>
                       </CommandGroup>
                     )}
-                  <CommandGroup heading="Accounts">
-                    {!!subAccount.length ? (
-                      subAccount.map((sub) => (
-                        <CommandItem key={sub.id}>
-                          {defaultOpen ? (
-                            <Link
-                              href={`/subaccount/${sub.id}`}
-                              className="flex gap-4 w-full h-full"
-                            >
-                              <div className="relative w-16">
-                                <Image
-                                  src={sub.subAccountLogo}
-                                  alt="Agency Logo"
-                                  fill
-                                  className="rounded-md object-contain"
-                                />
-                              </div>
-                              <div className="flex flex-col flex-1">
-                                {sub.name}
-                                <span className="text-muted-foreground">
-                                  {sub.address}
-                                </span>
-                              </div>
-                            </Link>
-                          ) : (
-                            <SheetClose asChild>
+                    <CommandGroup heading="Accounts">
+                      {!!subAccount.length ? (
+                        subAccount.map((sub) => (
+                          <CommandItem key={sub.id}>
+                            {defaultOpen ? (
                               <Link
                                 href={`/subaccount/${sub.id}`}
                                 className="flex gap-4 w-full h-full"
@@ -214,20 +202,102 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                                   </span>
                                 </div>
                               </Link>
-                            </SheetClose>
-                          )}
-                        </CommandItem>
-                      ))
-                    ) : (
-                      <div className="text-muted-foreground text-xs text-center w-full">
-                        No accounts found.
-                      </div>
-                    )}
-                  </CommandGroup>
-                </CommandList>
+                            ) : (
+                              <SheetClose asChild>
+                                <Link
+                                  href={`/subaccount/${sub.id}`}
+                                  className="flex gap-4 w-full h-full"
+                                >
+                                  <div className="relative w-16">
+                                    <Image
+                                      src={sub.subAccountLogo}
+                                      alt="Agency Logo"
+                                      fill
+                                      className="rounded-md object-contain"
+                                    />
+                                  </div>
+                                  <div className="flex flex-col flex-1">
+                                    {sub.name}
+                                    <span className="text-muted-foreground">
+                                      {sub.address}
+                                    </span>
+                                  </div>
+                                </Link>
+                              </SheetClose>
+                            )}
+                          </CommandItem>
+                        ))
+                      ) : (
+                        <div className="text-muted-foreground text-xs text-center w-full">
+                          No accounts found.
+                        </div>
+                      )}
+                    </CommandGroup>
+                  </CommandList>
+                </ScrollArea>
+                {isOwnerOrAdmin && (
+                  <SheetClose>
+                    <Button
+                      onClick={() =>
+                        setOpen(
+                          <CustomModal
+                            title="Create A Subaccount"
+                            subTitle="You can switch between your agency account and the subaccount from the sidebar"
+                          >
+                            <SubAccountDetails
+                              agencyDetails={user.agency!}
+                              userId={user.id}
+                              userName={user.name}
+                            />
+                          </CustomModal>
+                        )
+                      }
+                      className="w-full flex items-center gap-2 mt-4"
+                    >
+                      <PlusCircle aria-hidden className="w-4 h-4" />
+                      Create Sub Account
+                    </Button>
+                  </SheetClose>
+                )}
               </Command>
             </PopoverContent>
           </Popover>
+          <p className="text-muted-foreground text-xs mb-2">Menu Links</p>
+          <Separator className="mb-4" />
+          <nav className="relative">
+            <Command className="overflow-visible bg-transparent">
+              <CommandInput placeholder="Search..." wrapperClassName="bg-muted border-none rounded-md" />
+              <CommandList>
+                <CommandEmpty>No results found.</CommandEmpty>
+                <CommandGroup>
+                  {sideBarOptions.map((option) => {
+                    let value;
+                    const Result = icons.find(
+                      (icon) => icon.value === option.icon
+                    );
+
+                    if (Result) {
+                      value = <Result.path />;
+                    }
+                    return (
+                      <CommandItem
+                        key={option.id}
+                        className="w-full aria-selected:bg-primary aria-selected:font-bold transition-all"
+                      >
+                        <Link
+                          href={option.link}
+                          className="flex items-center gap-2 rounded-md w-full"
+                        >
+                          {value}
+                          <span>{option.name}</span>
+                        </Link>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </nav>
         </div>
         214141
       </SheetContent>
