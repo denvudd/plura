@@ -1,8 +1,27 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { logger } from "@/lib/utils";
 import { Plan, type Agency } from "@prisma/client";
+import { logger } from "@/lib/utils";
+
+export const getAgencyDetails = async (agencyId: string) => {
+  try {
+    const agencyDetails = await db.agency.findUnique({
+      where: {
+        id: agencyId,
+      },
+      include: {
+        subAccounts: true,
+      },
+    });
+
+    if (!agencyDetails) throw new Error("Agency not found");
+
+    return agencyDetails;
+  } catch (error) {
+    logger(error);
+  }
+};
 
 export const updateAgencyDetails = async (
   agencyId: string,

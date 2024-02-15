@@ -19,6 +19,7 @@ import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { Switch } from "../ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { ModeToggle } from "./ModeToggle";
 import { format } from "date-fns";
 
 interface InfoBarProps {
@@ -58,7 +59,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
     <>
       <div
         className={cn(
-          "fixed z-[20] md:left-[300px] left-0 right-0 top-0 p-4 bg-background/80 backdrop-blur-md flex  gap-4 items-center border-b-[1px] ",
+          "fixed z-[20] md:left-[300px] left-0 right-0 top-0 p-4 bg-background/80 backdrop-blur-md flex gap-4 items-center border-b-[1px] ",
           className
         )}
       >
@@ -70,7 +71,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
                 <Bell aria-label="Notifications" className="w-4 h-4" />
               </Button>
             </SheetTrigger>
-            <SheetContent className="mt-4 mr-4 pr-4 flex flex-col" showClose>
+            <SheetContent className="pr-4 flex flex-col" showClose>
               <SheetHeader className="text-left">
                 <SheetTitle>Notifications</SheetTitle>
                 <SheetDescription>
@@ -124,6 +125,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
               )}
             </SheetContent>
           </Sheet>
+          <ModeToggle />
         </div>
       </div>
     </>

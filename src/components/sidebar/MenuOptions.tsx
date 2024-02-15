@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import {
   type User,
@@ -60,6 +61,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
 }) => {
   const [isMounted, setIsMounted] = React.useState<boolean>(false);
   const { setOpen } = useModal();
+  const pathname = usePathname();
 
   React.useEffect(() => {
     setIsMounted(true);
@@ -71,11 +73,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
     user.role === Role.AGENCY_ADMIN || user.role === Role.AGENCY_OWNER;
 
   return (
-    <Sheet
-      modal={false}
-      // open={defaultOpen ? true : false}
-      open
-    >
+    <Sheet modal={false} open={defaultOpen ? true : undefined}>
       <SheetTrigger
         asChild
         className="absolute left-4 top-4 z-[100] md:hidden flex"
@@ -266,7 +264,10 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
           <Separator className="mb-4" />
           <nav className="relative">
             <Command className="overflow-visible bg-transparent">
-              <CommandInput placeholder="Search..." wrapperClassName="bg-muted border-none rounded-md" />
+              <CommandInput
+                placeholder="Search..."
+                wrapperClassName="bg-muted border-none rounded-md"
+              />
               <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
                 <CommandGroup>
@@ -282,7 +283,10 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                     return (
                       <CommandItem
                         key={option.id}
-                        className="w-full aria-selected:bg-primary aria-selected:font-bold transition-all"
+                        className={cn("w-full transition-all", {
+                          "bg-primary text-white font-bold":
+                            pathname === option.link,
+                        })}
                       >
                         <Link
                           href={option.link}
