@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { logger } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs";
+import { type NotificationsWithUser } from "@/lib/types";
 
 export const saveActivityLogsNotification = async ({
   agencyId,
@@ -120,7 +121,7 @@ export const getNotification = async (agencyId: string) => {
       },
     });
 
-    return response;
+    return response as NotificationsWithUser;
   } catch (error) {
     logger(error);
   }

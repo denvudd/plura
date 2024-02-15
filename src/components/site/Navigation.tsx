@@ -74,7 +74,7 @@ const Navigation: React.FC<NavigationProps> = ({ user }) => {
         <Link href="/agency" className={cn(buttonVariants())}>
           Login
         </Link>
-        <UserButton />
+        <UserButton afterSignOutUrl="/" />
         <ModeToggle />
       </aside>
     </header>
