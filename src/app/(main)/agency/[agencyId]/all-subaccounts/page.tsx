@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import DeleteButton from "./_components/DeleteButton";
+import CreateButton from "./_components/CreateButton";
 
 interface AllSubAccountsPageProps {
   params: {
@@ -40,16 +41,14 @@ const AllSubAccountsPage: React.FC<AllSubAccountsPageProps> = async ({
 
   const user = await getAuthUserDetails();
 
-  if (!user) return redirect("/agency/sign-in");
+  if (!agencyId) redirect("/agency/unauthorized");
+  if (!user) redirect("/agency/sign-in");
 
   return (
     <AlertDialog>
       <div className="flex flex-col">
         <div className="flex justify-center md:justify-start">
-          <Button className="flex itmes-center gap-2">
-            <PlusCircle className="w-4 h-4" />
-            Create subaccount
-          </Button>
+          <CreateButton user={user} agencyId={agencyId} />
         </div>
         <Command className="bg-transparent">
           <CommandInput placeholder="Search accounts..." />
@@ -60,7 +59,7 @@ const AllSubAccountsPage: React.FC<AllSubAccountsPageProps> = async ({
                 user.agency.subAccounts.map((subAccount) => (
                   <CommandItem
                     key={subAccount.id}
-                    className="h-32 bg-background my-2 text-primary border border-border p-4 cursor-pointer aria-selected:bg-inherit"
+                    className="h-32 bg-background my-2 text-primary border border-border p-4 cursor-pointer"
                   >
                     <Link
                       href={`/subaccount/${subAccount.id}`}
@@ -100,9 +99,7 @@ const AllSubAccountsPage: React.FC<AllSubAccountsPageProps> = async ({
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter className="flex items-center">
-                        <AlertDialogCancel>
-                          Cancel
-                        </AlertDialogCancel>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <DeleteButton subAccountId={subAccount.id} />
                       </AlertDialogFooter>
                     </AlertDialogContent>

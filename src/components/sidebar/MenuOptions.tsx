@@ -129,7 +129,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                     <CommandEmpty>No results found.</CommandEmpty>
                     {isOwnerOrAdmin && user.agency && (
                       <CommandGroup heading="Agency">
-                        <CommandItem className="bg-transparent aria-selected:bg-inherit my-2 text-primary border border-border p-2 rounded-md hover:bg-muted transition-all">
+                        <CommandItem className="bg-transparent my-2 text-primary border border-border p-2 rounded-md hover:bg-muted transition-all">
                           {defaultOpen ? (
                             <Link
                               href={`/agency/${user.agency.id}`}
@@ -283,7 +283,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                     return (
                       <CommandItem
                         key={option.id}
-                        className={cn("w-full transition-all", {
+                        className={cn("w-full transition-all aria-selected:bg-inherit", {
                           "bg-primary text-white font-bold":
                             pathname === option.link,
                         })}
