@@ -4,6 +4,16 @@ import { db } from "@/lib/db";
 import { Role, type SubAccount } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 
+export const getSubAccountDetails = async (subAccountId: string) => {
+  const response = await db.subAccount.findUnique({
+    where: {
+      id: subAccountId,
+    },
+  });
+
+  return response;
+};
+
 export const upsertSubAccount = async (subAccount: SubAccount) => {
   if (!subAccount.companyEmail) return null;
 
@@ -89,6 +99,16 @@ export const upsertSubAccount = async (subAccount: SubAccount) => {
           },
         ],
       },
+    },
+  });
+
+  return response;
+};
+
+export const deleteSubAccount = async (subAccountId: string) => {
+  const response = await db.subAccount.delete({
+    where: {
+      id: subAccountId,
     },
   });
 

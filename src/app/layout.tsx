@@ -43,7 +43,7 @@ export default function RootLayout({
         >
           <ModalProvider>{children}</ModalProvider>
         </ThemeProvider>
-        <Toaster />
+        <Toaster richColors />
       </body>
     </html>
   );

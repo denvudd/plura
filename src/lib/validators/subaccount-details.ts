@@ -8,7 +8,6 @@ export const SubAccountDetailsValidator = z.object({
   companyPhone: z.string().min(5, {
     message: "Phone number must be at least 5 characters.",
   }),
-  whiteLabel: z.boolean(),
   address: z.string().min(1, {
     message: "Address must be at least 1 character.",
   }),

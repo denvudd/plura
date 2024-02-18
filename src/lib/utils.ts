@@ -10,7 +10,7 @@ export const logger = (...args: any[]) => {
     console.log(
       "%c[DEV]:",
       "background-color: yellow; color: black",
-      JSON.stringify(args, null, 2)
+      args
     );
   }
 };

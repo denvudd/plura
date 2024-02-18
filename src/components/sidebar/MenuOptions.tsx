@@ -129,7 +129,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                     <CommandEmpty>No results found.</CommandEmpty>
                     {isOwnerOrAdmin && user.agency && (
                       <CommandGroup heading="Agency">
-                        <CommandItem className="bg-transparent my-2 text-primary border border-border p-2 rounded-md hover:bg-muted transition-all">
+                        <CommandItem className="bg-transparent aria-selected:bg-inherit my-2 text-primary border border-border p-2 rounded-md hover:bg-muted transition-all">
                           {defaultOpen ? (
                             <Link
                               href={`/agency/${user.agency.id}`}
@@ -156,7 +156,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                                 href={`/agency/${user.agency.id}`}
                                 className="flex gap-4 w-full h-full"
                               >
-                                <div className="relative w-16">
+                                <div className="relative w-10">
                                   <Image
                                     src={user.agency.agencyLogo}
                                     alt="Agency Logo"
@@ -185,7 +185,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                                 href={`/subaccount/${sub.id}`}
                                 className="flex gap-4 w-full h-full"
                               >
-                                <div className="relative w-16">
+                                <div className="relative w-10">
                                   <Image
                                     src={sub.subAccountLogo}
                                     alt="Agency Logo"
@@ -206,7 +206,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                                   href={`/subaccount/${sub.id}`}
                                   className="flex gap-4 w-full h-full"
                                 >
-                                  <div className="relative w-16">
+                                  <div className="relative w-10">
                                     <Image
                                       src={sub.subAccountLogo}
                                       alt="Agency Logo"

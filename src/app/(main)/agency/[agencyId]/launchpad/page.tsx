@@ -100,7 +100,11 @@ const LaunchPagPageage: React.FC<LaunchPagPageageProps> = async ({
                 <p>Fill in all your business details</p>
               </div>
               {isAllDetailsExist ? (
-                <CheckCircle2 className="text-emerald-500 p-2 flex-shrink-0 w-12 h-12" />
+                <CheckCircle2
+                  role="status"
+                  aria-label="Done"
+                  className="text-emerald-500 p-2 flex-shrink-0 w-12 h-12"
+                />
               ) : (
                 <Link
                   href={`/agency/${agencyId}/settings`}
