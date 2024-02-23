@@ -36,22 +36,26 @@ const ScrollArea = React.forwardRef<
         onScroll={handleScroll}
       >
         {children}
-        <div
-          className={cn(
-            "opacity-0 absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-background to-transparent w-full transition-opacity rounded-[inherit]",
-            {
-              "opacity-100": isTopShadowVisible,
-            }
-          )}
-        />
-        <div
-          className={cn(
-            "opacity-0 absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-background to-transparent w-full transition-opacity rounded-[inherit]",
-            {
-              "opacity-100": isBottomShadowVisible,
-            }
-          )}
-        />
+        {scrollShadow && (
+          <>
+            <div
+              className={cn(
+                "opacity-0 absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-background to-transparent w-full transition-opacity rounded-[inherit]",
+                {
+                  "opacity-100": isTopShadowVisible,
+                }
+              )}
+            />
+            <div
+              className={cn(
+                "opacity-0 absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-background to-transparent w-full transition-opacity rounded-[inherit]",
+                {
+                  "opacity-100": isBottomShadowVisible,
+                }
+              )}
+            />
+          </>
+        )}
       </ScrollAreaPrimitive.Viewport>
       <ScrollBar />
       <ScrollAreaPrimitive.Corner />

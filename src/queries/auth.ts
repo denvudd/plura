@@ -45,11 +45,43 @@ export const getAuthUserDetails = async () => {
           },
         },
       },
-      permissions: true,
+      permissions: {
+        include: {
+          subAccount: true,
+        },
+      },
     },
   });
 
   return userData;
+};
+
+export const getAuthUserGroup = async (agencyId: string) => {
+  const teamMembers = await db.user.findMany({
+    where: {
+      agency: {
+        id: agencyId,
+      },
+    },
+    include: {
+      agency: { include: { subAccounts: true } },
+      permissions: { include: { subAccount: true } },
+    },
+  });
+
+  return teamMembers;
+};
+
+export const deleteUser = async (userId: string) => {
+  await clerkClient.users.updateUserMetadata(userId, {
+    privateMetadata: {
+      role: undefined,
+    },
+  });
+  await clerkClient.users.deleteUser(userId);
+  const deletedUser = await db.user.delete({ where: { id: userId } });
+
+  return deletedUser;
 };
 
 export const createTeamUser = async (agencyId: string, user: User) => {

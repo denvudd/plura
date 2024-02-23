@@ -13,3 +13,9 @@ export type UserWithPermissionsAndSubAccounts = Prisma.PromiseReturnType<
 
 export type AuthUserWithAgencySidebarOptionsAndSubAccounts =
   Prisma.PromiseReturnType<typeof getAuthUserDetails>;
+
+
+export type UsersWithAgencySubAccountPermissionsSidebarOptions =
+  Prisma.PromiseReturnType<
+    typeof getAuthUserDetails
+  >;

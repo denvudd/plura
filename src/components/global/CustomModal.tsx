@@ -14,6 +14,7 @@ interface CustomModalProps {
   title: string;
   subTitle: string;
   children: React.ReactNode;
+  scrollShadow?: boolean;
   defaultOpen?: boolean;
 }
 
@@ -22,13 +23,14 @@ const CustomModal: React.FC<CustomModalProps> = ({
   defaultOpen,
   subTitle,
   title,
+  scrollShadow = true,
 }) => {
   const { isOpen, setClose } = useModal();
 
   return (
     <Dialog open={isOpen || defaultOpen} onOpenChange={setClose}>
       <DialogContent className="bg-card max-w-xl">
-        <ScrollArea className="md:max-h-[700px]">
+        <ScrollArea scrollShadow={scrollShadow} className="md:max-h-[700px]">
           <div className="flex flex-col gap-4">
             <DialogHeader className="text-left">
               <DialogTitle className="text-2xl font-bold">{title}</DialogTitle>
