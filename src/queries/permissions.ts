@@ -1,7 +1,6 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { UserWithPermissionsAndSubAccounts } from "@/lib/types";
 import { logger } from "@/lib/utils";
 
 export const getUserWithPermissionsAndSubAccount = async (userId: string) => {

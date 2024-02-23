@@ -111,6 +111,11 @@ export const deleteSubAccount = async (subAccountId: string) => {
       id: subAccountId,
     },
   });
+  const deletePermissions = await db.permissions.deleteMany({
+    where: {
+      subAccountId,
+    },
+  });
 
   return response;
 };

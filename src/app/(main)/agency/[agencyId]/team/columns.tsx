@@ -80,7 +80,7 @@ export const teamTableColumns: ColumnDef<UsersWithAgencySubAccountPermissionsSid
       accessorKey: "subAccounts",
       header: "Owned Accounts",
       cell: ({ row }) => {
-        const isAgencyOwner = row.getValue("role") === "AGENCY_OWNER";
+        const isAgencyOwner = row.getValue("role") === Role.AGENCY_OWNER;
         const ownedAccounts = row.original?.permissions.filter(
           (per) => per.access
         );

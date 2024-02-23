@@ -89,6 +89,12 @@ body {
   }
 }
 
+@layer utilities {
+  .scrollbar-medium::-webkit-scrollbar {
+    width: 6px;
+  }
+}
+
 .dotPattern {
   background-image: radial-gradient(rgb(35, 40, 68) 1px, transparent 1px);
   background-size: 25px 25px;

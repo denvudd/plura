@@ -2,10 +2,11 @@
 
 import React from "react";
 import { Role } from "@prisma/client";
-
-import { cn } from "@/lib/utils";
-import { type NotificationsWithUser } from "@/lib/types";
 import { UserButton } from "@clerk/nextjs";
+import { Bell } from "lucide-react";
+import { format } from "date-fns";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
 import {
   Sheet,
   SheetContent,
@@ -14,13 +15,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import { Bell } from "lucide-react";
 import { Button } from "../ui/button";
-import { Card } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import { Switch } from "../ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { ModeToggle } from "./ModeToggle";
-import { format } from "date-fns";
+
+import { cn } from "@/lib/utils";
+import { type NotificationsWithUser } from "@/lib/types";
 
 interface InfoBarProps {
   notifications: NotificationsWithUser;
@@ -38,8 +40,10 @@ const InfoBar: React.FC<InfoBarProps> = ({
   const [allNotifications, setAllNotifications] =
     React.useState<NotificationsWithUser>(notifications);
   const [isShowAll, setIsShowAll] = React.useState<boolean>(true);
+  const [animatedListRef] = useAutoAnimate();
 
   const handleSwitch = () => {
+    console.log("works");
     if (!isShowAll) {
       setAllNotifications(notifications);
     } else {
@@ -54,6 +58,8 @@ const InfoBar: React.FC<InfoBarProps> = ({
 
     setIsShowAll((prev) => !prev);
   };
+
+  console.log(allNotifications);
 
   return (
     <>
@@ -79,45 +85,49 @@ const InfoBar: React.FC<InfoBarProps> = ({
                     role === Role.AGENCY_OWNER) && (
                     <Card className="flex items-center justify-between p-4">
                       Current Subaccount
-                      <Switch onChangeCapture={handleSwitch} />
+                      <Switch onCheckedChange={handleSwitch} />
                     </Card>
                   )}
                 </SheetDescription>
               </SheetHeader>
-              {allNotifications?.map((notification) => (
-                <div
-                  key={notification.id}
-                  className="flex flex-col gap-y-2 mb-2 overflow-x-scroll text-ellipsis"
-                >
-                  <div className="flex gap-2">
-                    <Avatar>
-                      <AvatarImage
-                        src={notification.user.avatarUrl}
-                        alt="Profile Picture"
-                      />
-                      <AvatarFallback className="bg-primary">
-                        {notification.user.name.slice(0, 2).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col">
-                      <p>
-                        <span className="font-bold">
-                          {notification.notification.split("|")[0]}
-                        </span>
-                        <span className="font-bold">
-                          {notification.notification.split("|")[1]}
-                        </span>
-                        <span className="font-bold">
-                          {notification.notification.split("|")[2]}
-                        </span>
-                      </p>
-                      <small className="text-sm text-muted-foreground">
-                        {format(new Date(notification.createdAt), "dd/MM/yyyy")}
-                      </small>
-                    </div>
-                  </div>
+              {allNotifications?.length && (
+                <div ref={animatedListRef} className="flex flex-col gap-4 overflow-y-auto scrollbar scrollbar-thumb-muted-foreground/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-medium">
+                  {allNotifications?.map((notification) => (
+                    <Card key={notification.id}>
+                      <CardContent className="flex gap-4 p-4">
+                        <Avatar>
+                          <AvatarImage
+                            src={notification.user.avatarUrl}
+                            alt="Profile Picture"
+                          />
+                          <AvatarFallback className="bg-primary">
+                            {notification.user.name.slice(0, 2).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col gap-2">
+                          <p className="leading-tight">
+                            <span className="font-semibold">
+                              {notification.notification.split("|")[0]}
+                            </span>
+                            <span className="text-muted-foreground">
+                              {notification.notification.split("|")[1]}
+                            </span>
+                            <span className="font-semibold">
+                              {notification.notification.split("|")[2]}
+                            </span>
+                          </p>
+                          <small className="text-sm text-muted-foreground">
+                            {format(
+                              new Date(notification.createdAt),
+                              "dd.MM.yyyy hh:mm"
+                            )}
+                          </small>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
-              ))}
+              )}
               {!allNotifications?.length && (
                 <div className="flex items-center justify-center mb-4 text-sm text-muted-foreground">
                   You have no notifications.

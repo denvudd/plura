@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-interface SubAccountPageProps {}
+interface SubAccountIdPageProps {}
 
-const SubAccountPage: React.FC<SubAccountPageProps> = ({}) => {
-  return <div>subaccount</div>;
-};
+const SubAccountIdPage: React.FC<SubAccountIdPageProps> = ({}) => {
+   return <div>page</div>
+}
 
-export default SubAccountPage;
+export default SubAccountIdPage;
