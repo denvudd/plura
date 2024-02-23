@@ -119,7 +119,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
                           <small className="text-sm text-muted-foreground">
                             {format(
                               new Date(notification.createdAt),
-                              "dd.MM.yyyy hh:mm"
+                              "dd.MM.yyyy hh:mm a"
                             )}
                           </small>
                         </div>
