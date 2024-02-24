@@ -8,7 +8,7 @@ import { Pipeline } from "@prisma/client";
 import { deletePipeline } from "@/queries/pipelines";
 
 import { AlertDialog } from "@/components/ui/alert-dialog";
-import CreatePipelineForm from "@/components/forms/CreatePipelineForm";
+import PipelineDetails from "@/components/forms/PipelineDetails";
 
 const PipelineSettings = ({
   pipelineId,
@@ -24,7 +24,7 @@ const PipelineSettings = ({
   return (
     <AlertDialog>
       <div>
-        <CreatePipelineForm
+        <PipelineDetails
           subAccountId={subaccountId}
           pipelineId={pipelineId}
           defaultData={pipelines.find((p) => p.id === pipelineId)}

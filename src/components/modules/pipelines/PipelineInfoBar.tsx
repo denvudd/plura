@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import CustomModal from "@/components/common/CustomModal";
-import CreatePipelineForm from "@/components/forms/CreatePipelineForm";
+import CreatePipelineForm from "@/components/forms/PipelineDetails";
 
 interface PipelineInfoBarProps {
   pipelineId: string;

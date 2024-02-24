@@ -6,7 +6,7 @@ import { getAuthUser } from "@/queries/auth";
 import { getAgencyDetails } from "@/queries/agency";
 
 import AgencyDetails from "@/components/forms/AgencyDetails";
-import UserDetails from "@/components/forms/UserDetails";
+import UserDetailsForm from "@/components/forms/UserDetails";
 
 interface AgencySettingsPageProps {
   params: {
@@ -38,7 +38,7 @@ const AgencySettingsPage: React.FC<AgencySettingsPageProps> = async ({
   return (
     <div className="flex flex-col gap-4 max-w-4xl w-full mx-auto">
       <AgencyDetails data={agencyDetails} />
-      <UserDetails
+      <UserDetailsForm
         type="agency"
         id={agencyId}
         subAccounts={subAccounts}

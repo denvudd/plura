@@ -2,11 +2,13 @@
 
 import React from "react";
 import { type Agency, type Contact, type User } from "@prisma/client";
+import type { TicketDetails } from "@/lib/types";
 
 export interface ModalData {
   user?: User;
   agency?: Agency;
   contact?: Contact;
+  ticket?: TicketDetails[0];
 }
 
 interface ModalContextType {

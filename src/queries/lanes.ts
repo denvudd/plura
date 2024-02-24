@@ -1,9 +1,10 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { LaneDetails } from "@/lib/types";
+import { v4 as uuidv4 } from "uuid";
+import { type Ticket, type Lane, Prisma } from "@prisma/client";
+import { type LaneDetails } from "@/lib/types";
 import { logger } from "@/lib/utils";
-import { Ticket, type Lane } from "@prisma/client";
 
 export const getLanesWithTicketsAndTags = async (pipelineId: string) => {
   const response = await db.lane.findMany({
@@ -67,4 +68,43 @@ export const updateTicketsOrder = async (tickets: Ticket[]) => {
   } catch (error) {
     logger(error);
   }
+};
+
+export const deleteLane = async (laneId: string) => {
+  const response = await db.lane.delete({
+    where: {
+      id: laneId,
+    },
+  });
+
+  return response;
+};
+
+export const upsertLane = async (lane: Prisma.LaneUncheckedCreateInput) => {
+  let order: number;
+
+  if (!lane.order) {
+    const lanes = await db.lane.findMany({
+      where: {
+        pipelineId: lane.pipelineId,
+      },
+    });
+
+    order = lanes.length; // set last order by default
+  } else {
+    order = lane.order;
+  }
+
+  const response = await db.lane.upsert({
+    where: {
+      id: lane.id || uuidv4(),
+    },
+    update: lane,
+    create: {
+      ...lane,
+      order,
+    },
+  });
+
+  return response;
 };

@@ -105,6 +105,29 @@ export const upsertSubAccount = async (subAccount: SubAccount) => {
   return response;
 };
 
+export const getSubAccountTeamMembers = async (subAccountId: string) => {
+  const subAccountWithAccess = await db.user.findMany({
+    where: {
+      agency: {
+        subAccounts: {
+          some: {
+            id: subAccountId,
+          },
+        },
+      },
+      role: Role.SUBACCOUNT_USER,
+      permissions: {
+        some: {
+          subAccountId,
+          access: true,
+        },
+      },
+    },
+  });
+
+  return subAccountWithAccess;
+};
+
 export const deleteSubAccount = async (subAccountId: string) => {
   const response = await db.subAccount.delete({
     where: {

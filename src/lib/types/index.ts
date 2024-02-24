@@ -2,6 +2,7 @@ import { getAuthUserDetails } from "@/queries/auth";
 import { getMedia } from "@/queries/media";
 import { getUserWithPermissionsAndSubAccount } from "@/queries/permissions";
 import { getPipelineDetails } from "@/queries/pipelines";
+import { getTicketDetails, getTicketsWithTags } from "@/queries/tickets";
 
 import type {
   Contact,
@@ -41,6 +42,12 @@ export type LaneDetails = Lane & {
   tickets: TicketAndTags[];
 };
 
+export type TicketDetails = Prisma.PromiseReturnType<typeof getTicketDetails>;
+
 export type PipelineDetailsWithLanesCardsTagsTickets = Prisma.PromiseReturnType<
   typeof getPipelineDetails
+>;
+
+export type TicketsWithTags = Prisma.PromiseReturnType<
+  typeof getTicketsWithTags
 >;

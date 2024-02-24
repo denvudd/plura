@@ -62,7 +62,7 @@ interface UserDetailsProps {
   subAccounts?: SubAccount[];
 }
 
-const UserDetails: React.FC<UserDetailsProps> = ({
+const UserDetailsForm: React.FC<UserDetailsProps> = ({
   id,
   type,
   subAccounts,
@@ -396,4 +396,4 @@ const UserDetails: React.FC<UserDetailsProps> = ({
   );
 };
 
-export default UserDetails;
+export default UserDetailsForm;

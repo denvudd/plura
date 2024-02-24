@@ -37,13 +37,13 @@ import {
   type CreatePipelineSchema,
 } from "@/lib/validators/create-pipeline";
 
-interface CreatePipelineFormProps {
+interface PipelineDetailsProps {
   defaultData?: Pipeline;
   subAccountId: string;
   pipelineId: string;
 }
 
-const CreatePipelineForm: React.FC<CreatePipelineFormProps> = ({
+const PipelineDetails: React.FC<PipelineDetailsProps> = ({
   defaultData,
   subAccountId,
   pipelineId,
@@ -182,4 +182,4 @@ const CreatePipelineForm: React.FC<CreatePipelineFormProps> = ({
   );
 };
 
-export default CreatePipelineForm;
+export default PipelineDetails;
