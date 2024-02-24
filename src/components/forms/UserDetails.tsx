@@ -42,7 +42,7 @@ import {
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Switch } from "../ui/switch";
-import FileUpload from "../global/FileUpload";
+import FileUpload from "../common/FileUpload";
 
 import { useModal } from "@/hooks/use-modal";
 import {

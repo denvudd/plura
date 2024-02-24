@@ -8,7 +8,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../ui/command";
+} from "../../ui/command";
 import { type MediaFiles } from "@/lib/types";
 import MediaCard from "./MediaCard";
 import { FolderOpen, FolderSearch } from "lucide-react";

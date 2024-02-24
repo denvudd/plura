@@ -4,9 +4,9 @@ import React from "react";
 import { Upload } from "lucide-react";
 
 import { useModal } from "@/hooks/use-modal";
-import { Button } from "../ui/button";
-import CustomModal from "../global/CustomModal";
-import UploadMediaForm from "../forms/UploadMediaForm";
+import { Button } from "../../ui/button";
+import CustomModal from "../../common/CustomModal";
+import UploadMediaForm from "../../forms/UploadMediaForm";
 
 interface MediaUploadButtonProps {
   subAccountId: string;

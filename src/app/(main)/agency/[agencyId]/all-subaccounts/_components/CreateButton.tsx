@@ -12,7 +12,7 @@ import { PlusCircle } from "lucide-react";
 
 import { useModal } from "@/hooks/use-modal";
 import { Button } from "@/components/ui/button";
-import CustomModal from "@/components/global/CustomModal";
+import CustomModal from "@/components/common/CustomModal";
 import SubAccountDetails from "@/components/forms/SubAccountDetails";
 
 interface CreateButtonProps {

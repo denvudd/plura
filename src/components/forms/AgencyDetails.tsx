@@ -49,7 +49,7 @@ import {
 import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
 import { Button } from "../ui/button";
-import FileUpload from "../global/FileUpload";
+import FileUpload from "../common/FileUpload";
 
 import {
   AgencyDetailsValidator,

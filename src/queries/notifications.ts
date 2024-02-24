@@ -119,7 +119,7 @@ export const getNotification = async (agencyId: string) => {
         user: true,
       },
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
     });
 

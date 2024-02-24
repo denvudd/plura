@@ -20,7 +20,7 @@ import {
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import FileUpload from "../global/FileUpload";
+import FileUpload from "../common/FileUpload";
 
 import { logger } from "@/lib/utils";
 import {

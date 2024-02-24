@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 
 import { getMedia } from "@/queries/media";
 
-import BlurPage from "@/components/global/BlurPage";
-import Media from "@/components/media/Media";
+import BlurPage from "@/components/common/BlurPage";
+import Media from "@/components/modules/media/Media";
 
 interface MediaPageProps {
   params: {

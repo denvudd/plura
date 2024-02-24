@@ -2,7 +2,7 @@ import React from "react";
 import { verifyInvintation } from "@/queries/invintations";
 import { redirect } from "next/navigation";
 import { getAuthUserDetails } from "@/queries/auth";
-import Unauthorized from "@/components/global/Unauthorized";
+import Unauthorized from "@/components/common/Unauthorized";
 
 interface SubAccountPageProps {
   searchParams: {

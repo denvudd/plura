@@ -29,7 +29,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import FileUpload from "../global/FileUpload";
+import FileUpload from "../common/FileUpload";
 
 import {
   type SubAccountDetailsSchema,

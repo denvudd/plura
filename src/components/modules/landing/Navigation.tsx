@@ -3,13 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { UserButton } from "@clerk/nextjs";
-import { ModeToggle } from "@/components/global/ModeToggle";
+import { ModeToggle } from "@/components/common/ModeToggle";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import type { User } from "@clerk/nextjs/server";
 
-import logoImage from "../../../public/assets/plura-logo.svg";
+import logoImage from "../../../../public/assets/plura-logo.svg";
 
 interface NavigationProps {
   user?: User | null;

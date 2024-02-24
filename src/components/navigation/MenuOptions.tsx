@@ -29,7 +29,7 @@ import {
   CommandList,
 } from "../ui/command";
 import { ScrollArea } from "../ui/scroll-area";
-import CustomModal from "../global/CustomModal";
+import CustomModal from "../common/CustomModal";
 import SubAccountDetails from "../forms/SubAccountDetails";
 
 import { cn } from "@/lib/utils";

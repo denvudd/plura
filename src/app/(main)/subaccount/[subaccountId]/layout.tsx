@@ -7,8 +7,8 @@ import { verifyInvintation } from "@/queries/invintations";
 import { getAuthUserDetails } from "@/queries/auth";
 import { getNotification } from "@/queries/notifications";
 
-import Sidebar from "@/components/sidebar/Sidebar";
-import InfoBar from "@/components/global/InfoBar";
+import Sidebar from "@/components/navigation/Sidebar";
+import InfoBar from "@/components/common/InfoBar";
 
 import { NotificationsWithUser } from "@/lib/types";
 

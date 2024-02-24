@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import UserDetails from "@/components/forms/UserDetails";
-import CustomModal from "@/components/global/CustomModal";
+import CustomModal from "@/components/common/CustomModal";
 
 import { cn } from "@/lib/utils";
 import { type UsersWithAgencySubAccountPermissionsSidebarOptions } from "@/lib/types";

@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import CustomModal from "@/components/global/CustomModal";
+import CustomModal from "@/components/common/CustomModal";
 
 interface TeamsDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

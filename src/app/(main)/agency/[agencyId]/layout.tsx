@@ -6,9 +6,9 @@ import { Role } from "@prisma/client";
 import { verifyInvintation } from "@/queries/invintations";
 import { getNotification } from "@/queries/notifications";
 
-import Sidebar from "@/components/sidebar/Sidebar";
-import BlurPage from "@/components/global/BlurPage";
-import InfoBar from "@/components/global/InfoBar";
+import Sidebar from "@/components/navigation/Sidebar";
+import BlurPage from "@/components/common/BlurPage";
+import InfoBar from "@/components/common/InfoBar";
 
 interface AgencyIdLayoutProps extends React.PropsWithChildren {
   params: {
