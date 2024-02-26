@@ -4,7 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 import {
   Contact2,
   Edit,
-  LinkIcon,
+  Link2,
   MoreHorizontal,
   Trash,
   User2,
@@ -158,7 +158,7 @@ const PipelineTicket: React.FC<PipelineTicketProps> = ({
                       </DropdownMenuTrigger>
                     </CardTitle>
                     <span className="text-muted-foreground text-xs">
-                      {format(new Date(ticket.createdAt), "dd/MM/yyyy")}
+                      {format(new Date(ticket.createdAt), "dd/MM/yyyy hh:mm")}
                     </span>
                     <div className="flex items-center flex-wrap gap-2">
                       {ticket.tags.map((tag) => (
@@ -174,8 +174,8 @@ const PipelineTicket: React.FC<PipelineTicketProps> = ({
                     </CardDescription>
                     <HoverCard>
                       <HoverCardTrigger asChild>
-                        <div className="p-2 text-muted-foreground flex gap-2 hover:bg-muted transition-all rounded-lg cursor-pointer items-center">
-                          <LinkIcon />
+                        <div className="p-2 justify-center text-muted-foreground flex gap-2 hover:bg-muted transition-all rounded-md cursor-pointer items-center">
+                          <Link2 />
                           <span className="text-xs font-bold">CONTACT</span>
                         </div>
                       </HoverCardTrigger>
@@ -208,25 +208,25 @@ const PipelineTicket: React.FC<PipelineTicketProps> = ({
                   </CardHeader>
 
                   <CardFooter className="m-0 p-2 border-t border-muted-foreground/20 flex items-center justify-between">
-                    <div className="flex item-center gap-2">
-                      <Avatar className="w-8 h-8">
+                    <div className="flex items-center gap-2">
+                      <Avatar className="w-7 h-7">
                         <AvatarImage
                           alt="contact"
                           src={ticket.assigned?.avatarUrl}
                         />
                         <AvatarFallback className="bg-primary text-sm text-white">
                           {ticket.assigned?.name}
-                          {!ticket.assignedUserId && <User2 size={14} />}
+                          {!ticket.assignedUserId && <User2 className="w-4 h-4" />}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="flex flex-col justify-center">
-                        <span className="text-sm text-muted-foreground">
+                      <div className="flex flex-col text-xs justify-center">
+                        <span className="text-muted-foreground">
                           {ticket.assignedUserId
-                            ? "Assigned to"
+                            ? "Assigned to:"
                             : "Not Assigned"}
                         </span>
                         {ticket.assignedUserId && (
-                          <span className="text-xs w-28  overflow-ellipsis overflow-hidden whitespace-nowrap text-muted-foreground">
+                          <span className="text-xs w-28 overflow-ellipsis overflow-hidden whitespace-nowrap text-muted-foreground">
                             {ticket.assigned?.name}
                           </span>
                         )}
@@ -241,12 +241,6 @@ const PipelineTicket: React.FC<PipelineTicketProps> = ({
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Options</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <AlertDialogTrigger>
-                      <DropdownMenuItem className="flex items-center gap-2">
-                        <Trash className="w-4 h-4" />
-                        Delete Ticket
-                      </DropdownMenuItem>
-                    </AlertDialogTrigger>
                     <DropdownMenuItem
                       className="flex items-center gap-2"
                       onClick={handleClickEdit}
@@ -254,6 +248,12 @@ const PipelineTicket: React.FC<PipelineTicketProps> = ({
                       <Edit className="w-4 h-4" />
                       Edit Ticket
                     </DropdownMenuItem>
+                    <AlertDialogTrigger>
+                      <DropdownMenuItem className="flex items-center gap-2 text-destructive">
+                        <Trash className="w-4 h-4" />
+                        Delete Ticket
+                      </DropdownMenuItem>
+                    </AlertDialogTrigger>
                   </DropdownMenuContent>
                 </Card>
                 <AlertDialogContent>
