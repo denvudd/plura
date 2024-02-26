@@ -29,12 +29,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import PipelineTicket from "./pipeline-ticket";
+import PipelineTicket from "./PipelineTicket";
 import LaneDetails from "@/components/forms/LaneDetails";
 import TicketDetails from "@/components/forms/TicketDetails";
 import CustomModal from "@/components/common/CustomModal";
 
-import { cn, logger } from "@/lib/utils";
+import { cn, formatPrice, logger } from "@/lib/utils";
 import type {
   LaneDetails as LaneDetailsType,
   TicketsWithTags,
@@ -50,6 +50,7 @@ interface PipelaneLaneProps {
   index: number;
 }
 
+// WIP: create PipelineTicket component
 const PipelineLane: React.FC<PipelaneLaneProps> = ({
   setAllTickets,
   tickets,
@@ -62,19 +63,12 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
   const router = useRouter();
   const { setOpen } = useModal();
 
-  const amt = new Intl.NumberFormat(undefined, {
-    style: "currency",
-    currency: "USD",
-  });
-
   const laneAmt = React.useMemo(() => {
     return tickets.reduce(
       (sum, ticket) => sum + (Number(ticket?.value) || 0),
       0
     );
   }, [tickets]);
-
-  const randomColor = `#${Math.random().toString(16).slice(2, 8)}`;
 
   const addNewTicket = (ticket: TicketsWithTags[0]) => {
     setAllTickets([...allTickets, ticket]);
@@ -97,7 +91,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
 
   const handleEditLane = () => {
     setOpen(
-      <CustomModal title="Edit Lane Details">
+      <CustomModal title="Edit Lane Details" scrollShadow={false}>
         <LaneDetails pipelineId={pipelineId} defaultData={laneDetails} />
       </CustomModal>
     );
@@ -127,7 +121,6 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
     >
       {(provided, snapshot) => {
         if (snapshot.isDragging) {
-          //@ts-ignore
           const offset = { x: 300, y: 0 };
           //@ts-ignore
           const x = provided.draggableProps.style?.left - offset.x;
@@ -140,36 +133,37 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
             left: x,
           };
         }
+
         return (
           <div
             {...provided.draggableProps}
             ref={provided.innerRef}
-            className="h-full"
+            className="h-full rounded-md"
           >
             <AlertDialog>
               <DropdownMenu>
-                <div className="bg-slate-200/30 dark:bg-background/20  h-[700px] w-[300px] px-4 relative rounded-lg overflow-visible flex-shrink-0 ">
+                <div className="bg-slate-200/30 dark:bg-background/20 h-[700px] w-[300px] px-4 relative rounded-md overflow-visible flex-shrink-0">
                   <div
                     {...provided.dragHandleProps}
-                    className=" h-14 backdrop-blur-lg dark:bg-background/40 bg-slate-200/60  absolute top-0 left-0 right-0 z-10 "
+                    className=" h-14 backdrop-blur-lg dark:bg-background/40 bg-slate-200/60 rounded-md absolute top-0 left-0 right-0 z-10"
                   >
-                    <div className="h-full flex items-center p-4 justify-between cursor-grab border-b-[1px] ">
+                    <div className="h-full flex items-center p-4 pr-2 justify-between cursor-grab border-b-[1px]">
                       {/* {laneDetails.order} */}
                       <div className="flex items-center w-full gap-2">
                         <div
                           className={cn("w-4 h-4 rounded-full")}
-                          style={{ background: randomColor }}
+                          style={{ background: laneDetails.color }}
                         />
                         <span className="font-bold text-sm">
                           {laneDetails.name}
                         </span>
                       </div>
-                      <div className="flex items-center flex-row">
+                      <div className="flex items-center flex-row gap-1">
                         <Badge className="bg-white text-black">
-                          {amt.format(laneAmt)}
+                          {formatPrice(laneAmt)}
                         </Badge>
                         <DropdownMenuTrigger>
-                          <MoreVertical className="text-muted-foreground cursor-pointer" />
+                          <MoreVertical className="text-muted-foreground cursor-pointer w-5 h-5" />
                         </DropdownMenuTrigger>
                       </div>
                     </div>
@@ -181,7 +175,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                     type="ticket"
                   >
                     {(provided) => (
-                      <div className=" max-h-[700px] overflow-scroll pt-12 ">
+                      <div className=" max-h-[700px] overflow-auto pt-12 ">
                         <div
                           {...provided.droppableProps}
                           ref={provided.innerRef}
@@ -191,7 +185,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                             <PipelineTicket
                               allTickets={allTickets}
                               setAllTickets={setAllTickets}
-                              subaccountId={subaccountId}
+                              subAccountId={subAccountId}
                               ticket={ticket}
                               key={ticket.id.toString()}
                               index={index}
@@ -206,27 +200,26 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Options</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <AlertDialogTrigger>
-                      <DropdownMenuItem className="flex items-center gap-2">
-                        <Trash className="w-4 h-4" />
-                        Delete
-                      </DropdownMenuItem>
-                    </AlertDialogTrigger>
-
                     <DropdownMenuItem
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 w-full cursor-pointer"
                       onClick={handleEditLane}
                     >
                       <Edit className="w-4 h-4" />
                       Edit
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 w-full cursor-pointer"
                       onClick={handleCreateTicket}
                     >
                       <PlusCircleIcon className="w-4 h-4" />
                       Create Ticket
                     </DropdownMenuItem>
+                    <AlertDialogTrigger className="w-full">
+                      <DropdownMenuItem className="flex items-center gap-2 w-full cursor-pointer text-destructive">
+                        <Trash className="w-4 h-4" />
+                        Delete
+                      </DropdownMenuItem>
+                    </AlertDialogTrigger>
                   </DropdownMenuContent>
                 </div>
                 <AlertDialogContent>
@@ -245,7 +238,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                       className="bg-destructive"
                       onClick={handleDeleteLane}
                     >
-                      Continue
+                      Delete
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>

@@ -11,7 +11,7 @@ import {
 } from "../../ui/command";
 import { type MediaFiles } from "@/lib/types";
 import MediaCard from "./MediaCard";
-import { FolderOpen, FolderSearch } from "lucide-react";
+import { FolderOpen } from "lucide-react";
 
 interface MediaProps {
   subAccountId: string;
@@ -42,9 +42,9 @@ const Media: React.FC<MediaProps> = ({ subAccountId, data }) => {
                 </CommandItem>
               ))}
               {!data?.media.length && (
-                <div className="flex items-center justify-center w-full flex-col gap-2">
+                <div className="flex items-center justify-center w-full flex-col gap-2 pb-10">
                   <FolderOpen className="text-muted-foreground w-32 h-32" />
-                  <p className="text-muted-foreground text-xs">
+                  <p className="text-muted-foreground text-xs font-medium">
                     Your media bucket is empty. No files to show.
                   </p>
                 </div>

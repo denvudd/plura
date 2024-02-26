@@ -220,6 +220,7 @@ model Lane {
   name       String
   pipelineId String
   order      Int    @default(0)
+  color      String
 
   pipeline Pipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
   tickets  Ticket[]

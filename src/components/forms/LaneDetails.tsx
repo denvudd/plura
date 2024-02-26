@@ -4,7 +4,6 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { toast } from "sonner";
 import { Lane } from "@prisma/client";
 
@@ -24,6 +23,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { ColorPicker } from "../ui/color-picker";
 import {
   type LaneDetailsSchema,
   LaneDetailsValidator,
@@ -38,13 +38,18 @@ const LaneDetails: React.FC<LaneDetailsProps> = ({
   defaultData,
   pipelineId,
 }) => {
-  const { setClose } = useModal();
   const router = useRouter();
+
+  const { setClose } = useModal();
+
   const form = useForm<LaneDetailsSchema>({
     mode: "onChange",
     resolver: zodResolver(LaneDetailsValidator),
     defaultValues: {
       name: defaultData?.name || "",
+      color:
+        defaultData?.color ||
+        "linear-gradient(to bottom right,#ff75c3,#ffa647,#ffe83f,#9fff5b,#70e2ff,#cd93ff)",
     },
   });
 
@@ -108,7 +113,25 @@ const LaneDetails: React.FC<LaneDetailsProps> = ({
                 <FormItem>
                   <FormLabel>Lane name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Lane Name" {...field} />
+                    <Input placeholder="Lane name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              disabled={isLoading}
+              control={form.control}
+              name="color"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Lane color</FormLabel>
+                  <FormControl className="flex justify-center">
+                    <ColorPicker
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -116,7 +139,12 @@ const LaneDetails: React.FC<LaneDetailsProps> = ({
             />
 
             <div className="flex justify-end">
-              <Button disabled={isLoading} isLoading={isLoading} type="submit">
+              <Button
+                disabled={isLoading}
+                isLoading={isLoading}
+                type="submit"
+                className="w-20"
+              >
                 Save
               </Button>
             </div>

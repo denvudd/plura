@@ -3,17 +3,19 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
-import { Plus } from "lucide-react";
+import { Flag, Plus } from "lucide-react";
 import { type Lane, type Ticket } from "@prisma/client";
 
 import { useModal } from "@/hooks/use-modal";
 import type {
   LaneDetails as LaneDetailsType,
   PipelineDetailsWithLanesCardsTagsTickets,
+  TicketAndTags,
 } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import CustomModal from "@/components/common/CustomModal";
 import LaneDetails from "@/components/forms/LaneDetails";
+import PipelineLane from "./PipelineLane";
 
 interface PipelineViewProps {
   lanes: LaneDetailsType[];
@@ -36,10 +38,15 @@ const PipelineView: React.FC<PipelineViewProps> = ({
   const { setOpen } = useModal();
 
   const [allLanes, setAllLanes] = React.useState<LaneDetailsType[]>(lanes);
+  const [allTickets, setAllTickets] = React.useState<TicketAndTags[]>([]);
 
   React.useEffect(() => {
     setAllLanes(lanes);
   }, [lanes]);
+
+  const ticketsFromAllLanes: TicketAndTags[] = lanes.flatMap(
+    (lane) => lane.tickets
+  );
 
   const handleAddLane = () => {
     setOpen(
@@ -77,15 +84,30 @@ const PipelineView: React.FC<PipelineViewProps> = ({
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              <div className="flex mt-4">
+              <div className="flex items-start gap-3 mt-4">
                 {allLanes.map((lane, index) => (
-                  <PipelineLane key={index} />
+                  <PipelineLane
+                    key={lane.id}
+                    allTickets={allTickets}
+                    setAllTickets={setAllTickets}
+                    subAccountId={subAccountId}
+                    pipelineId={pipelineId}
+                    tickets={lane.tickets}
+                    laneDetails={lane}
+                    index={index}
+                  />
                 ))}
                 {provided.placeholder}
               </div>
             </div>
           )}
         </Droppable>
+        {!allLanes.length && (
+          <div className="flex items-center justify-center w-full flex-col gap-2 text-muted-foreground pb-10">
+            <Flag className="w-32 h-32 opacity-100" />
+            <p className="text-xs font-medium">You don&apos;t have any lanes. Go create one!</p>
+          </div>
+        )}
       </div>
     </DragDropContext>
   );
