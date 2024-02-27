@@ -134,6 +134,8 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
           };
         }
 
+        console.log(laneDetails.id.toString());
+
         return (
           <div
             {...provided.draggableProps}
@@ -173,26 +175,25 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                     droppableId={laneDetails.id.toString()}
                     key={laneDetails.id}
                     type="ticket"
+                    isDropDisabled={false}
                   >
                     {(provided) => (
-                      <div className=" max-h-[700px] overflow-auto pt-12 ">
-                        <div
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                          className="mt-2"
-                        >
-                          {tickets.map((ticket, index) => (
-                            <PipelineTicket
-                              allTickets={allTickets}
-                              setAllTickets={setAllTickets}
-                              subAccountId={subAccountId}
-                              ticket={ticket}
-                              key={ticket.id.toString()}
-                              index={index}
-                            />
-                          ))}
-                          {provided.placeholder}
-                        </div>
+                      <div
+                        className="max-h-[700px] h-full w-full pt-12 overflow-auto z-[99999]"
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                      >
+                        {tickets.map((ticket, index) => (
+                          <PipelineTicket
+                            allTickets={allTickets}
+                            setAllTickets={setAllTickets}
+                            subAccountId={subAccountId}
+                            ticket={ticket}
+                            key={ticket.id.toString()}
+                            index={index}
+                          />
+                        ))}
+                        {provided.placeholder}
                       </div>
                     )}
                   </Droppable>
