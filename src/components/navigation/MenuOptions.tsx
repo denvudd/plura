@@ -121,14 +121,14 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
                 <ChevronsUpDown className="h-4 w-4 text-muted-foreground" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="h-80 mt-4 z-[200]">
+            <PopoverContent className="h-80 overflow-y-hidden mt-4 z-[200]">
               <Command>
                 <CommandInput placeholder="Search Accounts..." />
                 <ScrollArea className="rounded-md">
-                  <CommandList className="pb-16">
+                  <CommandList className="pb-16 overflow-y-hidden">
                     <CommandEmpty>No results found.</CommandEmpty>
                     {isOwnerOrAdmin && user.agency && (
-                      <CommandGroup heading="Agency">
+                      <CommandGroup heading="Agency" className="overflow-y-hidden">
                         <CommandItem className="bg-transparent my-2 text-primary border border-border p-2 rounded-md hover:bg-muted transition-all">
                           {defaultOpen ? (
                             <Link
@@ -263,7 +263,7 @@ const MenuOptions: React.FC<MenuOptionsProps> = ({
           <p className="text-muted-foreground text-xs mb-2">Menu Links</p>
           <Separator className="mb-4" />
           <nav className="relative">
-            <Command className="overflow-visible bg-transparent">
+            <Command className="bg-transparent">
               <CommandInput
                 placeholder="Search..."
                 wrapperClassName="bg-muted border-none rounded-md"

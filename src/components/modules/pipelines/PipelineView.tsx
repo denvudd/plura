@@ -7,15 +7,16 @@ import { Flag, Plus } from "lucide-react";
 import { type Lane, type Ticket } from "@prisma/client";
 
 import { useModal } from "@/hooks/use-modal";
+import { Button } from "@/components/ui/button";
+import CustomModal from "@/components/common/CustomModal";
+import LaneDetails from "@/components/forms/LaneDetails";
+import PipelineLane from "./PipelineLane";
+
 import type {
   LaneDetails as LaneDetailsType,
   PipelineDetailsWithLanesCardsTagsTickets,
   TicketAndTags,
 } from "@/lib/types";
-import { Button } from "@/components/ui/button";
-import CustomModal from "@/components/common/CustomModal";
-import LaneDetails from "@/components/forms/LaneDetails";
-import PipelineLane from "./PipelineLane";
 import { logger } from "@/lib/utils";
 
 interface PipelineViewProps {
