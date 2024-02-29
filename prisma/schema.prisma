@@ -33,8 +33,10 @@ enum InvitationStatus {
 }
 
 enum Plan {
-  price_1OYxkqFj9oKEERu1NbKUxXxN
-  price_1OYxkqFj9oKEERu1KfJGWxgN
+  // Product 1: Base Plan
+  price_1OpACCFdfEv15JJwACWCyqW2
+  // Product 2: Unlimited Plan
+  price_1OpACCFdfEv15JJw0k6lm8HC
 }
 
 enum Icon {

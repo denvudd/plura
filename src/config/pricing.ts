@@ -5,6 +5,7 @@ export interface PricingItem {
   duration: string;
   highlight: string;
   features: string[];
+  /** Product ID from Stripe */
   priceId: string;
 }
 
@@ -25,7 +26,7 @@ export const PRICING: PricingItem[] = [
     duration: "month",
     highlight: "Key features",
     features: ["Everything in Starter and Basic", "Rebilling", "24/7 Support team"],
-    priceId: "price_1OYxkqFj9oKEERu1KfJGWxgN",
+    priceId: "price_1OpACCFdfEv15JJw0k6lm8HC",
   },
   {
     title: "Basic",

@@ -1,6 +1,7 @@
 "use server";
 
 import Stripe from "stripe";
+import { stripe as StripeInstance } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { Plan, Prisma } from "@prisma/client";
 import { logger } from "@/lib/utils";
@@ -30,7 +31,7 @@ export const subscriptionCreate = async (
       currentPeriodEndDate: new Date(subscription.current_period_end * 1000),
       // @ts-ignore
       priceId: subscription.plan.id,
-      subscriptionId: subscription.id,
+      subscritiptionId: subscription.id,
       // @ts-ignore
       plan: subscription.plan.id as Plan,
     };
@@ -50,7 +51,7 @@ export const subscriptionCreate = async (
 };
 
 export const getConnectAccountProducts = async (stripeAccount: string) => {
-  const products = await stripe.products.list(
+  const products = await StripeInstance.products.list(
     {
       limit: 50,
       expand: ["data.default_price"],

@@ -1,3 +1,4 @@
+import { Stripe } from "stripe";
 import { getAuthUserDetails } from "@/queries/auth";
 import { getSubAccountWithContacts } from "@/queries/contacts";
 import { getMedia } from "@/queries/media";
@@ -57,3 +58,25 @@ export type TicketsWithTags = Prisma.PromiseReturnType<
 export type SubAccountWithContacts = Prisma.PromiseReturnType<
   typeof getSubAccountWithContacts
 >;
+
+export type ShippingAddress = {
+  city: string;
+  country: string;
+  line1: string;
+  postal_code: string;
+  state: string;
+};
+
+export type ShippingInfo = {
+  address: ShippingAddress;
+  name: string;
+};
+
+export type StripeCustomer = {
+  email: string;
+  name: string;
+  shipping: ShippingInfo;
+  address: ShippingAddress;
+};
+
+export type PriceList = Stripe.ApiList<Stripe.Price>;

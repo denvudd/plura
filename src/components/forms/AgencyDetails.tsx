@@ -87,60 +87,74 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
     logger(values);
 
     try {
-      let newUserData;
-      let customerId;
+      let customerId: string | undefined;
 
       if (!data?.id) {
-        // const bodyData = {
-        //   email: values.companyEmail,
-        //   name: values.name,
-        //   shipping: {
-        //     address: {
-        //       city: values.city,
-        //       country: values.country,
-        //       line1: values.address,
-        //       postal_code: values.zipCode,
-        //       state: values.zipCode,
-        //     },
-        //     name: values.name,
-        //   },
-        //   address: {
-        //     city: values.city,
-        //     country: values.country,
-        //     line1: values.address,
-        //     postal_code: values.zipCode,
-        //     state: values.zipCode,
-        //   },
-        // };
-
-        newUserData = await initUser({ role: Role.AGENCY_OWNER });
-
-        if (!data?.id) {
-          const response = await upsertAgency({
-            id: data?.id ? data.id : uuidv4(),
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            // TODO: customerId
-            // customerId: data?.customerId || customerId || "",
-            address: values.address,
-            agencyLogo: values.agencyLogo,
-            city: values.city,
-            companyPhone: values.companyPhone,
-            country: values.country,
+        // create Stripe customer if there is no agency
+        const bodyData = {
+          email: values.companyEmail,
+          name: values.name,
+          shipping: {
+            address: {
+              city: values.city,
+              country: values.country,
+              line1: values.address,
+              postal_code: values.zipCode,
+              state: values.zipCode,
+            },
             name: values.name,
-            state: values.state,
-            whiteLabel: values.whiteLabel,
-            zipCode: values.zipCode,
-            companyEmail: values.companyEmail,
-            connectAccountId: "",
-            goal: 5,
-          });
+          },
+          address: {
+            city: values.city,
+            country: values.country,
+            line1: values.address,
+            postal_code: values.zipCode,
+            state: values.zipCode,
+          },
+        };
 
-          toast.success("Created Agency");
-          console.log(response);
-          return router.refresh();
-        }
+        const customerResponse = await fetch("/api/stripe/create-customer", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyData),
+        });
+
+        const customerData: { customerId: string } =
+          await customerResponse.json();
+
+        customerId = customerData.customerId;
       }
+
+      await initUser({ role: Role.AGENCY_OWNER });
+      if (!data?.customerId && !customerId) return;
+
+      const response = await upsertAgency({
+        id: data?.id ? data.id : uuidv4(),
+        customerId: data?.customerId || customerId || "",
+        address: values.address,
+        agencyLogo: values.agencyLogo,
+        city: values.city,
+        companyPhone: values.companyPhone,
+        country: values.country,
+        name: values.name,
+        state: values.state,
+        whiteLabel: values.whiteLabel,
+        zipCode: values.zipCode,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        companyEmail: values.companyEmail,
+        connectAccountId: "",
+        goal: 5,
+      });
+
+      console.log(response);
+
+      toast.success("Created Agency");
+
+      if (data?.id) router.refresh();
+      if (response) router.refresh();
     } catch (error) {
       logger(error);
 
@@ -179,7 +193,7 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
 
   return (
     <AlertDialog>
-      <Card className="w-full">
+      <Card className="w-full my-10">
         <CardHeader>
           <CardTitle>Create an Agency</CardTitle>
           <CardDescription>
@@ -395,7 +409,7 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
           </Form>
         </CardContent>
       </Card>
-      {true && (
+      {data?.id && (
         <Card className="border border-destructive">
           <CardHeader>
             <CardTitle className="text-destructive">Danger Zone</CardTitle>
@@ -432,7 +446,7 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter className="flex items-center">
-                <AlertDialogCancel className="mb-2">Cancel</AlertDialogCancel>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction
                   disabled={deletingAgency}
                   className="bg-destructive hover:bg-destructive"

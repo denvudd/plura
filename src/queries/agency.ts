@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { Plan, type Agency } from "@prisma/client";
+import { clerkClient } from "@clerk/nextjs";
 import { logger } from "@/lib/utils";
 
 export const getAgencyDetails = async (agencyId: string) => {
@@ -38,13 +39,16 @@ export const updateAgencyDetails = async (
 };
 
 export const deleteAgency = async (agencyId: string) => {
-  const response = await db.agency.delete({
+  const deletedUserFromDB = await db.agency.delete({
     where: {
       id: agencyId,
     },
+    include: {
+      subAccounts: true,
+    }
   });
 
-  return response;
+  return deletedUserFromDB;
 };
 
 export const upsertAgency = async (agency: Agency, price?: Plan) => {
