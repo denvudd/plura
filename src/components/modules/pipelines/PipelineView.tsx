@@ -47,7 +47,7 @@ const PipelineView: React.FC<PipelineViewProps> = ({
   }, [lanes]);
 
   const ticketsFromAllLanes: TicketAndTags[] = lanes.flatMap(
-    (lane) => lane.tickets
+    (lane) => lane.tickets,
   );
 
   const handleAddLane = () => {
@@ -58,7 +58,7 @@ const PipelineView: React.FC<PipelineViewProps> = ({
         scrollShadow={false}
       >
         <LaneDetails pipelineId={pipelineId}></LaneDetails>
-      </CustomModal>
+      </CustomModal>,
     );
   };
 
@@ -95,10 +95,10 @@ const PipelineView: React.FC<PipelineViewProps> = ({
         const lanesCopyArray = [...allLanes];
 
         const originLane = lanesCopyArray.find(
-          (lane) => lane.id === source.droppableId
+          (lane) => lane.id === source.droppableId,
         );
         const destinationLane = lanesCopyArray.find(
-          (lane) => lane.id === destination.droppableId
+          (lane) => lane.id === destination.droppableId,
         );
 
         if (!originLane || !destinationLane) return null;

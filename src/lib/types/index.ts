@@ -1,4 +1,5 @@
 import { getAuthUserDetails } from "@/queries/auth";
+import { getSubAccountWithContacts } from "@/queries/contacts";
 import { getMedia } from "@/queries/media";
 import { getUserWithPermissionsAndSubAccount } from "@/queries/permissions";
 import { getPipelineDetails } from "@/queries/pipelines";
@@ -9,6 +10,7 @@ import type {
   Lane,
   Notification,
   Prisma,
+  SubAccount,
   Tag,
   Ticket,
   User,
@@ -50,4 +52,8 @@ export type PipelineDetailsWithLanesCardsTagsTickets = Prisma.PromiseReturnType<
 
 export type TicketsWithTags = Prisma.PromiseReturnType<
   typeof getTicketsWithTags
+>;
+
+export type SubAccountWithContacts = Prisma.PromiseReturnType<
+  typeof getSubAccountWithContacts
 >;
