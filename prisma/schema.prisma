@@ -95,7 +95,7 @@ model Agency {
   updatedAt DateTime @updatedAt
 
   connectAccountId String? @default("")
-  // customerId       String  @default("")
+  customerId       String  @default("")
   name             String
   agencyLogo       String  @db.Text
   companyEmail     String  @db.Text
