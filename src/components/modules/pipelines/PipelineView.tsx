@@ -152,7 +152,7 @@ const PipelineView: React.FC<PipelineViewProps> = ({
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="bg-white/60 dark:bg-background/60 rounded-md p-4 use-automation-zoom-in">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">{pipelineDetails?.name}</h1>
+          <h1 className="text-3xl font-bold">{pipelineDetails?.name}</h1>
           <Button
             className="inline-flex items-center gap-2"
             onClick={handleAddLane}

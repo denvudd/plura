@@ -1,14 +1,23 @@
 "use client";
 
 import React from "react";
-import { type Agency, type Contact, type User } from "@prisma/client";
-import type { TicketDetails } from "@/lib/types";
+import {
+  type Plan,
+  type Agency,
+  type Contact,
+  type User,
+} from "@prisma/client";
+import type { PriceList, TicketDetails } from "@/lib/types";
 
 export interface ModalData {
   user?: User;
   agency?: Agency;
   contact?: Contact;
   ticket?: TicketDetails[0];
+  plans?: {
+    defaultPriceId: Plan;
+    plans: PriceList["data"];
+  };
 }
 
 interface ModalContextType {
@@ -25,7 +34,9 @@ export const ModalContext = React.createContext<ModalContextType>({
   setClose: () => {},
 });
 
-export const ModalProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+export const ModalProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [isMounted, setIsMounted] = React.useState<boolean>(false);
   const [data, setData] = React.useState<ModalData>({});

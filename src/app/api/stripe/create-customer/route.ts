@@ -1,7 +1,7 @@
 import { stripe } from "@/lib/stripe";
-import type { StripeCustomer } from "@/lib/types";
 import { NextRequest, NextResponse } from "next/server";
 import { logger } from "@/lib/utils";
+import type { StripeCustomer } from "@/lib/types";
 
 export async function POST(req: NextRequest) {
   const { email, address, name, shipping }: StripeCustomer = await req.json();

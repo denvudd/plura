@@ -49,7 +49,7 @@ const SubAccountContactPage: React.FC<SubAccountContactPageProps> = async ({
   return (
     <BlurPage>
       <div className="flex items-center justify-between md:flex-row flex-col gap-2">
-        <h1 className="text-3xl mb-4 font-semibold">Contacts</h1>
+        <h1 className="text-3xl mb-4 font-bold">Contacts</h1>
         <CreateContactButton subAccountId={subaccountId} />
       </div>
       <Table>

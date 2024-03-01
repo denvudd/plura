@@ -5,6 +5,7 @@ import { stripe as StripeInstance } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { Plan, Prisma } from "@prisma/client";
 import { logger } from "@/lib/utils";
+import { ADD_ONS } from "@/config/add-ons";
 
 export const subscriptionCreate = async (
   subscription: Stripe.Subscription,
@@ -63,3 +64,30 @@ export const getConnectAccountProducts = async (stripeAccount: string) => {
 
   return products.data;
 };
+
+export const getAddOnsProducts = async () => {
+  const addOnsProducts = await StripeInstance.products.list({
+    ids: ADD_ONS.map((addOne) => addOne.id),
+    expand: ["data.default_price"],
+  });
+
+  return addOnsProducts;
+};
+
+export const getPrices = async () => {
+  const prices = await StripeInstance.prices.list({
+    product: process.env.NEXT_PUBLIC_PLURA_PRODUCT_ID,
+    active: true,
+  });
+
+  return prices;
+};
+
+export const getCharges = async (customerId: string | undefined) => {
+  const charges = await StripeInstance.charges.list({
+    limit: 50,
+    customer: customerId,
+  })
+
+  return charges;
+}

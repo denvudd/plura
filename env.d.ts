@@ -24,7 +24,7 @@ namespace NodeJS {
     NEXT_PUBLIC_PLATFORM_SUBSCRIPTION_PERCENT: string | undefined;
     NEXT_PUBLIC_PLATFORM_ONETIME_FEE: string | undefined;
     NEXT_PUBLIC_PLATFORM_AGENCY_PERCENT: string | undefined;
-    NEXT_PLURA_PRODUCT_ID: string | undefined;
+    NEXT_PUBLIC_PLURA_PRODUCT_ID: string | undefined;
     DATABASE_PASSWORD: string | undefined;
 
     DATABASE_URL: string | undefined;

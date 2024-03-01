@@ -106,3 +106,17 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
     console.log(error);
   }
 };
+
+export const getAgencySubscription = async (agencyId: string) => {
+  const agencySubscription = await db.agency.findUnique({
+    where: {
+      id: agencyId,
+    },
+    select: {
+      customerId: true,
+      subscriptions: true,
+    },
+  });
+
+  return agencySubscription;
+};
