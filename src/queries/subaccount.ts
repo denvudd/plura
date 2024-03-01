@@ -142,3 +142,19 @@ export const deleteSubAccount = async (subAccountId: string) => {
 
   return response;
 };
+
+export const updateSubAccountConnectedId = async (
+  subAccountId: string,
+  connectAccountId: string
+) => {
+  const response = await db.subAccount.update({
+    where: {
+      id: subAccountId,
+    },
+    data: {
+      connectAccountId,
+    },
+  });
+
+  return response;
+};

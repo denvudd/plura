@@ -4,7 +4,10 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 
-import { getSubAccountDetails } from "@/queries/subaccount";
+import {
+  getSubAccountDetails,
+  updateSubAccountConnectedId,
+} from "@/queries/subaccount";
 
 import {
   Card,
@@ -13,8 +16,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import BlurPage from "@/components/common/BlurPage";
+
+import { getStripeOAuthLink, logger } from "@/lib/utils";
+import { stripe } from "@/lib/stripe";
 
 interface LaunchpadPageProps {
   searchParams: {
@@ -49,7 +55,34 @@ const LaunchpadPage: React.FC<LaunchpadPageProps> = async ({
     subAccountDetails.name &&
     subAccountDetails.state;
 
-  // WIP: Wire up stripe here
+  const stripeOAuthLink = getStripeOAuthLink(
+    "subaccount",
+    `launchpad___${subAccountDetails.id}`
+  );
+  let connectedStripeAccount: boolean = false;
+
+  if (code) {
+    if (!subAccountDetails.connectAccountId) {
+      try {
+        // connect stripe account
+        const response = await stripe.oauth.token({
+          grant_type: "authorization_code",
+          code,
+        });
+
+        if (response?.stripe_user_id) {
+          await updateSubAccountConnectedId(
+            subaccountId,
+            response?.stripe_user_id
+          );
+        }
+
+        connectedStripeAccount = true;
+      } catch (error) {
+        logger("Could not connect stripe account", error);
+      }
+    }
+  }
 
   return (
     <BlurPage>
@@ -63,8 +96,8 @@ const LaunchpadPage: React.FC<LaunchpadPageProps> = async ({
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <div className="flex justify-between items-center w-full h-20 border p-4 rounded-lg ">
-                <div className="flex items-center gap-4">
+              <div className="flex justify-between items-center border p-4 rounded-md gap-2">
+                <div className="flex md:items-center gap-4 flex-col md:flex-row">
                   <Image
                     src="/appstore.png"
                     alt="App logo"
@@ -76,8 +109,8 @@ const LaunchpadPage: React.FC<LaunchpadPageProps> = async ({
                 </div>
                 <Button>Start</Button>
               </div>
-              <div className="flex justify-between items-center w-full h-20 border p-4 rounded-lg">
-                <div className="flex items-center gap-4">
+              <div className="flex justify-between items-center border p-4 rounded-md gap-2">
+                <div className="flex md:items-center gap-4 flex-col md:flex-row">
                   <Image
                     src="/stripelogo.png"
                     alt="App logo"
@@ -90,23 +123,21 @@ const LaunchpadPage: React.FC<LaunchpadPageProps> = async ({
                     used to run payouts.
                   </p>
                 </div>
-                {/* {subaccountDetails.connectAccountId ||
+                {subAccountDetails.connectAccountId ||
                 connectedStripeAccount ? (
-                  <CheckCircleIcon
-                    size={50}
-                    className=" text-primary p-2 flex-shrink-0"
+                  <CheckCircle2
+                    role="status"
+                    aria-label="Done"
+                    className="text-emerald-500 p-2 flex-shrink-0 w-12 h-12"
                   />
                 ) : (
-                  <Link
-                    className="bg-primary py-2 px-4 rounded-md text-white"
-                    href={stripeOAuthLink}
-                  >
+                  <Link className={buttonVariants()} href={stripeOAuthLink}>
                     Start
                   </Link>
-                )} */}
+                )}
               </div>
-              <div className="flex justify-between items-center w-full h-20 border p-4 rounded-lg">
-                <div className="flex items-center gap-4">
+              <div className="flex justify-between items-center border p-4 rounded-md gap-2">
+                <div className="flex md:items-center gap-4 flex-col md:flex-row">
                   <Image
                     src={subAccountDetails.subAccountLogo}
                     alt="App logo"
@@ -124,7 +155,7 @@ const LaunchpadPage: React.FC<LaunchpadPageProps> = async ({
                   />
                 ) : (
                   <Link
-                    className="bg-primary py-2 px-4 rounded-md text-white"
+                    className={buttonVariants()}
                     href={`/subaccount/${subAccountDetails.id}/settings`}
                   >
                     Start
