@@ -73,8 +73,8 @@ const PricingCard: React.FC<PricingCardProps> = ({
   return (
     <Card className="flex flex-col justify-between lg:w-1/2">
       <div className="">
-        <CardHeader className="flex flex-col lg:!flex-row justify-between">
-          <div className="">
+        <CardHeader className="flex flex-col lg:!flex-row lg:items-center justify-between">
+          <div className="space-y-1">
             <CardTitle>{title}</CardTitle>
             <CardDescription>{description}</CardDescription>
           </div>

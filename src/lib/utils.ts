@@ -15,10 +15,11 @@ export function formatPrice(
   price: number | string,
   options: {
     currency?: "USD" | "EUR" | "GBP" | "BDT";
+    maximumFractionDigits?: number;
     notation?: Intl.NumberFormatOptions["notation"];
   } = {}
 ) {
-  const { currency = "USD", notation = "compact" } = options;
+  const { currency = "USD", notation = "compact", maximumFractionDigits = 2 } = options;
 
   const numericPrice = typeof price === "string" ? parseFloat(price) : price;
 
@@ -26,6 +27,6 @@ export function formatPrice(
     style: "currency",
     currency,
     notation,
-    maximumFractionDigits: 2,
+    maximumFractionDigits,
   }).format(numericPrice);
 }

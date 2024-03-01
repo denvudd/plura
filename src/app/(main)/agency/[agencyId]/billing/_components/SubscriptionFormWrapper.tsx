@@ -95,8 +95,8 @@ const SubscriptionFormWrapper: React.FC<SubscriptionFormWrapperProps> = ({
             })}
           >
             <CardHeader>
-              <CardTitle>
-                ${plan.unit_amount ? plan.unit_amount / 100 : "0"}
+              <CardTitle className="flex flex-col gap-1">
+                <h4 className="text-2xl font-semibold">${plan.unit_amount ? plan.unit_amount / 100 : "0"}</h4>
                 <p className="text-sm text-muted-foreground">{plan.nickname}</p>
                 <p className="text-sm text-muted-foreground">
                   {PRICING.find((p) => p.priceId === plan.id)?.description}

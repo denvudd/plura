@@ -52,7 +52,7 @@ const HomePage: React.FC = () => {
             Our straightforward pricing plans are tailored to meet your needs.
             If you&apos;re not ready to commit you can get started for free.
           </p>
-          <div className="flex justify-center items-center gap-4 flex-wrap mt-6">
+          <div className="flex justify-center items-center gap-4 flex-wrap my-6">
             {/* TODO: Wire up free product from stripe */}
             {PRICING.map((price) => (
               <Card
@@ -62,13 +62,7 @@ const HomePage: React.FC = () => {
                 })}
               >
                 <CardHeader>
-                  <CardTitle
-                    className={cn({
-                      "text-muted-foreground": price.title === "Unlimited Saas",
-                    })}
-                  >
-                    {price.title}
-                  </CardTitle>
+                  <CardTitle>{price.title}</CardTitle>
                   <CardDescription>{price.description}</CardDescription>
                 </CardHeader>
                 <CardContent>

@@ -35,6 +35,6 @@ export const PRICING: PricingItem[] = [
     duration: "month",
     highlight: "Everything in Starter",
     features: ["Everything in Starter", "Unlimited Sub accounts", "Unlimited Team members"],
-    priceId: "price_1OYxkqFj9oKEERu1NbKUxXxN",
+    priceId: "price_1OpACCFdfEv15JJwACWCyqW2",
   },
 ];

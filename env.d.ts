@@ -19,9 +19,13 @@ namespace NodeJS {
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: string | undefined;
     STRIPE_SECRET_KEY: string | undefined;
     STRIPE_WEBHOOK_SECRET: string | undefined;
+    /** #### Only for production use. */
+    STRIPE_WEBHOOK_SECRET_LIVE: string | undefined;
     NEXT_PUBLIC_STRIPE_CLIENT_ID_TEST: string | undefined;
     NEXT_PUBLIC_STRIPE_CLIENT_ID_PROD: string | undefined;
+    /** #### Percentage of every transaction that related to subscriptions. */
     NEXT_PUBLIC_PLATFORM_SUBSCRIPTION_PERCENT: string | undefined;
+    /** #### Percantage of every transaction that related to onetime sell. */
     NEXT_PUBLIC_PLATFORM_ONETIME_FEE: string | undefined;
     NEXT_PUBLIC_PLATFORM_AGENCY_PERCENT: string | undefined;
     NEXT_PUBLIC_PLURA_PRODUCT_ID: string | undefined;
