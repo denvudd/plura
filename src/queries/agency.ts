@@ -45,7 +45,7 @@ export const deleteAgency = async (agencyId: string) => {
     },
     include: {
       subAccounts: true,
-    }
+    },
   });
 
   return deletedUserFromDB;
@@ -119,4 +119,20 @@ export const getAgencySubscription = async (agencyId: string) => {
   });
 
   return agencySubscription;
+};
+
+export const updateAgencyConnectedId = async (
+  agencyId: string,
+  connectAccountId: string
+) => {
+  const response = await db.agency.update({
+    where: {
+      id: agencyId,
+    },
+    data: {
+      connectAccountId,
+    },
+  });
+
+  return response;
 };

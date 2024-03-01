@@ -166,7 +166,7 @@ const AgencyBillingPage: React.FC<AgencyBillingPageProps> = async ({
                     {charge.status.toUpperCase()}
                   </Badge>
                 </TableCell>
-                <TableCell>{charge.amount}</TableCell>
+                <TableCell>{charge.amount + '.00'}</TableCell>
                 <TableCell className="text-muted-foreground">
                   {charge.id}
                 </TableCell>

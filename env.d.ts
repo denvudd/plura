@@ -22,6 +22,7 @@ namespace NodeJS {
     /** #### Only for production use. */
     STRIPE_WEBHOOK_SECRET_LIVE: string | undefined;
     NEXT_PUBLIC_STRIPE_CLIENT_ID_TEST: string | undefined;
+    /** #### Only for production use. */
     NEXT_PUBLIC_STRIPE_CLIENT_ID_PROD: string | undefined;
     /** #### Percentage of every transaction that related to subscriptions. */
     NEXT_PUBLIC_PLATFORM_SUBSCRIPTION_PERCENT: string | undefined;
