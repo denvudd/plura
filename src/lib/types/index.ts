@@ -5,13 +5,13 @@ import { getMedia } from "@/queries/media";
 import { getUserWithPermissionsAndSubAccount } from "@/queries/permissions";
 import { getPipelineDetails } from "@/queries/pipelines";
 import { getTicketDetails, getTicketsWithTags } from "@/queries/tickets";
+import { getFunnels } from "@/queries/funnels";
 
 import type {
   Contact,
   Lane,
   Notification,
   Prisma,
-  SubAccount,
   Tag,
   Ticket,
   User,
@@ -80,3 +80,5 @@ export type StripeCustomer = {
 };
 
 export type PriceList = Stripe.ApiList<Stripe.Price>;
+
+export type FunnelsForSubAccount = Prisma.PromiseReturnType<typeof getFunnels>;
