@@ -30,6 +30,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu";
+import { useModal } from "@/hooks/use-modal";
 
 interface MediaCardProps {
   file: Media;
@@ -38,6 +39,7 @@ interface MediaCardProps {
 const MediaCard: React.FC<MediaCardProps> = ({ file }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const { setClose } = useModal();
 
   const handleDelete = async () => {
     setIsLoading(true);
@@ -53,7 +55,9 @@ const MediaCard: React.FC<MediaCardProps> = ({ file }) => {
     toast.success("Deleted File", {
       description: "Successfully deleted the file",
     });
+    
     setIsLoading(false);
+    setClose();
     router.refresh();
   };
 
@@ -95,7 +99,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ file }) => {
               <Copy aria-hidden className="w-4 h-4" /> Copy Image Link
             </DropdownMenuItem>
             <AlertDialogTrigger asChild>
-              <DropdownMenuItem className="flex gap-2">
+              <DropdownMenuItem className="flex gap-2 text-destructive">
                 <Trash aria-hidden className="w-4 h-4" /> Delete File
               </DropdownMenuItem>
             </AlertDialogTrigger>

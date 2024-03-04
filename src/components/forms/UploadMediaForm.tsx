@@ -59,6 +59,7 @@ const UploadMediaForm: React.FC<UploadMediaFormProps> = ({ subAccountId }) => {
       toast.success("Success", {
         description: "Uploaded media file",
       });
+      
       router.refresh();
     } catch (error) {
       logger(error);

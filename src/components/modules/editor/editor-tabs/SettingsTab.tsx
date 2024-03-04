@@ -45,6 +45,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 interface SettingsTabProps {}
 
@@ -96,16 +101,31 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
 
   return (
     <TooltipProvider delayDuration={300}>
+      <SheetHeader className="text-left p-6">
+        <SheetTitle>Styles</SheetTitle>
+        <SheetDescription>
+          Show your creativity! You can customize every component as you like.
+        </SheetDescription>
+      </SheetHeader>
+
       <Accordion
         type="multiple"
         className="w-full"
-        defaultValue={["Custom", "Typography", "Dimensions", "Decorations", "Layout"]}
+        defaultValue={[
+          "Custom",
+          "Typography",
+          "Dimensions",
+          "Decorations",
+          "Layout",
+        ]}
       >
-        <AccordionItem value="Custom" className="px-6 py-0">
-          <AccordionTrigger className="!no-underline">Custom</AccordionTrigger>
-          <AccordionContent>
-            {editor.editor.selectedElement.type === "link" &&
-              !Array.isArray(editor.editor.selectedElement.content) && (
+        {editor.editor.selectedElement.type === "link" &&
+          !Array.isArray(editor.editor.selectedElement.content) && (
+            <AccordionItem value="Custom" className="px-6 py-0">
+              <AccordionTrigger className="!no-underline">
+                Custom
+              </AccordionTrigger>
+              <AccordionContent>
                 <div className="flex flex-col gap-2">
                   <p className="text-muted-foreground">Link Path</p>
                   <Input
@@ -115,9 +135,9 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                     value={editor.editor.selectedElement.content.href}
                   />
                 </div>
-              )}
-          </AccordionContent>
-        </AccordionItem>
+              </AccordionContent>
+            </AccordionItem>
+          )}
 
         <AccordionItem value="Typography" className="px-6 py-0 border-y-[1px]">
           <AccordionTrigger className="!no-underline">

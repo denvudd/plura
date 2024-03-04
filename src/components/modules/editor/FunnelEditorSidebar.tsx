@@ -22,6 +22,7 @@ import SettingsTab from "./editor-tabs/SettingsTab";
 
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import MediaTab from "./editor-tabs/MediaTab";
 
 interface FunnelEditorSidebarProps {
   subAccountId: string;
@@ -117,14 +118,10 @@ const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
           >
             <ScrollArea className="grid gap-4 h-full pb-36">
               <TabsContent value="Settings">
-                <SheetHeader className="text-left p-6">
-                  <SheetTitle>Styles</SheetTitle>
-                  <SheetDescription>
-                    Show your creativity! You can customize every component as
-                    you like.
-                  </SheetDescription>
-                </SheetHeader>
                 <SettingsTab />
+              </TabsContent>
+              <TabsContent value="Media">
+                <MediaTab subAccountId={subAccountId} />
               </TabsContent>
             </ScrollArea>
           </SheetContent>
