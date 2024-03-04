@@ -116,14 +116,16 @@ const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
               }
             )}
           >
-            <ScrollArea className="grid gap-4 h-full pb-36">
-              <TabsContent value="Settings">
-                <SettingsTab />
-              </TabsContent>
-              <TabsContent value="Media">
-                <MediaTab subAccountId={subAccountId} />
-              </TabsContent>
-            </ScrollArea>
+            <div className="grid gap-4 h-full pb-28">
+              <ScrollArea>
+                <TabsContent value="Settings">
+                  <SettingsTab />
+                </TabsContent>
+                <TabsContent value="Media">
+                  <MediaTab subAccountId={subAccountId} />
+                </TabsContent>
+              </ScrollArea>
+            </div>
           </SheetContent>
         </Tabs>
       </Sheet>

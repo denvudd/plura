@@ -649,7 +649,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="Dimensions" className="px-6 py-0 ">
+        <AccordionItem value="Dimensions" className="px-6 py-0 border-b-0">
           <AccordionTrigger className="!no-underline">
             Dimensions
           </AccordionTrigger>

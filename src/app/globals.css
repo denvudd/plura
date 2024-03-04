@@ -101,7 +101,7 @@ body {
 }
 
 .use-automation-zoom-in {
-  animation: automation-zoom-in 0.5s;
+  animation: automation-zoom-in cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
 }
 
 @keyframes automation-zoom-in {

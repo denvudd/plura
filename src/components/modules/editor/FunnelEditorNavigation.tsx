@@ -131,7 +131,7 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
         className={cn(
           "border-b flex items-center justify-between px-6 py-4 gap-2 transition-all",
           {
-            "h-0 p-0 overflow-hidden": editor.editor.previewMode,
+            "h-0 p-0 -mt-2 overflow-hidden": editor.editor.previewMode,
           }
         )}
       >

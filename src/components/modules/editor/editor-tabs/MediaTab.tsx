@@ -1,8 +1,12 @@
-import { MediaFiles } from "@/lib/types";
-import { getMedia } from "@/queries/media";
+'use client';
+
 import React from "react";
-import Media from "../../media/Media";
+
+import { getMedia } from "@/queries/media";
+
 import { useModal } from "@/hooks/use-modal";
+import Media from "../../media/Media";
+import { type MediaFiles } from "@/lib/types";
 
 interface MediaTabProps {
   subAccountId: string;
