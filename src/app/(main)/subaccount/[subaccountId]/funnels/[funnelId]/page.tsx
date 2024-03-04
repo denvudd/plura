@@ -8,9 +8,11 @@ import { getFunnel } from "@/queries/funnels";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BlurPage from "@/components/common/BlurPage";
 import FunnelSettings from "@/components/modules/funnels/FunnelSettings";
+import FunnelSteps from "@/components/modules/funnels/FunnelSteps";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { FunnelsForSubAccount } from "@/lib/types";
 
 interface FunnelIdPageProps {
   params: {
@@ -50,12 +52,12 @@ const FunnelIdPage: React.FC<FunnelIdPageProps> = async ({ params }) => {
           </div>
         </TabsList>
         <TabsContent value="steps">
-          {/* <FunnelSteps
+          <FunnelSteps
             funnel={funnelPages}
-            subaccountId={subaccountId}
-            pages={funnelPages.funnelPages}я
+            subAccountId={subaccountId}
+            initialPages={funnelPages.funnelPages}
             funnelId={funnelId}
-          /> */}
+          />
         </TabsContent>
         <TabsContent value="settings">
           <FunnelSettings

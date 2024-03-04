@@ -3,6 +3,8 @@
 import { db } from "@/lib/db";
 import { v4 as uuidv4 } from "uuid";
 import { type FunnelDetailsSchema } from "@/lib/validators/funnel-details";
+import { Prisma } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const getFunnels = async (subAccountId: string) => {
   const response = await db.funnel.findMany({
@@ -64,6 +66,51 @@ export const updateFunnelProducts = async (
     },
     data: {
       liveProducts: products,
+    },
+  });
+
+  return response;
+};
+
+export const upsertFunnelPage = async (
+  subAccountId: string,
+  funnelId: string,
+  funnelPage: Prisma.FunnelPageCreateWithoutFunnelInput
+) => {
+  if (!subAccountId || !funnelId) return undefined;
+
+  const response = await db.funnelPage.upsert({
+    where: {
+      id: funnelPage.id || "",
+    },
+    update: funnelPage,
+    create: {
+      ...funnelPage,
+      funnelId,
+      content: funnelPage.content
+        ? funnelPage.content
+        : JSON.stringify([
+            {
+              content: [],
+              id: "__body",
+              name: "Body",
+              styles: { backgroundColor: "white" },
+              type: "__body",
+            },
+          ]),
+    },
+  });
+
+  // reset page cache
+  revalidatePath(`/subaccount/${subAccountId}/funnels/${funnelId}`);
+
+  return response;
+};
+
+export const deleteFunnelPage = async (funnelPageId: string) => {
+  const response = await db.funnelPage.delete({
+    where: {
+      id: funnelPageId,
     },
   });
 

@@ -81,4 +81,4 @@ export type StripeCustomer = {
 
 export type PriceList = Stripe.ApiList<Stripe.Price>;
 
-export type FunnelsForSubAccount = Prisma.PromiseReturnType<typeof getFunnels>;
+export type FunnelsForSubAccount = Prisma.PromiseReturnType<typeof getFunnels>[0];
