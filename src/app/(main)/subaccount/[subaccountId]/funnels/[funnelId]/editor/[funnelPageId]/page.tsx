@@ -1,11 +1,12 @@
 import React from "react";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import BlurPage from "@/components/common/BlurPage";
+import { redirect } from "next/navigation";
+
+import { getFunnelPageDetails } from "@/queries/funnels";
 
 interface FunnelIdEditorPageProps {
   params: {
     funnelId: string | undefined;
+    funnelPageId: string | undefined;
     subaccountId: string | undefined;
   };
 }
@@ -13,9 +14,22 @@ interface FunnelIdEditorPageProps {
 const FunnelIdEditorPage: React.FC<FunnelIdEditorPageProps> = async ({
   params,
 }) => {
-  const { funnelId, subaccountId } = params;
+  const { funnelId, funnelPageId, subaccountId } = params;
 
-  return <BlurPage>4141</BlurPage>;
+  if (!subaccountId) redirect("/subaccount/unauthorized");
+  if (!funnelId || !funnelPageId) {
+    redirect(`/subaccount/${subaccountId}/funnels`);
+  }
+
+  const funnelPageDetails = await getFunnelPageDetails(funnelPageId);
+
+  if (!funnelPageDetails) {
+    redirect(`/subaccount/${subaccountId}/funnels/${funnelId}`);
+  }
+
+  return (
+    <div className="fixed top-0 bottom-0 left-0 right-0 z-[20] bg-background overflow-hidden"></div>
+  );
 };
 
 export default FunnelIdEditorPage;
