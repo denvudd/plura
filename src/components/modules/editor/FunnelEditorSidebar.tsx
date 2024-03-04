@@ -1,0 +1,137 @@
+"use client";
+
+import React from "react";
+import { Database, PlusCircle, Settings, SquareStack } from "lucide-react";
+
+import { useEditor } from "@/hooks/use-editor";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import SettingsTab from "./editor-tabs/SettingsTab";
+
+import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+interface FunnelEditorSidebarProps {
+  subAccountId: string;
+}
+
+const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
+  subAccountId,
+}) => {
+  const { editor, dispatch } = useEditor();
+
+  return (
+    <TooltipProvider>
+      <Sheet open modal={false}>
+        <Tabs className="w-full" defaultValue="Settings">
+          <SheetContent
+            showClose={false}
+            side="right"
+            className={cn(
+              "mt-[101px] w-16 z-[80] shadow-none p-0 focus:border-none transition-all overflow-hidden",
+              {
+                hidden: editor.editor.previewMode,
+              }
+            )}
+          >
+            <TabsList className=" flex items-center flex-col justify-evenly w-full bg-transparent h-fit gap-4 ">
+              <Tooltip>
+                <TooltipTrigger>
+                  <TabsTrigger
+                    value="Settings"
+                    className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                  >
+                    <Settings />
+                  </TabsTrigger>
+                </TooltipTrigger>
+                <TooltipContent side="left" sideOffset={16}>
+                  <p>Settings</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <TabsTrigger
+                    value="Components"
+                    className="data-[state=active]:bg-muted w-10 h-10 p-0"
+                  >
+                    <PlusCircle />
+                  </TabsTrigger>
+                </TooltipTrigger>
+                <TooltipContent side="left" sideOffset={16}>
+                  <p>Components</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <TabsTrigger
+                    value="Layers"
+                    className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                  >
+                    <SquareStack />
+                  </TabsTrigger>
+                </TooltipTrigger>
+                <TooltipContent side="left" sideOffset={16}>
+                  <p>Layers</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <TabsTrigger
+                    value="Media"
+                    className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                  >
+                    <Database />
+                  </TabsTrigger>
+                </TooltipTrigger>
+                <TooltipContent side="left" sideOffset={16}>
+                  <p>Media</p>
+                </TooltipContent>
+              </Tooltip>
+            </TabsList>
+          </SheetContent>
+
+          <SheetContent
+            showClose={false}
+            side="right"
+            className={cn(
+              "mt-[101px] w-80 z-[40] shadow-none p-0 mr-16 bg-background h-full transition-all overflow-hidden",
+              {
+                hidden: editor.editor.previewMode,
+              }
+            )}
+          >
+            <ScrollArea className="grid gap-4 h-full pb-36">
+              <TabsContent value="Settings">
+                <SheetHeader className="text-left p-6">
+                  <SheetTitle>Styles</SheetTitle>
+                  <SheetDescription>
+                    Show your creativity! You can customize every component as
+                    you like.
+                  </SheetDescription>
+                </SheetHeader>
+                <SettingsTab />
+              </TabsContent>
+            </ScrollArea>
+          </SheetContent>
+        </Tabs>
+      </Sheet>
+    </TooltipProvider>
+  );
+};
+
+export default FunnelEditorSidebar;

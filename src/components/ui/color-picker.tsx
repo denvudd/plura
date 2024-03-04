@@ -11,15 +11,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { Paintbrush } from "lucide-react";
 
+interface ColorPickerProps {
+  id?: string;
+  value: string | undefined;
+  onChange: (value: string) => void;
+  className?: string;
+}
+
 export function ColorPicker({
+  id,
   value,
   onChange,
   className,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-}) {
+}: ColorPickerProps) {
   const solids = [
     "#E2E2E2",
     "#ff75c3",
@@ -112,7 +116,7 @@ export function ColorPicker({
         </Tabs>
 
         <Input
-          id="custom"
+          id={id}
           value={value}
           className="col-span-2 mt-4 h-8"
           onChange={(e) => onChange(e.currentTarget.value)}

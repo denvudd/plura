@@ -5,7 +5,7 @@ export type EditorElement = {
   styles: React.CSSProperties;
   name: string;
   type: EditorBtns;
-  content: EditorElement[] | {};
+  content: EditorElement[] | { href?: string };
 };
 
 export type Editor = {
@@ -105,7 +105,7 @@ export type EditorAction =
         funnelPageId: string;
       };
     };
-    // WIP: Add local storage savings
+// WIP: Add local storage savings
 //   | {
 //       type: "LOAD_LOCALSTORAGE";
 //       payload: {

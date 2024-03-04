@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
 import { toast } from "sonner";
@@ -97,15 +97,14 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
           {products.map((product) => (
             <TableRow key={product.id}>
               <TableCell>
-                <Input
+                <Checkbox
                   defaultChecked={
                     !!liveProducts.find(
                       //@ts-ignore
                       (prod) => prod.productId === product.default_price.id
                     )
                   }
-                  onChange={() => handleAddProduct(product)}
-                  type="checkbox"
+                  onCheckedChange={() => handleAddProduct(product)}
                   className="w-4 h-4"
                 />
               </TableCell>

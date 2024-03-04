@@ -101,7 +101,7 @@ const FunnelPageDetails: React.FC<FunnelPageDetailsProps> = ({
       });
 
       toast.success("Success", {
-        description: "Saves Funnel Page Details",
+        description: "Saved funnel page details",
       });
 
       setClose();
@@ -109,7 +109,7 @@ const FunnelPageDetails: React.FC<FunnelPageDetailsProps> = ({
     } catch (error) {
       logger(error);
       toast.error("Oppse!", {
-        description: "Could Save Funnel Page Details",
+        description: "Could not save funnel page details",
       });
     }
   };
@@ -235,7 +235,7 @@ const FunnelPageDetails: React.FC<FunnelPageDetailsProps> = ({
                           onClick={handleDeleteFunnelPage}
                         >
                           {isLoading ? (
-                            <Loader2 className="w-4 h-4" />
+                            <Loader2 className="w-4 h-4 animate-spin" />
                           ) : (
                             <Trash className="w-4 h-4" />
                           )}
@@ -253,7 +253,7 @@ const FunnelPageDetails: React.FC<FunnelPageDetailsProps> = ({
                           onClick={handleCopyFunnelPage}
                         >
                           {isLoading ? (
-                            <Loader2 className="w-4 h-4" />
+                            <Loader2 className="w-4 h-4 animate-spin" />
                           ) : (
                             <CopyPlusIcon className="w-4 h-4" />
                           )}

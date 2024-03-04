@@ -2,6 +2,9 @@ import React from "react";
 import { redirect } from "next/navigation";
 
 import { getFunnelPageDetails } from "@/queries/funnels";
+import EditorProvider from "@/components/providers/EditorProvider";
+import FunnelEditorNavigation from "@/components/modules/editor/FunnelEditorNavigation";
+import FunnelEditorSidebar from "@/components/modules/editor/FunnelEditorSidebar";
 
 interface FunnelIdEditorPageProps {
   params: {
@@ -28,7 +31,20 @@ const FunnelIdEditorPage: React.FC<FunnelIdEditorPageProps> = async ({
   }
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-[20] bg-background overflow-hidden"></div>
+    <div className="fixed top-0 bottom-0 left-0 right-0 z-[20] bg-background overflow-hidden">
+      <EditorProvider
+        subAccountId={subaccountId}
+        funnelId={funnelId}
+        pageDetails={funnelPageDetails}
+      >
+        <FunnelEditorNavigation
+          funnelId={funnelId}
+          funnelPageDetails={funnelPageDetails}
+          subAccountId={subaccountId}
+        />
+        <FunnelEditorSidebar subAccountId={subaccountId} />
+      </EditorProvider>
+    </div>
   );
 };
 

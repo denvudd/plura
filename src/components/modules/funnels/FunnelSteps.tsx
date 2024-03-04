@@ -102,7 +102,7 @@ const FunnelSteps: React.FC<FunnelStepsProps> = ({
       <div className="flex lg:flex-row flex-col">
         <aside className="lg:flex-[0.3] bg-background rounded-ss-md rounded-se-md lg:rounded-se-none lg:rounded-es-md p-6 flex flex-col justify-between">
           <ScrollArea className="h-full ">
-            <div className="flex gap-4 items-center mb-4">
+            <div className="flex gap-2 text-lg font-semibold items-center mb-4">
               <CheckCircle2 />
               Funnel Steps
             </div>
