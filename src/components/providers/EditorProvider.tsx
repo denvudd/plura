@@ -125,6 +125,7 @@ const editorReducer = (
   state: EditorState = initialState,
   action: EditorAction
 ): EditorState => {
+  console.log("action", action);
   switch (action.type) {
     case "ADD_ELEMENT": {
       const updatedEditor = {
@@ -222,14 +223,6 @@ const editorReducer = (
             styles: {},
             type: null,
           },
-        },
-        history: {
-          ...state.history,
-          history: [
-            ...state.history.history.slice(0, state.history.currentIndex + 1),
-            { ...state.editor },
-          ],
-          currentIndex: state.history.currentIndex + 1,
         },
       };
 

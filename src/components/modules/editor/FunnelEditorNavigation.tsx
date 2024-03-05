@@ -35,6 +35,7 @@ import { Switch } from "@/components/ui/switch";
 import { cn, logger } from "@/lib/utils";
 import { type DeviceTypes } from "@/lib/types/editor";
 import { ModeToggle } from "@/components/common/ModeToggle";
+import { Badge } from "@/components/ui/badge";
 
 interface FunnelEditorNavigationProps {
   funnelId: string;
@@ -49,6 +50,7 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
 }) => {
   const router = useRouter();
   const { editor, dispatch } = useEditor();
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     dispatch({
@@ -97,6 +99,7 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
   };
 
   const handleSave = async () => {
+    setIsLoading(true);
     const content = JSON.stringify(editor.editor.elements);
     logger(content);
 
@@ -122,11 +125,13 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
       toast.error("Oopse!", {
         description: "Could not save content",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={300}>
       <nav
         className={cn(
           "border-b flex items-center justify-between px-6 py-4 gap-2 transition-all",
@@ -267,8 +272,20 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
               <p>Redo</p>
             </TooltipContent>
           </Tooltip>
-          <div className="flex flex-col gap-1">
-            <Button onClick={handleSave}>Save</Button>
+          <div className="flex flex-col gap-1 relative">
+            <Button
+              onClick={handleSave}
+              isLoading={isLoading}
+              disabled={isLoading}
+              className={cn("w-24", {
+                "animate-[pulse_7s_cubic-bezier(0.4,_0,_0.6,_1)_infinite]":
+                  editor.history.history.length > 1,
+              })}
+            >
+              Save{" "}
+              {editor.history.history.length > 1 &&
+                `(${editor.history.history.length <= 50 ? editor.history.history.length : "50+"})`}
+            </Button>
           </div>
         </aside>
       </nav>

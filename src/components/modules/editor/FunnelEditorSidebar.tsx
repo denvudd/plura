@@ -4,13 +4,7 @@ import React from "react";
 import { Database, PlusCircle, Settings, SquareStack } from "lucide-react";
 
 import { useEditor } from "@/hooks/use-editor";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Tooltip,
@@ -19,10 +13,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import SettingsTab from "./editor-tabs/SettingsTab";
+import MediaTab from "./editor-tabs/MediaTab";
 
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import MediaTab from "./editor-tabs/MediaTab";
+import ComponentsTab from "./editor-tabs/components-tab/ComponentsTab";
 
 interface FunnelEditorSidebarProps {
   subAccountId: string;
@@ -34,7 +29,7 @@ const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
   const { editor, dispatch } = useEditor();
 
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={300}>
       <Sheet open modal={false}>
         <Tabs className="w-full" defaultValue="Settings">
           <SheetContent
@@ -123,6 +118,9 @@ const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
                 </TabsContent>
                 <TabsContent value="Media">
                   <MediaTab subAccountId={subAccountId} />
+                </TabsContent>
+                <TabsContent value="Components">
+                  <ComponentsTab />
                 </TabsContent>
               </ScrollArea>
             </div>

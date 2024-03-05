@@ -206,7 +206,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
               <Label>Color</Label>
               <ColorPicker
                 value={editor.editor.selectedElement.styles.color}
-                className="w-full"
+                className="w-[274px]"
                 onChange={(e) =>
                   handleOnChanges({
                     target: {
@@ -217,51 +217,53 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                 }
               />
             </div>
-            <div className="flex gap-4">
-              <div className="flex flex-col gap-2">
-                <Label>Weight</Label>
-                <Select
-                  onValueChange={(e) =>
-                    handleOnChanges({
-                      target: {
-                        id: "font-weight",
-                        value: e,
-                      },
-                    })
-                  }
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Select a weight" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Font Weights</SelectLabel>
-                      <SelectItem value="700">Bold</SelectItem>
-                      <SelectItem value="600">Semi-bold</SelectItem>
-                      <SelectItem value="500">Medium</SelectItem>
-                      <SelectItem value="normal">Regular</SelectItem>
-                      <SelectItem value="300">Light</SelectItem>
-                      <SelectItem value="200">Extra-light</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label>Size</Label>
-                <div className="relative">
-                  <Input
-                    placeholder="px"
-                    id="fontSize"
-                    onChange={handleOnChanges}
-                    defaultValue={18}
-                    type="number"
-                    value={editor.editor.selectedElement.styles.fontSize}
-                  />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2">
-                    px
-                  </span>
-                </div>
-              </div>
+            <div className="flex flex-col gap-2">
+              <Label>Weight</Label>
+              <Select
+                onValueChange={(e) =>
+                  handleOnChanges({
+                    target: {
+                      id: "font-weight",
+                      value: e,
+                    },
+                  })
+                }
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a weight" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Font Weights</SelectLabel>
+                    <SelectItem value="700">Bold</SelectItem>
+                    <SelectItem value="600">Semi-bold</SelectItem>
+                    <SelectItem value="500">Medium</SelectItem>
+                    <SelectItem value="normal">Regular</SelectItem>
+                    <SelectItem value="300">Light</SelectItem>
+                    <SelectItem value="200">Extra-light</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>Size</Label>
+              <Input
+                placeholder="px"
+                id="fontSize"
+                onChange={handleOnChanges}
+                defaultValue="18px"
+                value={editor.editor.selectedElement.styles.fontSize}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>Line Height</Label>
+              <Input
+                placeholder="rem"
+                id="lineHeight"
+                onChange={handleOnChanges}
+                defaultValue="1.5rem"
+                value={editor.editor.selectedElement.styles.lineHeight}
+              />
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -280,9 +282,9 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                     ? editor.editor.selectedElement.styles?.opacity
                     : parseFloat(
                         (
-                          editor.editor.selectedElement.styles?.opacity || "0"
+                          editor.editor.selectedElement.styles?.opacity || "100"
                         ).replace("%", "")
-                      ) || 0}
+                      ) || 100}
                   %
                 </span>
               </div>
@@ -301,9 +303,9 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                     ? editor.editor.selectedElement.styles?.opacity
                     : parseFloat(
                         (
-                          editor.editor.selectedElement.styles?.opacity || "0"
+                          editor.editor.selectedElement.styles?.opacity || "100"
                         ).replace("%", "")
-                      ) || 0,
+                      ) || 100,
                 ]}
                 max={100}
                 step={1}
@@ -352,12 +354,14 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
             <div className="flex flex-col gap-2">
               <Label>Background Color</Label>
               <ColorPicker
-                value={editor.editor.selectedElement.styles.backgroundColor}
-                className="w-full"
+                value={
+                  editor.editor.selectedElement.styles.background as string
+                }
+                className="w-[274px]"
                 onChange={(e) =>
                   handleOnChanges({
                     target: {
-                      id: "backgroundColor",
+                      id: "background",
                       value: e,
                     },
                   })

@@ -60,12 +60,12 @@ export function ColorPicker({
         <Button
           variant={"outline"}
           className={cn(
-            "w-[220px] justify-start text-left font-normal",
+            "w-[220px] justify-start text-left truncate font-normal",
             !value && "text-muted-foreground",
             className
           )}
         >
-          <div className="flex w-full items-center gap-2">
+          <div className="flex w-full items-center gap-2 truncate">
             {value ? (
               <div
                 className="h-4 w-4 rounded-full !bg-cover !bg-center transition-all"
@@ -118,7 +118,7 @@ export function ColorPicker({
         <Input
           id={id}
           value={value}
-          className="col-span-2 mt-4 h-8"
+          className="col-span-2 mt-4 h-8 truncate"
           onChange={(e) => onChange(e.currentTarget.value)}
         />
       </PopoverContent>

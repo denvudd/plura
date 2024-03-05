@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import { Trash } from "lucide-react";
@@ -39,7 +39,7 @@ const EditorText: React.FC<EditorTextProps> = ({ element }) => {
 
   return (
     <div
-      className={cn("p-0.5 w-full m-1 relative text-base transition-all", {
+      className={cn("p-0.5 w-full m-1 relative text-base min-h-7 transition-all", {
         "border-blue-500 border-solid":
           editor.selectedElement.id === element.id,
         "border-dashed border": !editor.liveMode,
@@ -48,12 +48,13 @@ const EditorText: React.FC<EditorTextProps> = ({ element }) => {
       onClick={handleClickOnBody}
     >
       {editor.selectedElement.id === element.id && !editor.liveMode && (
-        <Badge className="absolute -top-6 -left-0.5 rounded-none rounded-t-lg">
+        <Badge className="absolute -top-6 -left-0.5 rounded-none rounded-t-md">
           {editor.selectedElement.name}
         </Badge>
       )}
       <span
         contentEditable={!editor.liveMode}
+        className="outline-none"
         onBlur={(e) => {
           const spanElement = e.target as HTMLSpanElement;
 
@@ -70,15 +71,19 @@ const EditorText: React.FC<EditorTextProps> = ({ element }) => {
           });
         }}
       >
-        {!Array.isArray(element.content) && element.content.innerText && (
-          <div className="absolute bg-primary px-2.5 text-xs font-bold -top-6 -right-0.5 rounded-none rounded-t-lg">
+        {!Array.isArray(element.content) && element.content.innerText}
+      </span>
+      {editor.selectedElement.id === element.id &&
+        !editor.liveMode &&
+        !Array.isArray(element.content) &&
+        element.content.innerText && (
+          <div className="absolute bg-primary text-white px-2.5 text-xs font-bold -top-[18px] z-[100] -right-[1px] rounded-none rounded-t-md">
             <Trash
               className="cursor-pointer w-4 h-4"
               onClick={handleDeleteElement}
             />
           </div>
         )}
-      </span>
     </div>
   );
 };

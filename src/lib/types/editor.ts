@@ -5,7 +5,9 @@ export type EditorElement = {
   styles: React.CSSProperties;
   name: string;
   type: EditorBtns;
-  content: EditorElement[] | { href?: string; innerText?: string };
+  content:
+    | EditorElement[]
+    | { href?: string; innerText?: string; src?: string };
 };
 
 export type Editor = {
@@ -38,8 +40,8 @@ export type EditorBtns =
   | "video"
   | "__body"
   | "image"
-  | null
-  | "3Col";
+  | "3Col"
+  | null;
 
 export type EditorAction =
   | {
