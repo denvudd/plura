@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Database, PlusCircle, Settings, SquareStack } from "lucide-react";
+import { FunnelPage } from "@prisma/client";
 
 import { useEditor } from "@/hooks/use-editor";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
@@ -14,17 +15,20 @@ import {
 } from "@/components/ui/tooltip";
 import SettingsTab from "./editor-tabs/SettingsTab";
 import MediaTab from "./editor-tabs/MediaTab";
+import ComponentsTab from "./editor-tabs/components-tab/ComponentsTab";
+import LayersTab from "./editor-tabs/LayersTab";
 
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import ComponentsTab from "./editor-tabs/components-tab/ComponentsTab";
 
 interface FunnelEditorSidebarProps {
   subAccountId: string;
+  funnelPageDetails: FunnelPage;
 }
 
 const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
   subAccountId,
+  funnelPageDetails,
 }) => {
   const { editor } = useEditor();
 
@@ -121,6 +125,9 @@ const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
                 </TabsContent>
                 <TabsContent value="Components">
                   <ComponentsTab />
+                </TabsContent>
+                <TabsContent value="Layers">
+                  <LayersTab />
                 </TabsContent>
               </ScrollArea>
             </div>

@@ -30,10 +30,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/common/ModeToggle";
 
 import { cn, logger } from "@/lib/utils";
 import { type DeviceTypes } from "@/lib/types/editor";
-import { ModeToggle } from "@/components/common/ModeToggle";
+
 
 interface FunnelEditorNavigationProps {
   funnelId: string;
@@ -131,6 +132,7 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
+    console.log(event.key);
     if (event.key === "s" && (event.ctrlKey || event.metaKey)) {
       event.preventDefault();
       handleSave();
@@ -324,10 +326,7 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
               onClick={handleSave}
               isLoading={isLoading}
               disabled={isLoading}
-              className={cn("w-24 px-0", {
-                "animate-[pulse_7s_cubic-bezier(0.4,_0,_0.6,_1)_infinite]":
-                  editor.history.history.length > 1,
-              })}
+              className={"w-24 px-0"}
             >
               Save{" "}
               {editor.history.history.length > 1 &&
