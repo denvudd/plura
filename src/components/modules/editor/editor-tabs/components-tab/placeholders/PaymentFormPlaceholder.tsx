@@ -12,7 +12,7 @@ const PaymentFormPlaceholder: React.FC<PaymentFormPlaceholderProps> = ({}) => {
     <div
       draggable
       onDragStart={handleDragStart}
-      className="w-14 h-14 bg-muted rounded-lg flex items-center justify-center"
+      className="w-14 h-14 bg-muted rounded-lg flex items-center justify-center cursor-grab"
     >
       <Image
         src="/stripelogo.png"

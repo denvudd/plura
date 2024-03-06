@@ -151,7 +151,8 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
       >
         {(editor.editor.selectedElement.type === "link" ||
           editor.editor.selectedElement.type === "video" ||
-          editor.editor.selectedElement.type === "contactForm") &&
+          editor.editor.selectedElement.type === "contactForm" ||
+          editor.editor.selectedElement.type === "image") &&
           !Array.isArray(editor.editor.selectedElement.content) && (
             <AccordionItem value="Custom" className="px-6 py-0">
               <AccordionTrigger className="!no-underline">
@@ -160,7 +161,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
               <AccordionContent>
                 {editor.editor.selectedElement.type === "link" && (
                   <div className="flex flex-col gap-2">
-                    <p className="text-muted-foreground">Link Path</p>
+                    <Label>Link Path</Label>
                     <Input
                       id="href"
                       placeholder="https://domain.example.com/pathname"
@@ -171,7 +172,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                 )}
                 {editor.editor.selectedElement.type === "video" && (
                   <div className="flex flex-col gap-2">
-                    <p className="text-muted-foreground">Video Path</p>
+                    <Label>Video Path</Label>
                     <Input
                       id="src"
                       placeholder="https://domain.example.com/pathname"
@@ -183,7 +184,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                 {editor.editor.selectedElement.type === "contactForm" && (
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-2">
-                      <p className="text-muted-foreground">Form title</p>
+                      <Label>Form title</Label>
                       <Input
                         id="formTitle"
                         placeholder="Want a free quote? We can help you"
@@ -192,7 +193,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <p className="text-muted-foreground">Form description</p>
+                      <Label>Form description</Label>
                       <Input
                         id="formDescription"
                         placeholder="Get in touch with our team"
@@ -203,12 +204,36 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <p className="text-muted-foreground">Form button</p>
+                      <Label>Form button</Label>
                       <Input
                         id="formButton"
                         placeholder="Submit"
                         onChange={handleChangeCustomValues}
                         value={editor.editor.selectedElement.content.formButton}
+                      />
+                    </div>
+                  </div>
+                )}
+                {editor.editor.selectedElement.type === "image" && (
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-2">
+                      <Label>Image Path</Label>
+                      <Input
+                        id="src"
+                        placeholder="https://domain.example.com/pathname"
+                        onChange={handleChangeCustomValues}
+                        value={editor.editor.selectedElement.content.src}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <Label>Image alt description</Label>
+                      <Input
+                        id="alt"
+                        placeholder="Image description"
+                        onChange={handleChangeCustomValues}
+                        value={
+                          editor.editor.selectedElement.content.alt
+                        }
                       />
                     </div>
                   </div>

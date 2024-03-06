@@ -14,7 +14,7 @@ interface EditorTwoColumnsProps {
 }
 
 const EditorTwoColumns: React.FC<EditorTwoColumnsProps> = ({ element }) => {
-  const { content, type } = element;
+  const { id, content, type } = element;
   const { editor: editorState, dispatch } = useEditor();
   const { editor } = editorState;
 
@@ -49,7 +49,7 @@ const EditorTwoColumns: React.FC<EditorTwoColumnsProps> = ({ element }) => {
           {editor.selectedElement.name}
         </Badge>
       )}
-
+      
       {Array.isArray(content) &&
         content.map((childElement) => (
           <EditorRecursive key={childElement.id} element={childElement} />

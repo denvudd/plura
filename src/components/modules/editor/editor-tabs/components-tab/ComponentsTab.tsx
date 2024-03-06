@@ -17,9 +17,12 @@ import VideoPlaceholder from "./placeholders/VideoPlaceholder";
 import LinkPlaceholder from "./placeholders/LinkPlaceholder";
 import TwoColumnsPlaceholder from "./placeholders/TwoColumnsPlaceholder";
 import ContactFormPlaceholder from "./placeholders/ContactFormPlaceholder";
+import PaymentFormPlaceholder from "./placeholders/PaymentFormPlaceholder";
+import ImagePlaceholder from "./placeholders/ImagePlaceholder";
+import ThreeColumnsPlaceholder from "./placeholders/ThreeColumnsPlaceholder";
 
 import type { EditorBtns } from "@/lib/types/editor";
-import PaymentFormPlaceholder from "./placeholders/PaymentFormPlaceholder";
+import SectionPlaceholder from "./placeholders/SectionPlaceholder";
 
 interface ComponentsTabProps {}
 
@@ -45,6 +48,12 @@ const ComponentsTab: React.FC<ComponentsTabProps> = ({}) => {
       group: "layout",
     },
     {
+      placeholder: <ImagePlaceholder />,
+      label: "Image",
+      id: "image",
+      group: "elements",
+    },
+    {
       placeholder: <VideoPlaceholder />,
       label: "Video",
       id: "video",
@@ -60,6 +69,18 @@ const ComponentsTab: React.FC<ComponentsTabProps> = ({}) => {
       placeholder: <TwoColumnsPlaceholder />,
       label: "2 Columns",
       id: "2Col",
+      group: "layout",
+    },
+    {
+      placeholder: <ThreeColumnsPlaceholder />,
+      label: "3 Columns",
+      id: "3Col",
+      group: "layout",
+    },
+    {
+      placeholder: <SectionPlaceholder />,
+      label: "Section",
+      id: "section",
       group: "layout",
     },
     {
@@ -100,7 +121,7 @@ const ComponentsTab: React.FC<ComponentsTabProps> = ({}) => {
                   className="flex flex-col items-center justify-center"
                 >
                   {element.placeholder}
-                  <span className="mt-1">{element.label}</span>
+                  <span className="mt-1 text-xs">{element.label}</span>
                 </div>
               ))}
           </AccordionContent>
@@ -118,7 +139,7 @@ const ComponentsTab: React.FC<ComponentsTabProps> = ({}) => {
                   className="flex-col items-center justify-center flex"
                 >
                   {element.placeholder}
-                  <span className="mt-1">{element.label}</span>
+                  <span className="mt-1 text-xs">{element.label}</span>
                 </div>
               ))}
           </AccordionContent>

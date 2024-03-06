@@ -1,17 +1,18 @@
 "use client";
 
 import React from "react";
-import { cn } from "@/lib/utils";
-import { EditorBtns, EditorElement } from "@/lib/types/editor";
 import {
-  BoxIcon,
   Contact2Icon,
   CreditCardIcon,
+  ImageIcon,
   Link2Icon,
   LucideIcon,
   TypeIcon,
   YoutubeIcon,
 } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { EditorBtns, EditorElement } from "@/lib/types/editor";
 
 interface EditorLayersTreeLeafProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -33,14 +34,14 @@ const EditorLayersTreeLeaf: React.FC<EditorLayersTreeLeafProps> = ({
     case "text":
       Icon = TypeIcon;
       break;
-    case "container":
-      Icon = BoxIcon;
-      break;
     case "video":
       Icon = YoutubeIcon;
       break;
     case "link":
       Icon = Link2Icon;
+      break;
+    case "image":
+      Icon = ImageIcon;
       break;
     case "contactForm":
       Icon = Contact2Icon;
@@ -52,7 +53,10 @@ const EditorLayersTreeLeaf: React.FC<EditorLayersTreeLeafProps> = ({
 
   return (
     <div
-      className={cn("flex items-center p-3 cursor-pointer border-l w-full", className)}
+      className={cn(
+        "flex items-center p-3 cursor-pointer border-l w-full",
+        className
+      )}
       {...props}
     >
       {Icon && (
@@ -63,7 +67,9 @@ const EditorLayersTreeLeaf: React.FC<EditorLayersTreeLeafProps> = ({
       )}
       <span className="flex-grow text-sm truncate inline-flex items-center justify-between gap-2 w-full">
         {item.name}{" "}
-        {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />}
+        {isSelected && (
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+        )}
       </span>
     </div>
   );

@@ -48,6 +48,61 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
 
         break;
       }
+      case "image": {
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId: id,
+            elementDetails: {
+              content: {
+                src: "https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171_1280.jpg",
+                alt: "Image description",
+              },
+              id: uuidv4(),
+              name: "Image",
+              type: "image",
+              styles: {
+                color: "black",
+                width: "1000px",
+                height: "600px",
+                aspectRatio: "1/1",
+                marginLeft: "auto",
+                marginRight: "auto",
+                ...defaultStyles,
+              },
+            },
+          },
+        });
+
+        break;
+      }
+      case "section": {
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId: id,
+            elementDetails: {
+              content: [
+                {
+                  content: [],
+                  id: uuidv4(),
+                  name: "Container",
+                  styles: { ...defaultStyles, width: "100%" },
+                  type: "container",
+                },
+              ],
+              id: uuidv4(),
+              name: "Section",
+              type: "section",
+              styles: {
+                ...defaultStyles,
+              },
+            },
+          },
+        });
+
+        break;
+      }
       case "container": {
         dispatch({
           type: "ADD_ELEMENT",
@@ -179,6 +234,45 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
 
         break;
       }
+      case "3Col": {
+        dispatch({
+          type: "ADD_ELEMENT",
+          payload: {
+            containerId: id,
+            elementDetails: {
+              content: [
+                {
+                  content: [],
+                  id: uuidv4(),
+                  name: "Container",
+                  styles: { ...defaultStyles, width: "100%" },
+                  type: "container",
+                },
+                {
+                  content: [],
+                  id: uuidv4(),
+                  name: "Container",
+                  styles: { ...defaultStyles, width: "100%" },
+                  type: "container",
+                },
+                {
+                  content: [],
+                  id: uuidv4(),
+                  name: "Container",
+                  styles: { ...defaultStyles, width: "100%" },
+                  type: "container",
+                },
+              ],
+              id: uuidv4(),
+              name: "Three Columns",
+              styles: { ...defaultStyles, display: "flex" },
+              type: "3Col",
+            },
+          },
+        });
+
+        break;
+      }
     }
   };
 
@@ -228,7 +322,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
             editor.selectedElement.id === id &&
             !editor.liveMode &&
             editor.selectedElement.type !== "__body",
-          "!border-yellow-400":
+          "!border-yellow-400 border-4":
             editor.selectedElement.id === id &&
             !editor.liveMode &&
             editor.selectedElement.type === "__body",

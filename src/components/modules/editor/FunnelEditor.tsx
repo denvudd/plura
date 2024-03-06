@@ -4,11 +4,11 @@ import React from "react";
 import { EyeOff } from "lucide-react";
 import { type FunnelPage } from "@prisma/client";
 
+import EditorRecursive from "./editor-elements/EditorRecursive";
+
 import { useEditor } from "@/hooks/use-editor";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ResizablePanel } from "@/components/ui/resizable";
-import EditorRecursive from "./editor-elements/EditorRecursive";
 
 interface FunnelEditorProps {
   funnelPageId: string;
@@ -61,12 +61,12 @@ const FunnelEditor: React.FC<FunnelEditorProps> = ({
   return (
     <div
       className={cn(
-        "use-automation-zoom-in h-screen overflow-y-hidden overflow-x-hidden mr-[385px] z-[999999] bg-background transition-all scrollbar scrollbar-thumb-muted-foreground/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-medium",
+        "h-screen overflow-y-hidden overflow-x-hidden mr-[385px] z-[999999] bg-background scrollbar scrollbar-thumb-muted-foreground/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-medium",
         {
           "p-0 mr-0": editor.editor.previewMode || editor.editor.liveMode,
           "!w-[850px] mx-auto": editor.editor.device === "Tablet",
           "!w-[420px] mx-auto": editor.editor.device === "Mobile",
-          "pb-[100px]": !editor.editor.previewMode && !editor.editor.liveMode, // for scroll
+          "pb-[100px] use-automation-zoom-in transition-all": !editor.editor.previewMode && !editor.editor.liveMode, // for scroll
         }
       )}
       onClick={handleClickElement}

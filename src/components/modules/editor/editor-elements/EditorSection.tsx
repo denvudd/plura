@@ -9,11 +9,11 @@ import EditorRecursive from "./EditorRecursive";
 import { cn } from "@/lib/utils";
 import { type EditorElement } from "@/lib/types/editor";
 
-interface EditorTwoColumnsProps {
+interface EditorSectionProps {
   element: EditorElement;
 }
 
-const EditorTwoColumns: React.FC<EditorTwoColumnsProps> = ({ element }) => {
+const EditorSection: React.FC<EditorSectionProps> = ({ element }) => {
   const { content, type } = element;
   const { editor: editorState, dispatch } = useEditor();
   const { editor } = editorState;
@@ -29,7 +29,7 @@ const EditorTwoColumns: React.FC<EditorTwoColumnsProps> = ({ element }) => {
   };
 
   return (
-    <div
+    <section
       style={element.styles}
       className={cn("relative p-4 transition-all", {
         "h-fit": type === "container",
@@ -49,13 +49,13 @@ const EditorTwoColumns: React.FC<EditorTwoColumnsProps> = ({ element }) => {
           {editor.selectedElement.name}
         </Badge>
       )}
-
+      
       {Array.isArray(content) &&
         content.map((childElement) => (
           <EditorRecursive key={childElement.id} element={childElement} />
         ))}
-    </div>
+    </section>
   );
 };
 
-export default EditorTwoColumns;
+export default EditorSection;

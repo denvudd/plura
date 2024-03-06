@@ -1,3 +1,4 @@
+import { Columns2 } from "lucide-react";
 import React from "react";
 
 interface TwoColumnsPlaceholderProps {}
@@ -11,10 +12,9 @@ const TwoColumnsPlaceholder: React.FC<TwoColumnsPlaceholderProps> = ({}) => {
     <div
       draggable
       onDragStart={handleDragState}
-      className="h-14 w-14 bg-muted/70 rounded-md p-2 flex flex-row gap-[4px]"
+      className="h-14 w-14 bg-muted/70 rounded-md p-2 flex flex-row gap-[4px] cursor-grab"
     >
-      <div className="border-dashed border-[1px] h-full rounded-sm bg-muted border-muted-foreground/50 w-full"/>
-      <div className="border-dashed border-[1px] h-full rounded-sm bg-muted border-muted-foreground/50 w-full"/>
+      <Columns2 className="w-10 h-10 text-muted-foreground"  />
     </div>
   );
 };

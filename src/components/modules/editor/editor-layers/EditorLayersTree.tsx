@@ -3,17 +3,18 @@
 import React from "react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
 import EditorLayersTreeItem from "./EditorLayersTreeItem";
+
+import { cn } from "@/lib/utils";
 import { EditorElement } from "@/lib/types/editor";
 
-export type TreeProps = React.HTMLAttributes<HTMLDivElement> & {
+export type EditorLayersTreeProps = React.HTMLAttributes<HTMLDivElement> & {
   data: EditorElement[] | EditorElement;
   onSelectChange?: (item: EditorElement | undefined) => void;
   expandAll?: boolean;
 };
 
-const EditorLayersTree: React.FC<TreeProps> = ({
+const EditorLayersTree: React.FC<EditorLayersTreeProps> = ({
   data,
   onSelectChange,
   expandAll,

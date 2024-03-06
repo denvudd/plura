@@ -126,3 +126,18 @@ export const getFunnelPageDetails = async (funnelPageId: string) => {
 
   return response;
 };
+
+export const updateFunnelPageVisits = async (funnelPageId: string) => {
+  const response = await db.funnelPage.update({
+    where: {
+      id: funnelPageId,
+    },
+    data: {
+      visits: {
+        increment: 1,
+      },
+    },
+  });
+
+  return response;
+};

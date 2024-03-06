@@ -14,6 +14,7 @@ export type EditorElement = {
         formTitle?: string;
         formDescription?: string;
         formButton?: string;
+        alt?: string;
       };
 };
 

@@ -15,10 +15,6 @@ const EditorVideo: React.FC<EditorVideoProps> = ({ element }) => {
   const { editor: editorState, dispatch } = useEditor();
   const { editor } = editorState;
 
-  const handleDragStart = (e: React.DragEvent) => {
-    e.dataTransfer.setData("componentType", "video");
-  };
-
   const handleClickOnBody = (event: React.MouseEvent) => {
     event.stopPropagation();
 
@@ -43,7 +39,6 @@ const EditorVideo: React.FC<EditorVideoProps> = ({ element }) => {
     <div
       style={element.styles}
       draggable
-      onDragStart={handleDragStart}
       onClick={handleClickOnBody}
       className={cn(
         "p-1 w-full m-1 relative text-base transition-all flex items-center justify-center",

@@ -299,10 +299,9 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
             <TooltipTrigger asChild>
               <Button
                 disabled={
-                  editor.history.history.length > 1 &&
                   editor.history.currentIndex <
                     editor.history.history.length - 1 ===
-                    false
+                  false
                 }
                 onClick={handleRedo}
                 variant="outline"
