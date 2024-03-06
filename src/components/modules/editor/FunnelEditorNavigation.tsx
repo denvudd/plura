@@ -30,12 +30,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 
 import { cn, logger } from "@/lib/utils";
 import { type DeviceTypes } from "@/lib/types/editor";
 import { ModeToggle } from "@/components/common/ModeToggle";
-import { Badge } from "@/components/ui/badge";
 
 interface FunnelEditorNavigationProps {
   funnelId: string;
@@ -133,15 +131,18 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    event.preventDefault();
-    
+
     if (event.key === "s" && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
       handleSave();
     } else if (event.key === "z" && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
       handleUndo();
     } else if (event.key === "y" && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
       handleRedo();
     } else if (event.key === "p" && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
       handlePreviewClick();
     }
   };

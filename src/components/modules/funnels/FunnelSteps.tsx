@@ -124,6 +124,7 @@ const FunnelSteps: React.FC<FunnelStepsProps> = ({
                           <FunnelStepCard
                             funnelPage={page}
                             index={index}
+                            totalPages={currentPages.length - 1}
                             activePage={page.id === clickedPage?.id}
                           />
                         </div>

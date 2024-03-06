@@ -14,12 +14,14 @@ interface FunnelStepCardProps {
   funnelPage: FunnelPage;
   index: number;
   activePage: boolean;
+  totalPages: number;
 }
 
 const FunnelStepCard: React.FC<FunnelStepCardProps> = ({
   activePage,
   funnelPage,
   index,
+  totalPages,
 }) => {
   let portal = document.getElementById("blur-page");
 
@@ -40,7 +42,7 @@ const FunnelStepCard: React.FC<FunnelStepCardProps> = ({
         const component = (
           <Card
             className={cn("p-0 relative cursor-grab my-2 rounded-sm", {
-                "border-primary": activePage,
+              "border-primary": activePage,
             })}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -49,7 +51,9 @@ const FunnelStepCard: React.FC<FunnelStepCardProps> = ({
             <CardContent className="p-0 flex items-center gap-4 flex-row">
               <div className="h-14 w-14 bg-muted rounded-ss-sm rounded-es-sm flex items-center justify-center">
                 <LayoutGrid />
-                <ArrowDown className="w-5 h-5 absolute -bottom-2 text-primary" />
+                {funnelPage.order !== totalPages && (
+                  <ArrowDown className="w-5 h-5 absolute -bottom-2 text-primary" />
+                )}
               </div>
               {funnelPage.name}
             </CardContent>

@@ -7,7 +7,14 @@ export type EditorElement = {
   type: EditorBtns;
   content:
     | EditorElement[]
-    | { href?: string; innerText?: string; src?: string };
+    | {
+        href?: string;
+        innerText?: string;
+        src?: string;
+        formTitle?: string;
+        formDescription?: string;
+        formButton?: string;
+      };
 };
 
 export type Editor = {

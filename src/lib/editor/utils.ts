@@ -6,12 +6,12 @@ export const formatTextOnKeyboard = (
   editor: Editor,
   dispatch: (value: EditorAction) => void
 ): void => {
-  keyboardEvent.preventDefault();
-
   if (
     keyboardEvent.key === "u" &&
     (keyboardEvent.ctrlKey || keyboardEvent.metaKey)
   ) {
+    keyboardEvent.preventDefault();
+    
     dispatch({
       type: "UPDATE_ELEMENT",
       payload: {
@@ -31,6 +31,8 @@ export const formatTextOnKeyboard = (
     keyboardEvent.key === "i" &&
     (keyboardEvent.ctrlKey || keyboardEvent.metaKey)
   ) {
+    keyboardEvent.preventDefault();
+    
     dispatch({
       type: "UPDATE_ELEMENT",
       payload: {
@@ -50,6 +52,8 @@ export const formatTextOnKeyboard = (
     keyboardEvent.key === "b" &&
     (keyboardEvent.ctrlKey || keyboardEvent.metaKey)
   ) {
+    keyboardEvent.preventDefault();
+    
     dispatch({
       type: "UPDATE_ELEMENT",
       payload: {
@@ -69,6 +73,8 @@ export const formatTextOnKeyboard = (
     keyboardEvent.key === "e" &&
     (keyboardEvent.ctrlKey || keyboardEvent.metaKey)
   ) {
+    keyboardEvent.preventDefault();
+    
     dispatch({
       type: "UPDATE_ELEMENT",
       payload: {

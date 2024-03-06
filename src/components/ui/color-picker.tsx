@@ -25,17 +25,50 @@ export function ColorPicker({
   className,
 }: ColorPickerProps) {
   const solids = [
-    "#E2E2E2",
-    "#ff75c3",
-    "#ffa647",
-    "#ffe83f",
-    "#9fff5b",
-    "#70e2ff",
-    "#cd93ff",
-    "#09203f",
+    '#000000',
+    "#fff",
+    "#333",
+    '#0049B7',
+    '#09203f',
+    '#1400c6',
+    '#51e2f5',
+    '#59ce8f',
+    '#657a00',
+    '#70e2ff',
+    '#7d3cff',
+    '#8458B3',
+    '#9df9ef',
+    '#9fff5b',
+    '#a0d2eb',
+    '#a28089',
+    '#beef00',
+    '#c80e13',
+    '#cd93ff',
+    '#d0bdf4',
+    '#e2e2e2',
+    '#e5eaf5',
+    '#e8f9fd',
+    '#edf756',
+    '#f2d53c',
+    '#f75990',
+    '#fceed1',
+    '#ff0028',
+    '#ff1d58',
+    '#ff1e00',
+    '#ff75c3',
+    '#ffa647',
+    '#ffa8B6',
+    '#ffe83f',
+    '#fff685'
   ];
 
   const gradients = [
+    "linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%)",
+    "linear-gradient(180deg, #FFFFFF 0%, #6284FF 50%, #FF0000 100%)",
+    "linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%)",
+    "linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)",
+    "linear-gradient(19deg, #21D4FD 0%, #B721FF 100%)",
+    "linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)",
     "linear-gradient(to bottom right,#accbee,#e7f0fd)",
     "linear-gradient(to bottom right,#d5d4d0,#d5d4d0,#eeeeec)",
     "linear-gradient(to bottom right,#000000,#434343)",
@@ -96,7 +129,7 @@ export function ColorPicker({
               <div
                 key={s}
                 style={{ background: s }}
-                className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
+                className="h-6 w-6 cursor-pointer rounded-full border active:scale-105"
                 onClick={() => onChange(s)}
               />
             ))}
@@ -107,7 +140,7 @@ export function ColorPicker({
                 <div
                   key={s}
                   style={{ background: s }}
-                  className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
+                  className="h-6 w-6 cursor-pointer rounded-full border active:scale-105"
                   onClick={() => onChange(s)}
                 />
               ))}

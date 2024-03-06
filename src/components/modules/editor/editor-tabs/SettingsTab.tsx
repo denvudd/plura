@@ -17,6 +17,7 @@ import {
   GripHorizontal,
   Italic,
   LucideImageDown,
+  MousePointerClick,
   RemoveFormatting,
   Shrink,
   Type,
@@ -52,6 +53,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
+  SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
@@ -85,6 +87,8 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
     });
   };
 
+  console.log(editor.editor.selectedElement.styles);
+
   const handleOnChanges = (e: any) => {
     const styleSettings = e.target.id;
     let value = e.target.value;
@@ -106,6 +110,25 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
     });
   };
 
+  if (!editor.editor.selectedElement.id) {
+    return (
+      <>
+        <SheetHeader className="text-left p-6">
+          <SheetTitle>Styles</SheetTitle>
+          <SheetDescription>
+            Show your creativity! You can customize every component as you like.
+          </SheetDescription>
+        </SheetHeader>
+        <div className="px-6 my-28 flex justify-center items-center">
+          <div className="flex max-w-[200px] w-full mx-auto flex-col items-center text-sm gap-2 text-muted-foreground text-center">
+            <MousePointerClick className="w-6 h-6" />
+            Pick the component you want to customize
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <TooltipProvider delayDuration={300}>
       <SheetHeader className="text-left p-6">
@@ -126,22 +149,70 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
           "Layout",
         ]}
       >
-        {editor.editor.selectedElement.type === "link" &&
+        {(editor.editor.selectedElement.type === "link" ||
+          editor.editor.selectedElement.type === "video" ||
+          editor.editor.selectedElement.type === "contactForm") &&
           !Array.isArray(editor.editor.selectedElement.content) && (
             <AccordionItem value="Custom" className="px-6 py-0">
               <AccordionTrigger className="!no-underline">
                 Custom
               </AccordionTrigger>
               <AccordionContent>
-                <div className="flex flex-col gap-2">
-                  <p className="text-muted-foreground">Link Path</p>
-                  <Input
-                    id="href"
-                    placeholder="https://domain.example.com/pathname"
-                    onChange={handleChangeCustomValues}
-                    value={editor.editor.selectedElement.content.href}
-                  />
-                </div>
+                {editor.editor.selectedElement.type === "link" && (
+                  <div className="flex flex-col gap-2">
+                    <p className="text-muted-foreground">Link Path</p>
+                    <Input
+                      id="href"
+                      placeholder="https://domain.example.com/pathname"
+                      onChange={handleChangeCustomValues}
+                      value={editor.editor.selectedElement.content.href}
+                    />
+                  </div>
+                )}
+                {editor.editor.selectedElement.type === "video" && (
+                  <div className="flex flex-col gap-2">
+                    <p className="text-muted-foreground">Video Path</p>
+                    <Input
+                      id="src"
+                      placeholder="https://domain.example.com/pathname"
+                      onChange={handleChangeCustomValues}
+                      value={editor.editor.selectedElement.content.src}
+                    />
+                  </div>
+                )}
+                {editor.editor.selectedElement.type === "contactForm" && (
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-2">
+                      <p className="text-muted-foreground">Form title</p>
+                      <Input
+                        id="formTitle"
+                        placeholder="Want a free quote? We can help you"
+                        onChange={handleChangeCustomValues}
+                        value={editor.editor.selectedElement.content.formTitle}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-muted-foreground">Form description</p>
+                      <Input
+                        id="formDescription"
+                        placeholder="Get in touch with our team"
+                        onChange={handleChangeCustomValues}
+                        value={
+                          editor.editor.selectedElement.content.formDescription
+                        }
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-muted-foreground">Form button</p>
+                      <Input
+                        id="formButton"
+                        placeholder="Submit"
+                        onChange={handleChangeCustomValues}
+                        value={editor.editor.selectedElement.content.formButton}
+                      />
+                    </div>
+                  </div>
+                )}
               </AccordionContent>
             </AccordionItem>
           )}
@@ -294,7 +365,12 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                     </ToggleGroupItem>
                   </TooltipTrigger>
                   <TooltipContent side="bottom">
-                    <p>Italic</p>
+                    <p className="inline-flex items-center gap-2">
+                      Italic{" "}
+                      <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium text-muted-foreground opacity-100">
+                        <div className="text-xs">⌘</div>I
+                      </kbd>
+                    </p>
                   </TooltipContent>
                 </Tooltip>
 
@@ -328,12 +404,13 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                 onValueChange={(e) =>
                   handleOnChanges({
                     target: {
-                      id: "font-weight",
+                      id: "fontWeight",
                       value: e,
                     },
                   })
                 }
-                value={editor.editor.selectedElement.styles.fontWeight as string}
+                value={editor.editor.selectedElement.styles.fontWeight?.toString()}
+                defaultValue={editor.editor.selectedElement.styles.fontWeight?.toString()}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a weight" />

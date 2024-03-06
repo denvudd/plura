@@ -2,12 +2,13 @@
 
 import React from "react";
 import Link from "next/link";
-import clsx from "clsx";
 import { Trash } from "lucide-react";
 
 import { useEditor } from "@/hooks/use-editor";
 import { Badge } from "@/components/ui/badge";
-import { type EditorBtns, type EditorElement } from "@/lib/types/editor";
+
+import { type EditorElement } from "@/lib/types/editor";
+import { formatTextOnKeyboard } from "@/lib/editor/utils";
 import { cn } from "@/lib/utils";
 
 interface EditorLinkProps {
@@ -17,13 +18,6 @@ interface EditorLinkProps {
 const EditorLink: React.FC<EditorLinkProps> = ({ element }) => {
   const { dispatch, editor: editorState } = useEditor();
   const { editor } = editorState;
-
-  const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
-    if (type === null) return;
-    if (editor.liveMode) return;
-
-    e.dataTransfer.setData("componentType", type);
-  };
 
   const handleOnClickBody = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -42,11 +36,14 @@ const EditorLink: React.FC<EditorLinkProps> = ({ element }) => {
     });
   };
 
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    formatTextOnKeyboard(event, editor, dispatch);
+  };
+
   return (
     <div
       style={element.styles}
       draggable={!editor.liveMode}
-      onDragStart={(e) => handleDragStart(e, "link")}
       onClick={handleOnClickBody}
       className={cn(
         "p-0.5 w-full m-1 relative text-base min-h-7 transition-all underline-offset-4",
@@ -72,8 +69,10 @@ const EditorLink: React.FC<EditorLinkProps> = ({ element }) => {
         <span
           contentEditable={!editor.liveMode}
           className="outline-none"
+          onKeyDown={onKeyDown}
           onBlur={(e) => {
             const spanElement = e.target as HTMLSpanElement;
+
             dispatch({
               type: "UPDATE_ELEMENT",
               payload: {

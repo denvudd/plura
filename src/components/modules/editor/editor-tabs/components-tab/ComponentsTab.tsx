@@ -14,15 +14,16 @@ import {
 import ContainerPlaceholder from "./placeholders/ContainerPlaceholder";
 import TextPlaceholder from "./placeholders/TextPlaceholder";
 import VideoPlaceholder from "./placeholders/VideoPlaceholder";
-
-import type { EditorBtns } from "@/lib/types/editor";
 import LinkPlaceholder from "./placeholders/LinkPlaceholder";
 import TwoColumnsPlaceholder from "./placeholders/TwoColumnsPlaceholder";
+import ContactFormPlaceholder from "./placeholders/ContactFormPlaceholder";
+
+import type { EditorBtns } from "@/lib/types/editor";
 
 interface ComponentsTabProps {}
 
 type ComponentElement = {
-  component: React.ReactNode;
+  placeholder: React.ReactNode;
   label: string;
   id: EditorBtns;
   group: "layout" | "elements";
@@ -31,34 +32,40 @@ type ComponentElement = {
 const ComponentsTab: React.FC<ComponentsTabProps> = ({}) => {
   const elements: ComponentElement[] = [
     {
-      component: <TextPlaceholder />,
+      placeholder: <TextPlaceholder />,
       label: "Text",
       id: "text",
       group: "elements",
     },
     {
-      component: <ContainerPlaceholder />,
+      placeholder: <ContainerPlaceholder />,
       label: "Container",
       id: "container",
       group: "layout",
     },
     {
-      component: <VideoPlaceholder />,
+      placeholder: <VideoPlaceholder />,
       label: "Video",
       id: "video",
       group: "elements",
     },
     {
-      component: <LinkPlaceholder />,
+      placeholder: <LinkPlaceholder />,
       label: "Link",
       id: "link",
       group: "elements",
     },
     {
-      component: <TwoColumnsPlaceholder />,
+      placeholder: <TwoColumnsPlaceholder />,
       label: "2 Columns",
       id: "2Col",
       group: "layout",
+    },
+    {
+      placeholder: <ContactFormPlaceholder />,
+      label: "Contact",
+      id: "contactForm",
+      group: "elements",
     },
   ];
 
@@ -85,7 +92,7 @@ const ComponentsTab: React.FC<ComponentsTabProps> = ({}) => {
                   key={element.id}
                   className="flex flex-col items-center justify-center"
                 >
-                  {element.component}
+                  {element.placeholder}
                   <span className="mt-1">{element.label}</span>
                 </div>
               ))}
@@ -103,7 +110,7 @@ const ComponentsTab: React.FC<ComponentsTabProps> = ({}) => {
                   key={element.id}
                   className="flex-col items-center justify-center flex"
                 >
-                  {element.component}
+                  {element.placeholder}
                   <span className="mt-1">{element.label}</span>
                 </div>
               ))}

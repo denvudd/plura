@@ -115,7 +115,11 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
           payload: {
             containerId: id,
             elementDetails: {
-              content: [],
+              content: {
+                formTitle: "Want a free quote? We can help you",
+                formDescription: "Get in touch",
+                formButton: "Submit",
+              },
               id: uuidv4(),
               name: "Contact Form",
               styles: {},
@@ -218,8 +222,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
         {
           "max-w-full w-full": type === "container" || type === "2Col",
           "h-fit": type === "container",
-          "h-full w-full": type === "__body",
-          "overflow-auto ": type === "__body",
+          "h-full w-full overflow-y-auto overflow-x-hidden": type === "__body",
           "flex flex-col md:!flex-row": type === "2Col",
           "!border-blue-500":
             editor.selectedElement.id === id &&
@@ -229,6 +232,8 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
             editor.selectedElement.id === id &&
             !editor.liveMode &&
             editor.selectedElement.type === "__body",
+          "mb-[100px] overflow-y-hidden":
+            !editor.liveMode && !editor.previewMode && type === "__body",
           "!border-solid": editor.selectedElement.id === id && !editor.liveMode,
           "border-dashed border-[1px] border-slate-300": !editor.liveMode,
         }
