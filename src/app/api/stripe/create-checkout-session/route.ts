@@ -17,9 +17,14 @@ export async function POST(req: NextRequest) {
   const origin = req.headers.get("origin");
 
   if (!subAccountConnectedId || !subAccountId || !prices.length) {
-    return new NextResponse("Stripe Account Id or Price Id is missing", {
-      status: 400,
-    });
+    return NextResponse.json(
+      {
+        error: "Stripe Account Id or Price Id is missing",
+      },
+      {
+        status: 400,
+      }
+    );
   }
 
   if (
@@ -27,8 +32,10 @@ export async function POST(req: NextRequest) {
     !process.env.NEXT_PUBLIC_PLATFORM_ONETIME_FEE ||
     !process.env.NEXT_PUBLIC_PLATFORM_AGENCY_PERCENT
   ) {
-    return new NextResponse(
-      "Subscription percent, onetime fee or agency percent is missing",
+    return NextResponse.json(
+      {
+        error: "Subscription percent, onetime fee or agency percent is missing",
+      },
       {
         status: 400,
       }
@@ -47,8 +54,10 @@ export async function POST(req: NextRequest) {
   const subscriptionPriceExists = prices.find((price) => price.recurring);
 
   if (!subAccountWithAgency?.agency.connectAccountId) {
-    return new NextResponse(
-      "Stripe Account Id is missing for the selected sub account",
+    return NextResponse.json(
+      {
+        error: "Stripe Account Id is missing for the selected sub account"
+      },
       {
         status: 400,
       }
@@ -100,13 +109,15 @@ export async function POST(req: NextRequest) {
     );
   } catch (error: any) {
     logger(error);
-    return new NextResponse(error.message, { status: 400 });
+    return NextResponse.json({
+        message: error.message
+    }, { status: 400 });
   }
 }
 
 export async function OPTIONS(request: Request) {
   const allowedOrigin = request.headers.get("origin");
-  
+
   const response = new NextResponse(null, {
     status: 200,
     headers: {

@@ -42,18 +42,22 @@ const EditorContact: React.FC<EditorContactForm> = ({ element }) => {
   };
 
   const goToNextPage = async () => {
-    if (!editor.liveMode) return;
+    if (!editor.liveMode) return undefined;
 
     const funnelPages = await getFunnel(funnelId);
 
-    if (!funnelPages || !pageDetails) return;
+    if (!funnelPages || !pageDetails) return undefined;
 
     if (funnelPages.funnelPages.length > pageDetails.order + 1) {
       const nextPage = funnelPages.funnelPages.find(
         (page) => page.order === pageDetails.order + 1
       );
 
-      if (!nextPage) return;
+      if (!nextPage) return undefined;
+
+      router.replace(
+        `${process.env.NEXT_PUBLIC_SCHEME}${funnelPages.subDomainName}.${process.env.NEXT_PUBLIC_DOMAIN}/${nextPage.pathName}`
+      );
     }
   };
 

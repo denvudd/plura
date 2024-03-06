@@ -1,13 +1,24 @@
+'use client';
+
 import React from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { Trash } from "lucide-react";
+import {
+  EmbeddedCheckout,
+  EmbeddedCheckoutProvider,
+} from "@stripe/react-stripe-js";
 
 import { getSubAccountDetails } from "@/queries/subaccount";
 import { getFunnel } from "@/queries/funnels";
 
 import { useEditor } from "@/hooks/use-editor";
+import { Badge } from "@/components/ui/badge";
+import Loading from "@/components/ui/loading";
+
+import { getStripe } from "@/lib/stripe/stripe-client";
+import { cn, logger } from "@/lib/utils";
 import type { EditorElement } from "@/lib/types/editor";
-import { logger } from "@/lib/utils";
-import { toast } from "sonner";
 
 interface EditorPaymentProps {
   element: EditorElement;
@@ -19,9 +30,9 @@ const EditorPayment: React.FC<EditorPaymentProps> = ({ element }) => {
     editor: editorState,
     dispatch,
     funnelId,
-    pageDetails,
     subAccountId,
   } = useEditor();
+  const { editor } = editorState;
 
   const [clientSecret, setClientSecret] = React.useState<string>("");
   const [livePrices, setLivePrices] = React.useState([]);
@@ -88,19 +99,89 @@ const EditorPayment: React.FC<EditorPaymentProps> = ({ element }) => {
         if (data.error) throw new Error(data.error);
 
         if (data.clientSecret) setClientSecret(data.clientSecret);
-      } catch (error) {
+      } catch (error: any) {
         logger(error);
         toast.error("Oppse!", {
-          description: "error.message",
+          description: error.message,
           descriptionClassName: "line-clamp-3",
         });
       }
 
-      getClientSecret();
     };
-  }, []);
 
-  return <div>EditorPayment</div>;
+    getClientSecret();
+  }, [livePrices, subAccountId, subAccountConnectedId]);
+
+  const handleOnClickBody = (event: React.MouseEvent) => {
+    event.stopPropagation();
+
+    dispatch({
+      type: "CHANGE_CLICKED_ELEMENT",
+      payload: {
+        elementDetails: element,
+      },
+    });
+  };
+
+  const handleDeleteElement = () => {
+    dispatch({
+      type: "DELETE_ELEMENT",
+      payload: { elementDetails: element },
+    });
+  };
+
+  return (
+    <div
+      style={element.styles}
+      draggable
+      onClick={handleOnClickBody}
+      className={cn(
+        "p-0.5 w-full m-1 relative text-base min-h-7 transition-all underline-offset-4 flex items-center justify-center",
+        {
+          "border-blue-500 border-solid":
+            editor.selectedElement.id === element.id,
+          "border-dashed border": !editor.liveMode,
+        }
+      )}
+    >
+      {editor.selectedElement.id === element.id && !editor.liveMode && (
+        <Badge className="absolute -top-6 -left-0.5 rounded-none rounded-t-md">
+          {editor.selectedElement.name}
+        </Badge>
+      )}
+
+      <div className="border-none transition-all w-full">
+        <div className="flex flex-col gap-4 w-full">
+          {options.clientSecret && subAccountConnectedId && (
+            <div className="text-white">
+              <EmbeddedCheckoutProvider
+                stripe={getStripe(subAccountConnectedId)}
+                options={options}
+              >
+                <EmbeddedCheckout />
+              </EmbeddedCheckoutProvider>
+            </div>
+          )}
+
+          {!options.clientSecret && (
+            <div className="flex items-center justify-center w-full h-28">
+              <Loading />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {editor.selectedElement.id === element.id && !editor.liveMode && (
+        <div className="absolute bg-primary px-2.5 py-1 text-xs font-bold -top-[25px] -right-[1px] rounded-none rounded-t-lg !text-white">
+          <Trash
+            className="cursor-pointer"
+            size={16}
+            onClick={handleDeleteElement}
+          />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default EditorPayment;

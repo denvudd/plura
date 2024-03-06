@@ -61,11 +61,12 @@ const FunnelEditor: React.FC<FunnelEditorProps> = ({
   return (
     <div
       className={cn(
-        "use-automation-zoom-in h-screen overflow-y-auto overflow-x-hidden mr-[385px] z-[999999] bg-background transition-all scrollbar scrollbar-thumb-muted-foreground/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-medium",
+        "use-automation-zoom-in h-screen overflow-y-hidden overflow-x-hidden mr-[385px] z-[999999] bg-background transition-all scrollbar scrollbar-thumb-muted-foreground/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-medium",
         {
           "p-0 mr-0": editor.editor.previewMode || editor.editor.liveMode,
           "!w-[850px] mx-auto": editor.editor.device === "Tablet",
           "!w-[420px] mx-auto": editor.editor.device === "Mobile",
+          "pb-[100px]": !editor.editor.previewMode && !editor.editor.liveMode, // for scroll
         }
       )}
       onClick={handleClickElement}

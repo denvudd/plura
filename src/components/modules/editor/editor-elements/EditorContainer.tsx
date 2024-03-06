@@ -138,7 +138,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
             elementDetails: {
               content: [],
               id: uuidv4(),
-              name: "Contact Form",
+              name: "Payment",
               styles: {},
               type: "paymentForm",
             },
@@ -232,7 +232,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
             editor.selectedElement.id === id &&
             !editor.liveMode &&
             editor.selectedElement.type === "__body",
-          "mb-[100px] overflow-y-hidden":
+          "!mb-[200px]":
             !editor.liveMode && !editor.previewMode && type === "__body",
           "!border-solid": editor.selectedElement.id === id && !editor.liveMode,
           "border-dashed border-[1px] border-slate-300": !editor.liveMode,
