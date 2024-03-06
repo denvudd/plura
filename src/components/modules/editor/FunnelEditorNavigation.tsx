@@ -35,7 +35,6 @@ import { ModeToggle } from "@/components/common/ModeToggle";
 import { cn, logger } from "@/lib/utils";
 import { type DeviceTypes } from "@/lib/types/editor";
 
-
 interface FunnelEditorNavigationProps {
   funnelId: string;
   subAccountId: string;

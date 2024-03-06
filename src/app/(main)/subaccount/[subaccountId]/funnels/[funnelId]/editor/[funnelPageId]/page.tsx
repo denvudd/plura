@@ -49,7 +49,6 @@ const FunnelIdEditorPage: React.FC<FunnelIdEditorPageProps> = async ({
           funnelPageDetails={funnelPageDetails}
         />
         <FunnelEditorSidebar
-          funnelPageDetails={funnelPageDetails}
           subAccountId={subaccountId}
         />
       </EditorProvider>

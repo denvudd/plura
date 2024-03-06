@@ -23,19 +23,27 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface FunnelEditorSidebarProps {
   subAccountId: string;
-  funnelPageDetails: FunnelPage;
 }
+
+type TabsName = "Settings" | "Components" | "Layers" | "Media";
 
 const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
   subAccountId,
-  funnelPageDetails,
 }) => {
   const { editor } = useEditor();
+
+  const handleSaveTabStorage = (tab: TabsName) => {
+    localStorage.setItem("funnel-tab-name", tab);
+  };
 
   return (
     <TooltipProvider delayDuration={300}>
       <Sheet open modal={false}>
-        <Tabs className="w-full" defaultValue="Settings">
+        <Tabs
+          className="w-full"
+          defaultValue={localStorage.getItem("funnel-tab-name") || "Settings"}
+          onValueChange={(value) => handleSaveTabStorage(value as TabsName)}
+        >
           <SheetContent
             showClose={false}
             side="right"
@@ -46,7 +54,7 @@ const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
               }
             )}
           >
-            <TabsList className=" flex items-center flex-col justify-evenly w-full bg-transparent h-fit gap-4 ">
+            <TabsList className=" flex items-center flex-col justify-evenly w-full bg-transparent h-fit gap-4">
               <Tooltip>
                 <TooltipTrigger>
                   <TabsTrigger
