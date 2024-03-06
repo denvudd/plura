@@ -19,6 +19,7 @@ import TwoColumnsPlaceholder from "./placeholders/TwoColumnsPlaceholder";
 import ContactFormPlaceholder from "./placeholders/ContactFormPlaceholder";
 
 import type { EditorBtns } from "@/lib/types/editor";
+import PaymentFormPlaceholder from "./placeholders/PaymentFormPlaceholder";
 
 interface ComponentsTabProps {}
 
@@ -65,6 +66,12 @@ const ComponentsTab: React.FC<ComponentsTabProps> = ({}) => {
       placeholder: <ContactFormPlaceholder />,
       label: "Contact",
       id: "contactForm",
+      group: "elements",
+    },
+    {
+      placeholder: <PaymentFormPlaceholder />,
+      label: "Payment",
+      id: "paymentForm",
       group: "elements",
     },
   ];

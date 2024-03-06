@@ -480,6 +480,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                     },
                   });
                 }}
+                className="-mt-2"
                 defaultValue={[
                   typeof editor.editor.selectedElement.styles?.opacity ===
                   "number"
@@ -489,6 +490,64 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                           editor.editor.selectedElement.styles?.opacity || "100"
                         ).replace("%", "")
                       ) || 100,
+                ]}
+                max={100}
+                step={1}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>Border Color</Label>
+              <ColorPicker
+                value={
+                  editor.editor.selectedElement.styles.borderColor as string
+                }
+                className="w-[274px]"
+                onChange={(e) =>
+                  handleOnChanges({
+                    target: {
+                      id: "borderColor",
+                      value: e,
+                    },
+                  })
+                }
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>Border Width</Label>
+              <div className="flex items-center justify-end -mt-2">
+                <span className="p-2">
+                  {typeof editor.editor.selectedElement.styles?.borderWidth ===
+                  "number"
+                    ? editor.editor.selectedElement.styles?.borderWidth
+                    : parseFloat(
+                        (
+                          editor.editor.selectedElement.styles?.borderWidth ||
+                          "0"
+                        ).replace("px", "")
+                      ) || 0}
+                  px
+                </span>
+              </div>
+              <Slider
+                onValueChange={(e) => {
+                  handleOnChanges({
+                    target: {
+                      id: "borderWidth",
+                      value: `${e[0]}px`,
+                    },
+                  });
+                }}
+                className="-mt-2"
+                defaultValue={[
+                  typeof editor.editor.selectedElement.styles?.borderWidth ===
+                  "number"
+                    ? editor.editor.selectedElement.styles?.borderWidth
+                    : parseFloat(
+                        (
+                          editor.editor.selectedElement.styles?.borderWidth ||
+                          "0"
+                        ).replace("%", "")
+                      ) || 0,
                 ]}
                 max={100}
                 step={1}
@@ -519,6 +578,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                     },
                   });
                 }}
+                className="-mt-2"
                 defaultValue={[
                   typeof editor.editor.selectedElement.styles?.borderRadius ===
                   "number"

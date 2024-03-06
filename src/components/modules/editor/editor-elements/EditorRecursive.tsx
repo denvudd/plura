@@ -4,9 +4,10 @@ import EditorText from "./EditorText";
 import EditorContainer from "./EditorContainer";
 import EditorVideo from "./EditorVideo";
 import EditorLink from "./EditorLink";
+import EditorContact from "./EditorContact";
+import EditorPayment from "./EditorPayment";
 
 import type { EditorElement } from "@/lib/types/editor";
-import EditorContact from "./EditorContact";
 
 type Props = {
   element: EditorElement;
@@ -28,10 +29,10 @@ const EditorRecursive = ({ element }: Props) => {
       return <EditorLink element={element} />;
     case "contactForm":
       return <EditorContact element={element} />;
-    // case "paymentForm":
-    //   return <Checkout element={element} />;
-    // default:
-    //   return null;
+    case "paymentForm":
+      return <EditorPayment element={element} />;
+    default:
+      return null;
   }
 };
 

@@ -131,7 +131,6 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
-
     if (event.key === "s" && (event.ctrlKey || event.metaKey)) {
       event.preventDefault();
       handleSave();
@@ -248,7 +247,14 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
           </Tabs>
         </aside>
         <aside className="flex items-center gap-2">
-          <ModeToggle className="h-10 w-10 rounded-md" />
+          <Tooltip>
+            <TooltipTrigger>
+              <ModeToggle className="h-10 w-10 rounded-md" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Color Mode</p>
+            </TooltipContent>
+          </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
