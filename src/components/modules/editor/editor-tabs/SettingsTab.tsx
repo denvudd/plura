@@ -14,8 +14,14 @@ import {
   AlignVerticalJustifyEnd,
   AlignVerticalJustifyStart,
   Expand,
+  GripHorizontal,
+  Italic,
   LucideImageDown,
+  RemoveFormatting,
   Shrink,
+  Type,
+  Underline,
+  Waves,
 } from "lucide-react";
 
 import { useEditor } from "@/hooks/use-editor";
@@ -50,6 +56,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 interface SettingsTabProps {}
 
@@ -146,7 +153,9 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
           <AccordionContent className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <Label>Text Align</Label>
-              <Tabs
+              <ToggleGroup
+                type="single"
+                className="w-[274px] justify-between border rounded-md gap-4 items-center p-1"
                 onValueChange={(e) =>
                   handleOnChanges({
                     target: {
@@ -155,52 +164,40 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                     },
                   })
                 }
-                value={editor.editor.selectedElement.styles.textAlign}
               >
-                <TabsList className="flex items-center flex-row justify-between border-[1px] rounded-md bg-transparent h-fit gap-4">
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="left"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <AlignLeft className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Left</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="left">
+                      <AlignLeft className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Left</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="center"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <AlignCenter className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Center</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="center">
+                      <AlignCenter className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Center</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="right"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <AlignRight className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Right</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TabsList>
-              </Tabs>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="right">
+                      <AlignRight className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Right</p>
+                  </TooltipContent>
+                </Tooltip>
+              </ToggleGroup>
             </div>
             <div className="flex flex-col gap-2">
               <Label>Color</Label>
@@ -217,6 +214,114 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                 }
               />
             </div>
+
+            <div className="flex flex-col gap-2">
+              <Label>Text Decoration</Label>
+              <ToggleGroup
+                type="single"
+                className="w-[274px] justify-between border rounded-md gap-4 items-center p-1"
+                value={
+                  editor.editor.selectedElement.styles.textDecoration as string
+                }
+                onValueChange={(e) =>
+                  handleOnChanges({
+                    target: {
+                      id: "textDecoration",
+                      value: e,
+                    },
+                  })
+                }
+              >
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="underline">
+                      <Underline className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p className="inline-flex items-center gap-2">
+                      Underline{" "}
+                      <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium text-muted-foreground opacity-100">
+                        <div className="text-xs">⌘</div>U
+                      </kbd>
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="underline dotted">
+                      <GripHorizontal className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Dotted</p>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="underline wavy">
+                      <Waves className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Wavy</p>
+                  </TooltipContent>
+                </Tooltip>
+              </ToggleGroup>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <Label>Font Style</Label>
+              <ToggleGroup
+                type="single"
+                className="justify-between border rounded-md gap-4 items-center p-1"
+                value={editor.editor.selectedElement.styles.fontStyle as string}
+                onValueChange={(e) =>
+                  handleOnChanges({
+                    target: {
+                      id: "fontStyle",
+                      value: e,
+                    },
+                  })
+                }
+              >
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="italic">
+                      <Italic className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Italic</p>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="normal">
+                      <Type className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Normal</p>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="oblique">
+                      <RemoveFormatting className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Oblique</p>
+                  </TooltipContent>
+                </Tooltip>
+              </ToggleGroup>
+            </div>
+
             <div className="flex flex-col gap-2">
               <Label>Weight</Label>
               <Select
@@ -228,6 +333,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                     },
                   })
                 }
+                value={editor.editor.selectedElement.styles.fontWeight as string}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a weight" />
@@ -251,7 +357,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                 placeholder="px"
                 id="fontSize"
                 onChange={handleOnChanges}
-                defaultValue="18px"
+                defaultValue="16px"
                 value={editor.editor.selectedElement.styles.fontSize}
               />
             </div>
@@ -389,7 +495,9 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
             </div>
             <div className="flex flex-col gap-2">
               <Label>Image Position</Label>
-              <Tabs
+              <ToggleGroup
+                type="single"
+                className="w-[274px] justify-between border rounded-md gap-4 items-center p-1"
                 onValueChange={(e) =>
                   handleOnChanges({
                     target: {
@@ -400,50 +508,39 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                 }
                 value={editor.editor.selectedElement.styles.backgroundSize?.toString()}
               >
-                <TabsList className="flex items-center flex-row justify-between border-[1px] rounded-md bg-transparent h-fit gap-4">
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="cover"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <Expand className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Cover</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="cover">
+                      <Expand className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Cover</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="contain"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <Shrink className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Contain</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="contain">
+                      <Shrink className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Contain</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="auto"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <LucideImageDown className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Auto</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TabsList>
-              </Tabs>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="auto">
+                      <LucideImageDown className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Auto</p>
+                  </TooltipContent>
+                </Tooltip>
+              </ToggleGroup>
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -480,7 +577,9 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
             </div>
             <div className="flex flex-col gap-2">
               <Label>Justify Content</Label>
-              <Tabs
+              <ToggleGroup
+                type="single"
+                className="w-[274px] justify-between border rounded-md gap-2 items-center p-1"
                 onValueChange={(e) =>
                   handleOnChanges({
                     target: {
@@ -491,82 +590,67 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                 }
                 value={editor.editor.selectedElement.styles.justifyContent}
               >
-                <TabsList className="flex items-center flex-row justify-between border-[1px] rounded-md bg-transparent h-fit gap-4">
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="space-between"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <AlignHorizontalSpaceBetween className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom" sideOffset={16}>
-                      <p>Space between</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="space-between">
+                      <AlignHorizontalSpaceBetween className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Space Between</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="space-evenly"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <AlignHorizontalSpaceAround className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Space Evenly</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="space-around">
+                      <AlignHorizontalSpaceAround className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Space Around</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="center"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <AlignHorizontalJustifyCenterIcon className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Center</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="center">
+                      <AlignHorizontalJustifyCenterIcon className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Center</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="start"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted "
-                      >
-                        <AlignHorizontalJustifyStart className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Start</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="flex-start">
+                      <AlignHorizontalJustifyStart className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Start</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="end"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted "
-                      >
-                        <AlignHorizontalJustifyEnd className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>End</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TabsList>
-              </Tabs>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="flex-end">
+                      <AlignHorizontalJustifyEnd className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>End</p>
+                  </TooltipContent>
+                </Tooltip>
+              </ToggleGroup>
             </div>
             <div className="flex flex-col gap-2">
               <Label>Align Items</Label>
-              <Tabs
+              <ToggleGroup
+                type="single"
+                className="w-[274px] justify-between border rounded-md gap-4 items-center p-1"
                 onValueChange={(e) =>
                   handleOnChanges({
                     target: {
@@ -577,51 +661,41 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
                 }
                 value={editor.editor.selectedElement.styles.alignItems}
               >
-                <TabsList className="flex items-center flex-row justify-between border-[1px] rounded-md bg-transparent h-fit gap-4">
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="center"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
-                      >
-                        <AlignVerticalJustifyCenter className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Center</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="center">
+                      <AlignVerticalJustifyCenter className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Center</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="start"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted "
-                      >
-                        <AlignVerticalJustifyStart className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>Start</p>
-                    </TooltipContent>
-                  </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="flex-start">
+                      <AlignVerticalJustifyStart className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Start</p>
+                  </TooltipContent>
+                </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TabsTrigger
-                        value="end"
-                        className="w-10 h-10 p-0 data-[state=active]:bg-muted "
-                      >
-                        <AlignVerticalJustifyEnd className="w-5 h-5" />
-                      </TabsTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom">
-                      <p>End</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TabsList>
-              </Tabs>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ToggleGroupItem value="flex-end">
+                      <AlignVerticalJustifyEnd className="w-5 h-5" />
+                    </ToggleGroupItem>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>End</p>
+                  </TooltipContent>
+                </Tooltip>
+              </ToggleGroup>
             </div>
+
             <div className="flex flex-col gap-2">
               <Label>Direction</Label>
               <Select

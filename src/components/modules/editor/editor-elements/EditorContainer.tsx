@@ -97,7 +97,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
             containerId: id,
             elementDetails: {
               content: {
-                src: "https://www.youtube.com/embed/A3l6YYkXzzg?si=zbcCeWcpq7Cwf8W1",
+                src: "https://www.youtube.com/embed/so1_VXaGqmM?si=2lBxVOuA57XMv0JX",
               },
               id: uuidv4(),
               name: "Video",
@@ -182,11 +182,11 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
     event.preventDefault();
   };
 
-  const handleDragStart = (event: React.DragEvent, type: EditorBtns) => {
-    if (type === "__body") return undefined;
+  // const handleDragStart = (event: React.DragEvent, type: EditorBtns) => {
+  //   if (type === "__body") return undefined;
 
-    event.dataTransfer.setData("componentType", type as string);
-  };
+  //   event.dataTransfer.setData("componentType", type as string);
+  // };
 
   const handleOnClickBody = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -233,11 +233,11 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
           "border-dashed border-[1px] border-slate-300": !editor.liveMode,
         }
       )}
-      onDragStart={(event) => handleDragStart(event, "container")}
-      onDrop={handleOnDrop}
+      // onDragStart={(event) => handleDragStart(event, "container")}
       onDragOver={handleDragOver}
+      onDrop={handleOnDrop}
       onClick={handleOnClickBody}
-      draggable={type !== "__body"}
+      // draggable={type !== "__body"}
     >
       <Badge
         className={cn(
@@ -258,7 +258,7 @@ const EditorContainer: React.FC<EditorContainerProps> = ({ element }) => {
       {editor.selectedElement.id === element.id &&
         !editor.liveMode &&
         editor.selectedElement.type !== "__body" && (
-          <div className="absolute bg-primary px-2.5 text-xs font-bold -top-[18px] z-[100] -right-[1px] rounded-none rounded-t-md">
+          <div className="absolute bg-primary px-2.5 py-1 text-xs font-bold -top-[25px] -right-[1px] rounded-none rounded-t-lg !text-white">
             <Trash
               className="cursor-pointer w-4 h-4"
               onClick={handleDeleteElement}

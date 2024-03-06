@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 
 import type { EditorElement } from "@/lib/types/editor";
 import { cn } from "@/lib/utils";
+import { formatTextOnKeyboard } from "@/lib/editor/utils";
 
 interface EditorTextProps {
   element: EditorElement;
@@ -37,13 +38,20 @@ const EditorText: React.FC<EditorTextProps> = ({ element }) => {
     });
   };
 
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    formatTextOnKeyboard(event, editor, dispatch);
+  };
+
   return (
     <div
-      className={cn("p-0.5 w-full m-1 relative text-base min-h-7 transition-all", {
-        "border-blue-500 border-solid":
-          editor.selectedElement.id === element.id,
-        "border-dashed border": !editor.liveMode,
-      })}
+      className={cn(
+        "p-0.5 w-full m-1 relative text-base min-h-7 transition-all",
+        {
+          "border-blue-500 border-solid":
+            editor.selectedElement.id === element.id,
+          "border-dashed border": !editor.liveMode,
+        }
+      )}
       style={element.styles}
       onClick={handleClickOnBody}
     >
@@ -55,6 +63,7 @@ const EditorText: React.FC<EditorTextProps> = ({ element }) => {
       <span
         contentEditable={!editor.liveMode}
         className="outline-none"
+        onKeyDown={onKeyDown}
         onBlur={(e) => {
           const spanElement = e.target as HTMLSpanElement;
 
@@ -77,7 +86,7 @@ const EditorText: React.FC<EditorTextProps> = ({ element }) => {
         !editor.liveMode &&
         !Array.isArray(element.content) &&
         element.content.innerText && (
-          <div className="absolute bg-primary text-white px-2.5 text-xs font-bold -top-[18px] z-[100] -right-[1px] rounded-none rounded-t-md">
+          <div className="absolute bg-primary px-2.5 py-1 text-xs font-bold -top-[25px] -right-[1px] rounded-none rounded-t-lg !text-white">
             <Trash
               className="cursor-pointer w-4 h-4"
               onClick={handleDeleteElement}

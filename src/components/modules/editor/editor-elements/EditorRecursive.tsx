@@ -2,6 +2,8 @@ import React from "react";
 
 import EditorText from "./EditorText";
 import EditorContainer from "./EditorContainer";
+import EditorVideo from "./EditorVideo";
+import EditorLink from "./EditorLink";
 
 import type { EditorElement } from "@/lib/types/editor";
 
@@ -19,14 +21,14 @@ const EditorRecursive = ({ element }: Props) => {
       return <EditorContainer element={element} />;
     case "2Col":
       return <EditorContainer element={element} />;
-    // case "video":
-    //   return <VideoComponent element={element} />;
+    case "video":
+      return <EditorVideo element={element} />;
+    case "link":
+      return <EditorLink element={element} />;
     // case "contactForm":
     //   return <ContactFormComponent element={element} />;
     // case "paymentForm":
     //   return <Checkout element={element} />;
-    // case "link":
-    //   return <LinkComponent element={element} />;
     // default:
     //   return null;
   }

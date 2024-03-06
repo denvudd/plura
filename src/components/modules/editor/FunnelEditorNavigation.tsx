@@ -115,6 +115,8 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
         subAccountId,
       });
 
+      dispatch({ type: "CLEAR_HISTORY" });
+
       toast.success("Success", {
         description: "Saved content",
       });
@@ -129,6 +131,28 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
       setIsLoading(false);
     }
   };
+
+  const handleKeyDown = (event: KeyboardEvent) => {
+    event.preventDefault();
+    
+    if (event.key === "s" && (event.ctrlKey || event.metaKey)) {
+      handleSave();
+    } else if (event.key === "z" && (event.ctrlKey || event.metaKey)) {
+      handleUndo();
+    } else if (event.key === "y" && (event.ctrlKey || event.metaKey)) {
+      handleRedo();
+    } else if (event.key === "p" && (event.ctrlKey || event.metaKey)) {
+      handlePreviewClick();
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [editor]);
 
   return (
     <TooltipProvider delayDuration={300}>
@@ -235,7 +259,12 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Preview</p>
+              <p className="inline-flex items-center gap-2">
+                Preview{" "}
+                <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                  <div className="text-xs">⌘</div>P
+                </kbd>
+              </p>
             </TooltipContent>
           </Tooltip>
           <Tooltip>
@@ -250,16 +279,22 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Undo</p>
+              <p className="inline-flex items-center gap-2">
+                Undo{" "}
+                <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                  <div className="text-xs">⌘</div>Z
+                </kbd>
+              </p>
             </TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 disabled={
+                  editor.history.history.length > 1 &&
                   editor.history.currentIndex <
                     editor.history.history.length - 1 ===
-                  false
+                    false
                 }
                 onClick={handleRedo}
                 variant="outline"
@@ -269,7 +304,12 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Redo</p>
+              <p className="inline-flex items-center gap-2">
+                Redo{" "}
+                <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                  <div className="text-xs">⌘</div>Y
+                </kbd>
+              </p>
             </TooltipContent>
           </Tooltip>
           <div className="flex flex-col gap-1 relative">
@@ -277,7 +317,7 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
               onClick={handleSave}
               isLoading={isLoading}
               disabled={isLoading}
-              className={cn("w-24", {
+              className={cn("w-24 px-0", {
                 "animate-[pulse_7s_cubic-bezier(0.4,_0,_0.6,_1)_infinite]":
                   editor.history.history.length > 1,
               })}

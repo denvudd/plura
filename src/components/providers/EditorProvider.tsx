@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import type {
   DeviceTypes,
@@ -126,6 +126,7 @@ const editorReducer = (
   action: EditorAction
 ): EditorState => {
   console.log("action", action);
+  console.log("history", state.history.history);
   switch (action.type) {
     case "ADD_ELEMENT": {
       const updatedEditor = {
@@ -263,6 +264,16 @@ const editorReducer = (
 
       return toggleLiveMode;
     }
+    case "CLEAR_HISTORY": {
+      return {
+        ...state,
+        history: {
+          ...state.history,
+          history: [],
+          currentIndex: 0,
+        },
+      };
+    }
     case "REDO": {
       // check if current index is not the last
       if (state.history.currentIndex < state.history.history.length - 1) {
@@ -329,19 +340,9 @@ const editorReducer = (
         funnelPageId,
       };
 
-      const updatedHistory = [
-        ...state.history.history.slice(0, state.history.currentIndex + 1),
-        { ...updatedEditor },
-      ];
-
       const newEditorState = {
         ...state,
         editor: updatedEditor,
-        history: {
-          ...state.history,
-          history: updatedHistory,
-          currentIndex: updatedHistory.length - 1,
-        },
       };
 
       return newEditorState;

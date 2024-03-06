@@ -13,8 +13,11 @@ import {
 } from "@/components/ui/sheet";
 import ContainerPlaceholder from "./placeholders/ContainerPlaceholder";
 import TextPlaceholder from "./placeholders/TextPlaceholder";
+import VideoPlaceholder from "./placeholders/VideoPlaceholder";
 
 import type { EditorBtns } from "@/lib/types/editor";
+import LinkPlaceholder from "./placeholders/LinkPlaceholder";
+import TwoColumnsPlaceholder from "./placeholders/TwoColumnsPlaceholder";
 
 interface ComponentsTabProps {}
 
@@ -37,6 +40,24 @@ const ComponentsTab: React.FC<ComponentsTabProps> = ({}) => {
       component: <ContainerPlaceholder />,
       label: "Container",
       id: "container",
+      group: "layout",
+    },
+    {
+      component: <VideoPlaceholder />,
+      label: "Video",
+      id: "video",
+      group: "elements",
+    },
+    {
+      component: <LinkPlaceholder />,
+      label: "Link",
+      id: "link",
+      group: "elements",
+    },
+    {
+      component: <TwoColumnsPlaceholder />,
+      label: "2 Columns",
+      id: "2Col",
       group: "layout",
     },
   ];

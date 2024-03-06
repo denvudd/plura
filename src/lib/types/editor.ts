@@ -102,6 +102,9 @@ export type EditorAction =
       };
     }
   | {
+      type: "CLEAR_HISTORY";
+    }
+  | {
       type: "SET_FUNNELPAGE_ID";
       payload: {
         funnelPageId: string;

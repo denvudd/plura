@@ -26,7 +26,7 @@ interface FunnelEditorSidebarProps {
 const FunnelEditorSidebar: React.FC<FunnelEditorSidebarProps> = ({
   subAccountId,
 }) => {
-  const { editor, dispatch } = useEditor();
+  const { editor } = useEditor();
 
   return (
     <TooltipProvider delayDuration={300}>
