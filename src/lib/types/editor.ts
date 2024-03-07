@@ -118,10 +118,3 @@ export type EditorAction =
         funnelPageId: string;
       };
     };
-// WIP: Add local storage savings
-//   | {
-//       type: "LOAD_LOCALSTORAGE";
-//       payload: {
-//         funnelPageId: string;
-//       };
-//     };

@@ -51,7 +51,6 @@ interface PipelaneLaneProps {
   index: number;
 }
 
-// WIP: create PipelineTicket component
 const PipelineLane: React.FC<PipelaneLaneProps> = ({
   setAllTickets,
   tickets,
