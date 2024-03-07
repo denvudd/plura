@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SaaS Website Builder, Project Management And Dashboard With Stripe using Nextjs14, Bun, Stripe Connect, Prisma, MySQL, Tailwind
 
-## Getting Started
+![Application Logo](https://storage.googleapis.com/msgsndr/0wtSXexlPhMN1945ooxW/media/65b7c3d24660477daf3d6708.png)
 
-First, run the development server:
+### Features in this application.
+- 🤯 Multivendor B2B2B Saas
+- 🏢 Agency and Sub accounts
+- 🌐 Unlimited funnel hosting
+- 🚀 Full Website & Funnel builder
+- 💻 Role-based Access
+- 🔄 Stripe Subscription plans
+- 🛒 Stripe add-on products
+- 🔐 Connect Stripe accounts for all users! - Stripe Connect
+- 💳 Charge application fee per sale and recurring sales
+- 💰 Custom Dashboards
+- 📊 Media Storage
+- 📈 Stripe Product Sync
+- 📌Custom checkouts on funnels
+- 📢 Get leads from funnels
+- 🎨 Kanban board
+- 📂 Project management system
+- 🔗 Notifications
+- 📆 Funnel performance metrics
+- 🧾 Agency and subaccount metrics
+- 🌙 Graphs and charts
+- ☀️ Light & Dark mode
+- 📄 Functioning landing page
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Website builer
+A simple website builder that allows you to create content on the page. Simply drag and drop the chosen element (such as a container, text, or even a payment form) onto the editor page.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![image](https://github.com/denvudd/plura/assets/68691654/a1d851ae-baea-428f-985d-36aef9223658)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+The editor has full accessibility; for example, to undo your last actions, click the Undo button or press the Ctrl + Z key combination.
 
-To learn more about Next.js, take a look at the following resources:
+To preview the site in Preview mode, press the Ctrl + P key combination
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To style the selected element, choose the section in the Settings tab and modify the styles as desired. Hotkeys are also available, for example, Ctrl + B to make text bold or Ctrl + I to italicize font style.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![image](https://github.com/denvudd/plura/assets/68691654/bda993ec-edd2-4841-8dd8-6b64542c9e9e)
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+You can see the layers of your entire page. To do that just navigate to the Layers tab where you can see your layers structure in a tree-like representation.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<p align="center">
+  <img src="https://github.com/denvudd/plura/assets/68691654/4689aab1-1a20-46c2-aa19-428476474a94" title="hover text">
+</p>
+
+You can also upload media files (such as images) to the Media storage to use them in the Website Builder. To do this, navigate to the Media tab and select the file you want to upload.
+
+<p align="center">
+  <img src="https://github.com/denvudd/plura/assets/68691654/21fd178d-11ea-4de8-af88-4dfbe87b0921" title="hover text">
+</p>
+
+## Kanban Board
+You can create new lanes and new tickets within them. It's possible to drag cards and lanes to change their order. You can create new tags and assign other users who have access to your team to specific tickets, as well as leave a contact link.
+
+![image](https://github.com/denvudd/plura/assets/68691654/b8dced27-9bac-4ebc-ae78-cdc6b4bf3159)
+
+
+![image](https://github.com/denvudd/plura/assets/68691654/bb52dc58-3d9f-4c3e-aac6-63cde7f40482)
+
+## Team Access
+If you've created an agency, you can create sub-accounts for that agency.
+
+![image](https://github.com/denvudd/plura/assets/68691654/78c8ad3c-71f5-4bf7-bb02-81fd60d3eb58)
+
+To grant access to another user for a sub-account of the agency, you can send them an invitation via email. 
+
+![image](https://github.com/denvudd/plura/assets/68691654/5b072327-bf70-448c-b4b3-3bbbe20465e7)
+
+If the user accepts the invitation to the agency, you can control their access to different sub-accounts.
+
+<p align="center">
+  <img src="https://github.com/denvudd/plura/assets/68691654/bb863d94-9f66-4588-a393-6714e462709c)" title="hover text">
+</p>
+
+
+
+
