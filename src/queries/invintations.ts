@@ -21,8 +21,6 @@ export const sendInvitation = async (
     },
   });
 
-  console.log(user, email);
-
   if (user?.role === role) {
     throw new Error("This user already have this role");
   }

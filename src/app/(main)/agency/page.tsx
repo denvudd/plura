@@ -9,6 +9,7 @@ import { verifyInvintation } from "@/queries/invintations";
 
 import AgencyDetails from "@/components/forms/AgencyDetails";
 import Unauthorized from "@/components/common/Unauthorized";
+import { constructMetadata } from "@/lib/utils";
 
 interface AgencyPageProps {
   searchParams: {
@@ -23,8 +24,6 @@ const AgencyPage: React.FC<AgencyPageProps> = async ({ searchParams }) => {
 
   const agencyId = await verifyInvintation();
   const user = await getAuthUserDetails();
-
-  console.log('works')
 
   const isSubAccountUser =
     user?.role === Role.SUBACCOUNT_GUEST || user?.role === Role.SUBACCOUNT_USER;
@@ -69,3 +68,7 @@ const AgencyPage: React.FC<AgencyPageProps> = async ({ searchParams }) => {
 };
 
 export default AgencyPage;
+
+export const metadata = constructMetadata({
+  title: "Agency - Plura",
+});

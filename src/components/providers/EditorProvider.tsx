@@ -125,8 +125,7 @@ const editorReducer = (
   state: EditorState = initialState,
   action: EditorAction
 ): EditorState => {
-  console.log("action", action);
-  
+ 
   switch (action.type) {
     case "ADD_ELEMENT": {
       const updatedEditor = {

@@ -9,6 +9,7 @@ import { getAuthUserGroup } from "@/queries/auth";
 import TeamsDataTable from "./data-table";
 import { teamTableColumns } from "./columns";
 import SendInvitation from "@/components/forms/SendInvitation";
+import { constructMetadata } from "@/lib/utils";
 
 interface TeamPageProps {
   params: {
@@ -47,3 +48,7 @@ const TeamPage: React.FC<TeamPageProps> = async ({ params }) => {
 };
 
 export default TeamPage;
+
+export const metadata = constructMetadata({
+  title: "Team - Plura",
+});

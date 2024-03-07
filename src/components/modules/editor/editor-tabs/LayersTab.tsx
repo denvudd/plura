@@ -31,8 +31,6 @@ const LayersTab: React.FC<LayersTabProps> = () => {
     }
   };
 
-  console.log("editor.editor.elements", editor.editor.elements);
-
   React.useEffect(() => {
     if (editor.editor.elements.length) {
       setElements(editor.editor.elements);

@@ -3,6 +3,7 @@ import { verifyInvintation } from "@/queries/invintations";
 import { redirect } from "next/navigation";
 import { getAuthUserDetails } from "@/queries/auth";
 import Unauthorized from "@/components/common/Unauthorized";
+import { constructMetadata } from "@/lib/utils";
 
 interface SubAccountPageProps {
   searchParams: {
@@ -19,7 +20,6 @@ const SubAccountPage: React.FC<SubAccountPageProps> = async ({
   const agencyId = await verifyInvintation();
 
   if (!agencyId) redirect(`/subaccount/unauthorized`);
-  console.log("agencyId", agencyId);
 
   const user = await getAuthUserDetails();
   if (!user) redirect(`/agency/sign-in`);
@@ -37,16 +37,15 @@ const SubAccountPage: React.FC<SubAccountPageProps> = async ({
     (permission) => permission.access === true
   );
 
-  console.log("user", user.permissions);
-
   if (firstSubAccountWithAccess) {
     redirect(`/subaccount/${firstSubAccountWithAccess.subAccountId}`);
   }
-
-  console.log("firstSubAccountWithAccess", firstSubAccountWithAccess);
-  console.log("user", user.permissions);
 
   return <Unauthorized />;
 };
 
 export default SubAccountPage;
+
+export const metadata = constructMetadata({
+  title: "Subaccount - Plura",
+});

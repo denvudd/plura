@@ -27,8 +27,6 @@ export async function POST(req: NextRequest) {
       subscriptionExist.subscriptions.active
     ) {
       // Update subscription
-      console.log("Updating subscription...");
-
       // get current subscription
       const currentSubscriptionDetails = await stripe.subscriptions.retrieve(
         subscriptionExist.subscriptions.subscritiptionId,

@@ -2,6 +2,7 @@ import React from "react";
 import { redirect } from "next/navigation";
 
 import { createPipeline, getUserPipelines } from "@/queries/pipelines";
+import { constructMetadata } from "@/lib/utils";
 
 interface PipelinesPageProps {
   params: {
@@ -29,3 +30,7 @@ const PipelinesPage: React.FC<PipelinesPageProps> = async ({ params }) => {
   redirect("/error");
 };
 export default PipelinesPage;
+
+export const metadata = constructMetadata({
+  title: "Pipelines - Plura",
+});

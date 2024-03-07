@@ -5,6 +5,7 @@ import { getMedia } from "@/queries/media";
 
 import BlurPage from "@/components/common/BlurPage";
 import Media from "@/components/modules/media/Media";
+import { constructMetadata } from "@/lib/utils";
 
 interface MediaPageProps {
   params: {
@@ -27,3 +28,7 @@ const MediaPage: React.FC<MediaPageProps> = async ({ params }) => {
 };
 
 export default MediaPage;
+
+export const metadata = constructMetadata({
+  title: "Media - Plura",
+});

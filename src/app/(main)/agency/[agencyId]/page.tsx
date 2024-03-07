@@ -29,6 +29,7 @@ import { CircleProgress } from "@/components/ui/circle-progress";
 import BlurPage from "@/components/common/BlurPage";
 
 import { stripe } from "@/lib/stripe";
+import { constructMetadata } from "@/lib/utils";
 
 interface AgencyIdPageProps {
   params: {
@@ -267,3 +268,7 @@ const AgencyIdPage: React.FC<AgencyIdPageProps> = async ({ params }) => {
 };
 
 export default AgencyIdPage;
+
+export const metadata = constructMetadata({
+  title: "Dashboard - Plura",
+});

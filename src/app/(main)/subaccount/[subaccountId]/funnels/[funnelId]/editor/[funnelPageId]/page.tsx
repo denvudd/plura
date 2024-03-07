@@ -7,6 +7,7 @@ import EditorProvider from "@/components/providers/EditorProvider";
 import FunnelEditorNavigation from "@/components/modules/editor/FunnelEditorNavigation";
 import FunnelEditorSidebar from "@/components/modules/editor/FunnelEditorSidebar";
 import FunnelEditor from "@/components/modules/editor/FunnelEditor";
+import { constructMetadata } from "@/lib/utils";
 
 interface FunnelIdEditorPageProps {
   params: {
@@ -57,3 +58,7 @@ const FunnelIdEditorPage: React.FC<FunnelIdEditorPageProps> = async ({
 };
 
 export default FunnelIdEditorPage;
+
+export const metadata = constructMetadata({
+  title: "Editor - Plura",
+});

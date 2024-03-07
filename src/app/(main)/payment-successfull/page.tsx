@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 
 import { stripe } from "@/lib/stripe";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn, constructMetadata, formatPrice } from "@/lib/utils";
 
 interface PaymentSuccessfullPageProps {
   searchParams: {
@@ -163,3 +163,7 @@ const PaymentSuccessfullPage: React.FC<PaymentSuccessfullPageProps> = async ({
 };
 
 export default PaymentSuccessfullPage;
+
+export const metadata = constructMetadata({
+  title: "Payment successfull - Plura",
+});

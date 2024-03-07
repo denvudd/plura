@@ -7,6 +7,7 @@ import { getAgencyDetails } from "@/queries/agency";
 
 import AgencyDetails from "@/components/forms/AgencyDetails";
 import UserDetailsForm from "@/components/forms/UserDetails";
+import { constructMetadata } from "@/lib/utils";
 
 interface AgencySettingsPageProps {
   params: {
@@ -49,3 +50,7 @@ const AgencySettingsPage: React.FC<AgencySettingsPageProps> = async ({
 };
 
 export default AgencySettingsPage;
+
+export const metadata = constructMetadata({
+  title: "Settings - Plura",
+});

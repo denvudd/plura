@@ -51,7 +51,7 @@ export const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
           return (
             <span key={`word-${idx}`} className="inline-block">
               {word.text.map((char, index) => (
-                <span key={`char-${index}`} className={cn(``, word.className)}>
+                <span key={`char-${index}`} className={cn(`z-[99999]`, word.className)}>
                   {char}
                 </span>
               ))}

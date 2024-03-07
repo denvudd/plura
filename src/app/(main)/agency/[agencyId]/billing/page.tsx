@@ -20,7 +20,7 @@ import { Separator } from "@/components/ui/separator";
 import PricingCard from "@/components/modules/billing/PricingCard";
 
 import { PRICING } from "@/config/pricing";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn, constructMetadata, formatPrice } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 
@@ -84,8 +84,6 @@ const AgencyBillingPage: React.FC<AgencyBillingPageProps> = async ({
     agencySubscription?.subscriptions?.active && currentPlanDetails?.features
       ? currentPlanDetails.features
       : starterFeatures;
-
-  console.log(agencySubscription);
 
   return (
     <>
@@ -189,3 +187,7 @@ const AgencyBillingPage: React.FC<AgencyBillingPageProps> = async ({
 };
 
 export default AgencyBillingPage;
+
+export const metadata = constructMetadata({
+  title: "Billing - Plura",
+});

@@ -10,7 +10,7 @@ import BlurPage from "@/components/common/BlurPage";
 import FunnelSettings from "@/components/modules/funnels/FunnelSettings";
 import FunnelSteps from "@/components/modules/funnels/FunnelSteps";
 
-import { cn } from "@/lib/utils";
+import { cn, constructMetadata } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { FunnelsForSubAccount } from "@/lib/types";
 
@@ -71,3 +71,7 @@ const FunnelIdPage: React.FC<FunnelIdPageProps> = async ({ params }) => {
 };
 
 export default FunnelIdPage;
+
+export const metadata = constructMetadata({
+  title: "Funnel - Plura",
+});

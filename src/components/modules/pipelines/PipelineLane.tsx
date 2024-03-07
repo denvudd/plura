@@ -140,8 +140,6 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
           };
         }
 
-        console.log(laneDetails.id.toString());
-
         return (
           <div
             {...provided.draggableProps}
@@ -185,7 +183,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                   >
                     {(provided) => (
                       <div
-                        className="max-h-[700px] h-full w-full pt-12 overflow-auto z-[99999]"
+                        className="max-h-[700px] h-full w-full pt-12 overflow-auto scrollbar scrollbar-thumb-muted-foreground/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-medium z-[99999]"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                       >

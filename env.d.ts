@@ -6,8 +6,6 @@ namespace NodeJS {
     NEXT_PUBLIC_CLERK_SIGN_UP_URL: string | undefined;
     NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: string | undefined;
     NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: string | undefined;
-    DB_USERNAME: string | undefined;
-    DB_PASSWORD: string | undefined;
 
     NEXT_PUBLIC_URL: string | undefined;
     NEXT_PUBLIC_DOMAIN: string | undefined;

@@ -129,7 +129,6 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    console.log(event.key);
     if (event.key === "s" && (event.ctrlKey || event.metaKey)) {
       event.preventDefault();
       handleSave();

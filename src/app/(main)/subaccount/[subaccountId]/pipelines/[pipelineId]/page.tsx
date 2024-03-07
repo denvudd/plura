@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PipelineInfoBar from "@/components/modules/pipelines/PipelineInfoBar";
 import PipelineSettings from "@/components/forms/PipelineSettings";
 import PipelineView from "@/components/modules/pipelines/PipelineView";
+import { constructMetadata } from "@/lib/utils";
 
 interface PipelineIdPageProps {
   params: {
@@ -74,3 +75,7 @@ const PipelineIdPage: React.FC<PipelineIdPageProps> = async ({ params }) => {
 };
 
 export default PipelineIdPage;
+
+export const metadata = constructMetadata({
+  title: "Pipeline - Plura",
+});

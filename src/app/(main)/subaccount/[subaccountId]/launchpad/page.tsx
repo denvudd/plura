@@ -19,7 +19,7 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import BlurPage from "@/components/common/BlurPage";
 
-import { getStripeOAuthLink, logger } from "@/lib/utils";
+import { constructMetadata, getStripeOAuthLink, logger } from "@/lib/utils";
 import { stripe } from "@/lib/stripe";
 
 interface LaunchpadPageProps {
@@ -171,3 +171,7 @@ const LaunchpadPage: React.FC<LaunchpadPageProps> = async ({
 };
 
 export default LaunchpadPage;
+
+export const metadata = constructMetadata({
+  title: "Launchpad - Plura",
+});

@@ -15,7 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { getStripeOAuthLink, logger } from "@/lib/utils";
+import { constructMetadata, getStripeOAuthLink, logger } from "@/lib/utils";
 import { stripe } from "@/lib/stripe";
 
 interface LaunchPagPageageProps {
@@ -162,3 +162,7 @@ const LaunchPagPageage: React.FC<LaunchPagPageageProps> = async ({
 };
 
 export default LaunchPagPageage;
+
+export const metadata = constructMetadata({
+  title: "Launchpad - Plura",
+});

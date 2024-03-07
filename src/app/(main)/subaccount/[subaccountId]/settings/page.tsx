@@ -9,6 +9,7 @@ import { getAgencyDetails } from "@/queries/agency";
 import BlurPage from "@/components/common/BlurPage";
 import SubAccountDetails from "@/components/forms/SubAccountDetails";
 import { Agency } from "@prisma/client";
+import { constructMetadata } from "@/lib/utils";
 
 interface SubAccountSettingsPageProps {
   params: {
@@ -52,3 +53,7 @@ const SubAccountSettingsPage: React.FC<SubAccountSettingsPageProps> = async ({
 };
 
 export default SubAccountSettingsPage;
+
+export const metadata = constructMetadata({
+  title: "Settings - Plura",
+});

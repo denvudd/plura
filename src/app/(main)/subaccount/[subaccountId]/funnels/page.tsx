@@ -7,6 +7,7 @@ import FunnelDetails from "@/components/forms/FunnelDetails";
 import BlurPage from "@/components/common/BlurPage";
 import FunnelsDataTable from "./data-table";
 import { columns } from "./columns";
+import { constructMetadata } from "@/lib/utils";
 
 interface FunnelsPageProps {
   params: {
@@ -38,3 +39,7 @@ const FunnelsPageProps: React.FC<FunnelsPageProps> = async ({ params }) => {
 };
 
 export default FunnelsPageProps;
+
+export const metadata = constructMetadata({
+  title: "Funnels - Plura",
+});

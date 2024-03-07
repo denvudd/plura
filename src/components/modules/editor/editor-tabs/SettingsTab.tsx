@@ -87,8 +87,6 @@ const SettingsTab: React.FC<SettingsTabProps> = ({}) => {
     });
   };
 
-  console.log(editor.editor.selectedElement.styles);
-
   const handleOnChanges = (e: any) => {
     const styleSettings = e.target.id;
     let value = e.target.value;

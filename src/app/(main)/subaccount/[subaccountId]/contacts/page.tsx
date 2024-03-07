@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { getSubAccountWithContacts } from "@/queries/contacts";
 
 import BlurPage from "@/components/common/BlurPage";
-import { formatPrice } from "@/lib/utils";
+import { constructMetadata, formatPrice } from "@/lib/utils";
 import {
   Table,
   TableBody,
@@ -65,8 +65,6 @@ const SubAccountContactPage: React.FC<SubAccountContactPageProps> = async ({
         <TableBody className="font-medium truncate">
           {!!allContacts?.length &&
             allContacts.map((contact) => {
-              console.log(formatTotal(contact.tickets));
-
               return (
                 <TableRow key={contact.id}>
                   <TableCell>
@@ -99,3 +97,7 @@ const SubAccountContactPage: React.FC<SubAccountContactPageProps> = async ({
 };
 
 export default SubAccountContactPage;
+
+export const metadata = constructMetadata({
+  title: "Contacts - Plura",
+});

@@ -27,6 +27,7 @@ import {
 import { Button } from "@/components/ui/button";
 import DeleteButton from "./_components/DeleteButton";
 import CreateButton from "./_components/CreateButton";
+import { constructMetadata } from "@/lib/utils";
 
 interface AllSubAccountsPageProps {
   params: {
@@ -120,3 +121,7 @@ const AllSubAccountsPage: React.FC<AllSubAccountsPageProps> = async ({
 };
 
 export default AllSubAccountsPage;
+
+export const metadata = constructMetadata({
+  title: "Subaccounts - Plura",
+});

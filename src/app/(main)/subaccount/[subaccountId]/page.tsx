@@ -32,6 +32,7 @@ import FunnelSubAccountChart from "@/components/modules/funnels/FunnelSubAccount
 import BlurPage from "@/components/common/BlurPage";
 
 import { stripe } from "@/lib/stripe";
+import { constructMetadata } from "@/lib/utils";
 
 interface SubAccountPageIdProps {
   params: {
@@ -304,3 +305,7 @@ const SubAccountPageId: React.FC<SubAccountPageIdProps> = async ({
 };
 
 export default SubAccountPageId;
+
+export const metadata = constructMetadata({
+  title: "Dashboard - Plura",
+});

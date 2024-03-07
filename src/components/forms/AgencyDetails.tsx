@@ -146,8 +146,6 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
         goal: 5,
       });
 
-      console.log(response);
-
       toast.success("Created Agency");
 
       if (data?.id) router.refresh();

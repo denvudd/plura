@@ -43,7 +43,6 @@ const InfoBar: React.FC<InfoBarProps> = ({
   const [animatedListRef] = useAutoAnimate();
 
   const handleSwitch = () => {
-    console.log("works");
     if (!isShowAll) {
       setAllNotifications(notifications);
     } else {
@@ -58,8 +57,6 @@ const InfoBar: React.FC<InfoBarProps> = ({
 
     setIsShowAll((prev) => !prev);
   };
-
-  console.log(allNotifications);
 
   return (
     <>
@@ -90,7 +87,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
                   )}
                 </SheetDescription>
               </SheetHeader>
-              {allNotifications?.length && (
+              {!!allNotifications?.length && (
                 <div ref={animatedListRef} className="flex flex-col gap-4 overflow-y-auto scrollbar scrollbar-thumb-muted-foreground/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-medium">
                   {allNotifications?.map((notification) => (
                     <Card key={notification.id}>
