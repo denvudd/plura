@@ -14,6 +14,16 @@ export const getSubAccountDetails = async (subAccountId: string) => {
   return response;
 };
 
+export const getSubAccountsByAgency = async (agencyId: string) => {
+  const response = await db.subAccount.findMany({
+    where: {
+      agencyId,
+    },
+  });
+
+  return response;
+};
+
 export const upsertSubAccount = async (subAccount: SubAccount) => {
   if (!subAccount.companyEmail) return null;
 
