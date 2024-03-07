@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import Loading from "@/components/ui/loading";
 
 import { getStripe } from "@/lib/stripe/stripe-client";
-import { cn, logger } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import type { EditorElement } from "@/lib/types/editor";
 
 interface EditorPaymentProps {
@@ -100,7 +100,6 @@ const EditorPayment: React.FC<EditorPaymentProps> = ({ element }) => {
 
         if (data.clientSecret) setClientSecret(data.clientSecret);
       } catch (error: any) {
-        logger(error);
         toast.error("Oppse!", {
           description: error.message,
           descriptionClassName: "line-clamp-3",

@@ -49,7 +49,7 @@ import {
   type TicketDetailsSchema,
   TicketDetailsValidator,
 } from "@/lib/validators/ticket-details";
-import { cn, logger } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface TicketDetailsProps {
   laneId: string;
@@ -157,7 +157,6 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
 
       router.refresh();
     } catch (error) {
-      logger(error);
       toast.error("Oppse!", {
         description: "Could not save ticket details",
       });

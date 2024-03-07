@@ -35,7 +35,6 @@ import {
   type SubAccountDetailsSchema,
   SubAccountDetailsValidator,
 } from "@/lib/validators/subaccount-details";
-import { logger } from "@/lib/utils";
 
 // CHALLENGE Give access for Subaccount Guest they should see a different view maybe a form that allows them to create tickets
 
@@ -91,8 +90,6 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
       setClose();
       router.refresh();
     } catch (error) {
-      logger(error);
-
       toast.error("Oppse!", {
         description: "Could not save sub account details.",
       });

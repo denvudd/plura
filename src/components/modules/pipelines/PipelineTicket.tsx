@@ -53,7 +53,7 @@ import CustomModal from "@/components/common/CustomModal";
 import TicketDetails from "@/components/forms/TicketDetails";
 
 import type { TicketsWithTags } from "@/lib/types";
-import { formatPrice, logger } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 
 interface PipelineTicketProps {
   setAllTickets: React.Dispatch<React.SetStateAction<TicketsWithTags>>;
@@ -115,9 +115,9 @@ const PipelineTicket: React.FC<PipelineTicketProps> = ({
       toast.success("Deleted", {
         description: "Deleted ticket from lane.",
       });
+      
       router.refresh();
     } catch (error) {
-      logger(error);
       toast.error("Oppse!", {
         description: "Could not delete the ticket.",
       });

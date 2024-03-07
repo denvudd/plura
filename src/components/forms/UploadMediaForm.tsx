@@ -22,7 +22,6 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import FileUpload from "../common/FileUpload";
 
-import { logger } from "@/lib/utils";
 import {
   UploadMediaValidator,
   type UploadMediaSchema,
@@ -62,7 +61,6 @@ const UploadMediaForm: React.FC<UploadMediaFormProps> = ({ subAccountId }) => {
       
       router.refresh();
     } catch (error) {
-      logger(error);
       toast.error("Failed", {
         description: "Could not uploaded media",
       });

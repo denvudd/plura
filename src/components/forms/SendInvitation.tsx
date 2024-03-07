@@ -40,7 +40,6 @@ import {
   type SendInvitationSchema,
 } from "@/lib/validators/send-invitation";
 import { useModal } from "@/hooks/use-modal";
-import { logger } from "@/lib/utils";
 
 interface SendInvitationProps {
   agencyId: string;
@@ -77,7 +76,6 @@ const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
       });
     } catch (error) {
       setClose();
-      logger(error);
       toast.error("Oppse!", {
         description: "Could not send invitation",
       });

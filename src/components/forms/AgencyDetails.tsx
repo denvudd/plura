@@ -55,7 +55,6 @@ import {
   AgencyDetailsValidator,
   type AgencyDetailsSchema,
 } from "@/lib/validators/agency-details";
-import { logger } from "@/lib/utils";
 
 interface AgencyDetailsProps {
   data?: Partial<Agency>;
@@ -84,8 +83,6 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
   }, [data]);
 
   const onSubmit: SubmitHandler<AgencyDetailsSchema> = async (values) => {
-    logger(values);
-
     try {
       let customerId: string | undefined;
 
@@ -156,8 +153,6 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
       if (data?.id) router.refresh();
       if (response) router.refresh();
     } catch (error) {
-      logger(error);
-
       toast.error("Oppsie!", {
         description: "Could not create your agency. Please try again.",
       });
@@ -179,7 +174,6 @@ const AgencyDetails: React.FC<AgencyDetailsProps> = ({ data }) => {
 
       router.refresh();
     } catch (error) {
-      logger(error);
 
       toast.error("Oppse!", {
         description: "Could not delete your agency. Please try again.",

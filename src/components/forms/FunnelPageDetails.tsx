@@ -16,6 +16,7 @@ import {
   deleteFunnelPage,
 } from "@/queries/funnels";
 
+import { useModal } from "@/hooks/use-modal";
 import {
   Card,
   CardContent,
@@ -39,14 +40,13 @@ import {
 } from "../ui/tooltip";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 
 import {
   type FunnelPageDetailsSchema,
   FunnelPageDetailsValidator,
 } from "@/lib/validators/funnel-page-details";
-import { logger } from "@/lib/utils";
-import { Badge } from "../ui/badge";
-import { useModal } from "@/hooks/use-modal";
+
 
 interface FunnelPageDetailsProps {
   defaultData?: FunnelPage;
@@ -107,7 +107,6 @@ const FunnelPageDetails: React.FC<FunnelPageDetailsProps> = ({
       setClose();
       router.refresh();
     } catch (error) {
-      logger(error);
       toast.error("Oppse!", {
         description: "Could not save funnel page details",
       });

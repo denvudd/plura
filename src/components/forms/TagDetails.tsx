@@ -31,7 +31,7 @@ import {
   CommandSeparator,
 } from "../ui/command";
 import { Tag } from "../ui/tag";
-import { cn, logger } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface TagDetailsProps {
   subAccountId: string;
@@ -121,7 +121,6 @@ const TagDetails: React.FC<TagDetailsProps> = ({
 
       toast.success("Created the tag");
     } catch (error) {
-      logger(error);
       toast.error("Could not create tag");
     }
   };
@@ -144,7 +143,6 @@ const TagDetails: React.FC<TagDetailsProps> = ({
 
       router.refresh();
     } catch (error) {
-      logger(error);
       toast.error("Could not delete tag");
     }
   };

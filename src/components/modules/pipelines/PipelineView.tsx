@@ -17,7 +17,6 @@ import type {
   PipelineDetailsWithLanesCardsTagsTickets,
   TicketAndTags,
 } from "@/lib/types";
-import { logger } from "@/lib/utils";
 
 interface PipelineViewProps {
   lanes: LaneDetailsType[];
@@ -63,7 +62,6 @@ const PipelineView: React.FC<PipelineViewProps> = ({
   };
 
   const onDragEnd = (dropResult: DropResult) => {
-    logger(dropResult);
     const { destination, source, type } = dropResult;
 
     // checks if the destination is invalid or if the element was dropped back to its original position

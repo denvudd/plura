@@ -2,7 +2,6 @@ import React from "react";
 import { redirect } from "next/navigation";
 
 import { createPipeline, getUserPipelines } from "@/queries/pipelines";
-import { logger } from "@/lib/utils";
 
 interface PipelinesPageProps {
   params: {

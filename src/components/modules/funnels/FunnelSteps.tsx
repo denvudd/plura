@@ -28,7 +28,6 @@ import FunnelPagePlaceholder from "@/components/ui/icons/funnel-page-placeholder
 import FunnelStepCard from "./FunnelStepCard";
 
 import { type FunnelsForSubAccount } from "@/lib/types";
-import { logger } from "@/lib/utils";
 import {
   Card,
   CardDescription,
@@ -87,7 +86,6 @@ const FunnelSteps: React.FC<FunnelStepsProps> = ({
           name: page.name,
         });
       } catch (error) {
-        logger(error);
         toast.error("Failed", {
           description: "Could not save page order",
         });

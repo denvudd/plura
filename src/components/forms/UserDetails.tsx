@@ -53,7 +53,6 @@ import {
   type UserDataSchema,
   UserDataValidator,
 } from "@/lib/validators/user-data";
-import { logger } from "@/lib/utils";
 
 interface UserDetailsProps {
   id: string | null;
@@ -166,7 +165,9 @@ const UserDetailsForm: React.FC<UserDetailsProps> = ({
         });
       }
     } else {
-      logger("Error could not submit");
+      toast.error("Oppse!", {
+        description: "Could not update user information",
+      });
     }
   };
 

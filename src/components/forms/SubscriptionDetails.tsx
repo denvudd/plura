@@ -10,7 +10,6 @@ import {
 } from "@stripe/react-stripe-js";
 
 import { Button } from "../ui/button";
-import { logger } from "@/lib/utils";
 
 interface SubscriptionDetailsProps {
   selectedPriceId: string | Plan;
@@ -54,7 +53,6 @@ const SubscriptionDetails: React.FC<SubscriptionDetailsProps> = ({
         description: "Your payment has been successfully processed.",
       });
     } catch (error) {
-      logger(error);
       toast.error("Payment failed", {
         description:
           "We could not process your payment. Please try a different card.",

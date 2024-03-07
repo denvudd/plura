@@ -32,7 +32,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/common/ModeToggle";
 
-import { cn, logger } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { type DeviceTypes } from "@/lib/types/editor";
 
 interface FunnelEditorNavigationProps {
@@ -99,7 +99,6 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
   const handleSave = async () => {
     setIsLoading(true);
     const content = JSON.stringify(editor.editor.elements);
-    logger(content);
 
     try {
       const response = await upsertFunnelPage(subAccountId, funnelId, {
@@ -121,7 +120,6 @@ const FunnelEditorNavigation: React.FC<FunnelEditorNavigationProps> = ({
 
       router.refresh();
     } catch (error) {
-      logger(error);
       toast.error("Oopse!", {
         description: "Could not save content",
       });

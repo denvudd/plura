@@ -34,11 +34,12 @@ import LaneDetails from "@/components/forms/LaneDetails";
 import TicketDetails from "@/components/forms/TicketDetails";
 import CustomModal from "@/components/common/CustomModal";
 
-import { cn, formatPrice, logger } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import type {
   LaneDetails as LaneDetailsType,
   TicketsWithTags,
 } from "@/lib/types";
+import { toast } from "sonner";
 
 interface PipelaneLaneProps {
   setAllTickets: React.Dispatch<React.SetStateAction<TicketsWithTags>>;
@@ -107,9 +108,15 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
         subAccountId,
       });
 
+      toast.success("Deleted", {
+        description: "Deleted lane",
+      });
+
       router.refresh();
     } catch (error) {
-      logger(error);
+      toast.error("Oppse!", {
+        description: "Could not delete the lane",
+      });
     }
   };
 
