@@ -8,6 +8,7 @@ import EditorRecursive from "./EditorRecursive";
 
 import { cn } from "@/lib/utils";
 import { type EditorElement } from "@/lib/types/editor";
+import { Trash } from "lucide-react";
 
 interface EditorSectionProps {
   element: EditorElement;
@@ -17,6 +18,15 @@ const EditorSection: React.FC<EditorSectionProps> = ({ element }) => {
   const { content, type } = element;
   const { editor: editorState, dispatch } = useEditor();
   const { editor } = editorState;
+
+  const handleDeleteElement = () => {
+    dispatch({
+      type: "DELETE_ELEMENT",
+      payload: {
+        elementDetails: element,
+      },
+    });
+  };
 
   const handleOnClickBody = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -49,11 +59,22 @@ const EditorSection: React.FC<EditorSectionProps> = ({ element }) => {
           {editor.selectedElement.name}
         </Badge>
       )}
-      
+
       {Array.isArray(content) &&
         content.map((childElement) => (
           <EditorRecursive key={childElement.id} element={childElement} />
         ))}
+
+      {editor.selectedElement.id === element.id &&
+        !editor.liveMode &&
+        editor.selectedElement.type !== "__body" && (
+          <div className="absolute bg-primary px-2.5 py-1 text-xs font-bold -top-[25px] -right-[1px] rounded-none rounded-t-lg !text-white">
+            <Trash
+              className="cursor-pointer w-4 h-4"
+              onClick={handleDeleteElement}
+            />
+          </div>
+        )}
     </section>
   );
 };

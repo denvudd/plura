@@ -104,7 +104,7 @@ const EditorContact: React.FC<EditorContactForm> = ({ element }) => {
           "border-blue-500": editor.selectedElement.id === element.id,
 
           "border-solid": editor.selectedElement.id === element.id,
-          "border-dashed border": !editor.liveMode,
+          "!border-dashed !border": !editor.liveMode,
         }
       )}
     >

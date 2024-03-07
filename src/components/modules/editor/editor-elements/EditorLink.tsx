@@ -48,9 +48,9 @@ const EditorLink: React.FC<EditorLinkProps> = ({ element }) => {
       className={cn(
         "p-0.5 w-full m-1 relative text-base min-h-7 transition-all underline-offset-4",
         {
-          "border-blue-500 border-solid":
+          "!border-blue-500 !border-solid":
             editor.selectedElement.id === element.id,
-          "border-dashed border": !editor.liveMode,
+          "!border-dashed !border": !editor.liveMode,
         }
       )}
     >
